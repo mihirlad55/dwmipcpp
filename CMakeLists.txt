@@ -1,0 +1,25 @@
+cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
+project(dwmipcpp CXX)
+
+add_library(${PROJECT_NAME} STATIC
+    ${PROJECT_SOURCE_DIR}/include/ipc.hpp
+    ${PROJECT_SOURCE_DIR}/src/ipc.cpp)
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
+
+target_compile_options(${PROJECT_NAME} PRIVATE -std=c++11 -Wall -Wextra)
+target_compile_options(${PROJECT_NAME} PRIVATE $<$<CONFIG:Debug>: -g3 -DDEBUG>)
+target_compile_options(${PROJECT_NAME} PRIVATE $<$<CONFIG:Release>: -O2>)
+
+find_package(PkgConfig)
+pkg_check_modules(JSONCPP REQUIRED jsoncpp)
+
+target_link_libraries(${PROJECT_NAME} PUBLIC ${JSONCPP_LIBRARIES})
+target_include_directories(${PROJECT_NAME} PUBLIC ${JSONCPP_INCLUDEDIR})
+
+get_directory_property(HAS_PARENT PARENT_DIRECTORY)
+if (HAS_PARENT)
+  set(DWMIPCPP_LIBRARIES ${PROJECT_NAME} PARENT_SCOPE)
+  set(DWMIPCPP_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include ${JSONCPP_INCLUDEDIR} PARENT_SCOPE)
+endif()
+
