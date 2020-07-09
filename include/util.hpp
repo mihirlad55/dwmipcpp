@@ -15,13 +15,13 @@ typedef struct Header {
 } __attribute((packed)) Header;
 
 enum MessageType {
-    IPC_TYPE_RUN_COMMAND = 0,
-    IPC_TYPE_GET_MONITORS = 1,
-    IPC_TYPE_GET_TAGS = 2,
-    IPC_TYPE_GET_LAYOUTS = 3,
-    IPC_TYPE_GET_DWM_CLIENT = 4,
-    IPC_TYPE_SUBSCRIBE = 5,
-    IPC_TYPE_EVENT = 6
+    MESSAGE_TYPE_RUN_COMMAND = 0,
+    MESSAGE_TYPE_GET_MONITORS = 1,
+    MESSAGE_TYPE_GET_TAGS = 2,
+    MESSAGE_TYPE_GET_LAYOUTS = 3,
+    MESSAGE_TYPE_GET_DWM_CLIENT = 4,
+    MESSAGE_TYPE_SUBSCRIBE = 5,
+    MESSAGE_TYPE_EVENT = 6
 };
 
 class ipc_error : public std::runtime_error {
