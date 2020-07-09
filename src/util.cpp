@@ -80,7 +80,7 @@ void Packet::realloc_to_header_size() {
     this->payload = (char *)(this->data + sizeof(Header));
 }
 
-int connect(std::string &socket_path) {
+int connect(const std::string &socket_path) {
     struct sockaddr_un addr;
 
     int sockfd = socket(AF_UNIX, SOCK_STREAM, 0);

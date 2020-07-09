@@ -60,7 +60,7 @@ class Packet {
     void realloc_to_header_size();
 };
 
-int connect(std::string &socket_path);
+int connect(const std::string &socket_path);
 
 void disconnect(const int sockfd);
 
