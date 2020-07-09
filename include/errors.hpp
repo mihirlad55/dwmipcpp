@@ -16,6 +16,11 @@ class eof_error : public ipc_error {
     eof_error(const size_t read, const size_t expected);
 };
 
+class reply_error : public ipc_error {
+  public:
+    reply_error(const int expected, const int got);
+};
+
 class errno_error : public ipc_error {
   public:
     errno_error();

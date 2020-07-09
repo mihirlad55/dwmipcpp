@@ -117,8 +117,7 @@ std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type,
     send_message(packet);
     auto reply = recv_message();
     if (packet->header->type != reply->header->type)
-        throw header_error("Unexpected reply message type: " +
-                           std::to_string(reply->header->type));
+        throw reply_error(packet->header->type, reply->header->type);
     return reply;
 }
 
