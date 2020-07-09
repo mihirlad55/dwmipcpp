@@ -1,9 +1,10 @@
 #include <cstring>
-#include <string>
 #include <sstream>
+#include <string>
 
 #include "errors.hpp"
 
+namespace dwmipc {
 static std::string format_errno(const std::string &msg = std::string()) {
     std::stringstream out;
     out << "[dwmipcpp] errno " << errno << ": " << msg << "(" << strerror(errno)
@@ -33,3 +34,4 @@ errno_error::errno_error() : ipc_error(format_errno()) {}
 errno_error::errno_error(const std::string &msg)
     : ipc_error(format_errno(msg)) {}
 
+} // namespace dwmipc

@@ -1,5 +1,6 @@
 #include <stdexcept>
 
+namespace dwmipc {
 class ipc_error : public std::runtime_error {
     using std::runtime_error::runtime_error;
 };
@@ -21,3 +22,4 @@ class errno_error : public ipc_error {
     errno_error(const std::string &msg);
 };
 
+} // namespace dwmipc
