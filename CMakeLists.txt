@@ -2,8 +2,12 @@ cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 project(dwmipcpp CXX)
 
 add_library(${PROJECT_NAME} STATIC
-    ${PROJECT_SOURCE_DIR}/include/ipc.hpp
-    ${PROJECT_SOURCE_DIR}/src/ipc.cpp)
+    ${PROJECT_SOURCE_DIR}/include/connection.hpp
+    ${PROJECT_SOURCE_DIR}/include/errors.hpp
+    ${PROJECT_SOURCE_DIR}/include/packet.hpp
+    ${PROJECT_SOURCE_DIR}/src/connection.cpp
+    ${PROJECT_SOURCE_DIR}/src/errors.cpp
+    ${PROJECT_SOURCE_DIR}/src/packet.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 

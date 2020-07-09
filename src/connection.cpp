@@ -7,24 +7,14 @@
 #include <sys/un.h>
 #include <unistd.h>
 
-#include "util.hpp"
+#include "errors.hpp"
+#include "connection.hpp"
 
 namespace dwmipc {
+Connection::Connection(const std::string &socket_path)
+    : sockfd(connect(socket_path)), socket_path(socket_path) {}
 
-static std::string format_errno(const std::string &msg = std::string()) {
-    std::stringstream out;
-    out << "[dwmipcpp] errno " << errno << ": " << msg << "(" << strerror(errno)
-        << ")";
-
-    return out.str();
-}
-
-static std::string format_eof(const size_t read_bytes, const size_t to_read) {
-    std::stringstream out;
-    out << "[dwmipcpp] Unexpected EOF (" << read_bytes << " bytes read, "
-        << to_read << " bytes expected)";
-    return out.str();
-}
+Connection::~Connection() { disconnect(); }
 
 static ssize_t swrite(const int fd, const void *buf, const uint32_t count) {
     size_t written = 0;
@@ -42,45 +32,7 @@ static ssize_t swrite(const int fd, const void *buf, const uint32_t count) {
     return written;
 }
 
-header_error::header_error(const size_t read_bytes, const size_t to_read)
-    : ipc_error(format_eof(read_bytes, to_read)) {}
-header_error::header_error(const std::string &msg)
-    : ipc_error(format_errno(msg)) {}
-
-eof_error::eof_error(const size_t read_bytes, const size_t to_read)
-    : ipc_error(format_eof(read_bytes, to_read)) {}
-
-errno_error::errno_error() : ipc_error(format_errno()) {}
-errno_error::errno_error(const std::string &msg)
-    : ipc_error(format_errno(msg)) {}
-
-Packet::Packet(const uint32_t payload_size)
-    : size(payload_size + sizeof(Header)) {
-    // Use malloc since primitive type, and to allow realloc
-    this->data = (uint8_t *)malloc(sizeof(uint8_t) * size);
-    this->header = (Header *)data;
-    this->payload = (char *)(data + sizeof(Header));
-    this->header->size = payload_size;
-    std::memcpy(this->header->magic, DWM_MAGIC, DWM_MAGIC_LEN);
-    this->header->type = 0;
-}
-
-Packet::Packet(const MessageType type, const std::string &msg)
-    : Packet(msg.size()) {
-    this->header->type = type;
-    std::strncpy(this->payload, msg.c_str(), msg.size());
-}
-
-Packet::~Packet() { free(this->data); }
-
-void Packet::realloc_to_header_size() {
-    this->size = this->header->size + sizeof(Header);
-    this->data = (uint8_t *)realloc(this->data, this->size);
-    this->header = (Header *)this->data;
-    this->payload = (char *)(this->data + sizeof(Header));
-}
-
-int connect(const std::string &socket_path) {
+int Connection::connect(const std::string &socket_path) {
     struct sockaddr_un addr;
 
     int sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
@@ -94,17 +46,17 @@ int connect(const std::string &socket_path) {
     addr.sun_family = AF_UNIX;
     std::strncpy(addr.sun_path, socket_path.c_str(), sizeof(addr.sun_path) - 1);
 
-    if (connect(sockfd, (const struct sockaddr *)&addr,
-                sizeof(struct sockaddr_un)) < 0) {
+    if (::connect(sockfd, (const struct sockaddr *)&addr,
+                  sizeof(struct sockaddr_un)) < 0) {
         throw ipc_error("Failed to connect to dwm ipc socket");
     }
 
     return sockfd;
 }
 
-void disconnect(const int sockfd) { close(sockfd); }
+void Connection::disconnect() { close(this->sockfd); }
 
-std::shared_ptr<Packet> recv_message(const int sockfd) {
+std::shared_ptr<Packet> Connection::recv_message() {
     uint32_t read_bytes = 0;
     size_t to_read = sizeof(Header);
     auto packet = std::make_shared<Packet>(0);
@@ -113,7 +65,7 @@ std::shared_ptr<Packet> recv_message(const int sockfd) {
 
     while (read_bytes < to_read) {
         const ssize_t n =
-            read(sockfd, header + read_bytes, to_read - read_bytes);
+            read(this->sockfd, header + read_bytes, to_read - read_bytes);
 
         if (n == 0) {
             if (read_bytes == 0) {
@@ -155,15 +107,15 @@ std::shared_ptr<Packet> recv_message(const int sockfd) {
     return packet;
 }
 
-void send_message(const int sockfd, const std::shared_ptr<Packet> &packet) {
-    swrite(sockfd, packet->data, packet->size);
+void Connection::send_message(const std::shared_ptr<Packet> &packet) {
+    swrite(this->sockfd, packet->data, packet->size);
 }
 
-std::shared_ptr<Packet> dwm_msg(const int sockfd, const MessageType type,
-                                const std::string &msg) {
+std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type,
+                                            const std::string &msg) {
     auto packet = std::make_shared<Packet>(type, msg);
-    send_message(sockfd, packet);
-    auto reply = recv_message(sockfd);
+    send_message(packet);
+    auto reply = recv_message();
     if (packet->header->type != reply->header->type)
         throw header_error("Unexpected reply message type: " +
                            std::to_string(reply->header->type));
