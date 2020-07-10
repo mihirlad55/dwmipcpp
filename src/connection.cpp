@@ -181,4 +181,32 @@ std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() {
     return monitors;
 }
 
+std::shared_ptr<std::vector<Tag>> Connection::get_tags() {
+    auto reply = dwm_msg(MESSAGE_TYPE_GET_TAGS);
+    std::string payload(reply->payload, reply->header->size);
+    const char *start = payload.c_str();
+    const char *end = start + reply->header->size;
+
+    Json::Value root;
+    std::string errs;
+
+    const Json::CharReaderBuilder builder;
+    const auto reader = builder.newCharReader();
+    reader->parse(start, end, &root, &errs);
+
+    if (root.isObject() && root["result"])
+        throw result_failure_error(root["reason"].asString());
+
+    auto tags = std::make_shared<std::vector<Tag>>();
+
+    for (Json::Value v_tag : root) {
+        Tag tag;
+
+        tag.bit_mask = v_tag["bit_mask"].asUInt();
+        tag.tag_name = v_tag["name"].asString();
+        tags->push_back(tag);
+    }
+    return tags;
+}
+
 } // namespace dwmipc

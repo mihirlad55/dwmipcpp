@@ -35,6 +35,11 @@ struct TagState {
     unsigned urgent;
 };
 
+struct Tag {
+    unsigned int bit_mask;
+    std::string tag_name;
+};
+
 struct Monitor {
     std::string layout_symbol;
     std::string old_layout;
@@ -67,7 +72,7 @@ class Connection {
     ~Connection();
 
     std::shared_ptr<std::vector<Monitor>> get_monitors();
-    std::shared_ptr<std::vector<TagState>> get_tags();
+    std::shared_ptr<std::vector<Tag>> get_tags();
     std::shared_ptr<std::vector<Layout>> get_layouts();
     std::shared_ptr<Client> get_client(Window win_id);
     void subscribe(const std::string &event_name);
