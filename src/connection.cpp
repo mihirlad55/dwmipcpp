@@ -202,4 +202,20 @@ std::shared_ptr<std::vector<Tag>> Connection::get_tags() {
     return tags;
 }
 
+std::shared_ptr<std::vector<Layout>> Connection::get_layouts() {
+    auto reply = dwm_msg(MESSAGE_TYPE_GET_LAYOUTS);
+    auto root = parse_reply(reply);
+    auto layouts = std::make_shared<std::vector<Layout>>();
+
+    for (Json::Value v_lt : *root) {
+        Layout lt;
+
+        lt.address = v_lt["layout_address"].asUInt64();
+        lt.symbol = v_lt["layout_symbol"].asString();
+
+        layouts->push_back(lt);
+    }
+    return layouts;
+}
+
 } // namespace dwmipc
