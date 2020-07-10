@@ -34,7 +34,7 @@ static ssize_t swrite(const int fd, const void *buf, const uint32_t count) {
 }
 
 static std::shared_ptr<Json::Value>
-parse_reply(const std::shared_ptr<Packet> &reply) {
+pre_parse_reply(const std::shared_ptr<Packet> &reply) {
     std::string payload(reply->payload, reply->header->size);
     const char *start = payload.c_str();
     const char *end = start + reply->header->size;
@@ -147,7 +147,7 @@ std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type) {
 
 std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() {
     auto reply = dwm_msg(MESSAGE_TYPE_GET_MONITORS);
-    auto root = parse_reply(reply);
+    auto root = pre_parse_reply(reply);
     auto monitors = std::make_shared<std::vector<Monitor>>();
 
     for (Json::Value v_mon : *root) {
@@ -189,7 +189,7 @@ std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() {
 
 std::shared_ptr<std::vector<Tag>> Connection::get_tags() {
     auto reply = dwm_msg(MESSAGE_TYPE_GET_TAGS);
-    auto root = parse_reply(reply);
+    auto root = pre_parse_reply(reply);
     auto tags = std::make_shared<std::vector<Tag>>();
 
     for (Json::Value v_tag : *root) {
@@ -204,7 +204,7 @@ std::shared_ptr<std::vector<Tag>> Connection::get_tags() {
 
 std::shared_ptr<std::vector<Layout>> Connection::get_layouts() {
     auto reply = dwm_msg(MESSAGE_TYPE_GET_LAYOUTS);
-    auto root = parse_reply(reply);
+    auto root = pre_parse_reply(reply);
     auto layouts = std::make_shared<std::vector<Layout>>();
 
     for (Json::Value v_lt : *root) {
@@ -220,10 +220,10 @@ std::shared_ptr<std::vector<Layout>> Connection::get_layouts() {
 
 std::shared_ptr<Client> Connection::get_client(Window win_id) {
     // No need to generate the JSON using library since it is so simple
-    auto reply =
-        dwm_msg(MESSAGE_TYPE_GET_DWM_CLIENT,
-                "{ \"client_window_id\":" + std::to_string(win_id) + " }");
-    auto root = parse_reply(reply);
+    const std::string msg =
+        "{\"client_window_id\":" + std::to_string(win_id) + "}";
+    auto reply = dwm_msg(MESSAGE_TYPE_GET_DWM_CLIENT, msg);
+    auto root = pre_parse_reply(reply);
     auto client = std::make_shared<Client>();
 
     client->name = (*root)["name"].asString();
