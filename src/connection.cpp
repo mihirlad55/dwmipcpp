@@ -33,6 +33,25 @@ static ssize_t swrite(const int fd, const void *buf, const uint32_t count) {
     return written;
 }
 
+static std::shared_ptr<Json::Value> parse_reply(const std::shared_ptr<Packet>& reply) {
+    std::string payload(reply->payload, reply->header->size);
+    const char *start = payload.c_str();
+    const char *end = start + reply->header->size;
+
+    Json::Value root;
+    std::string errs;
+
+    const Json::CharReaderBuilder builder;
+    const auto reader = builder.newCharReader();
+    reader->parse(start, end, &root, &errs);
+
+    if (root.isObject() && root["result"])
+        throw result_failure_error(root["reason"].asString());
+
+    return std::make_shared<Json::Value>(root);
+}
+
+
 int Connection::connect(const std::string &socket_path) {
     struct sockaddr_un addr;
 
@@ -128,23 +147,10 @@ std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type) {
 
 std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() {
     auto reply = dwm_msg(MESSAGE_TYPE_GET_MONITORS);
-    std::string payload(reply->payload, reply->header->size);
-    const char *start = payload.c_str();
-    const char *end = start + reply->header->size;
-
-    Json::Value root;
-    std::string errs;
-
-    const Json::CharReaderBuilder builder;
-    const auto reader = builder.newCharReader();
-    reader->parse(start, end, &root, &errs);
-
-    if (root.isObject() && root["result"])
-        throw result_failure_error(root["reason"].asString());
-
+    auto root = parse_reply(reply);
     auto monitors = std::make_shared<std::vector<Monitor>>();
 
-    for (Json::Value v_mon : root) {
+    for (Json::Value v_mon : *root) {
         Monitor mon;
 
         mon.layout_symbol = v_mon["layout_symbol"].asString();
@@ -183,23 +189,10 @@ std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() {
 
 std::shared_ptr<std::vector<Tag>> Connection::get_tags() {
     auto reply = dwm_msg(MESSAGE_TYPE_GET_TAGS);
-    std::string payload(reply->payload, reply->header->size);
-    const char *start = payload.c_str();
-    const char *end = start + reply->header->size;
-
-    Json::Value root;
-    std::string errs;
-
-    const Json::CharReaderBuilder builder;
-    const auto reader = builder.newCharReader();
-    reader->parse(start, end, &root, &errs);
-
-    if (root.isObject() && root["result"])
-        throw result_failure_error(root["reason"].asString());
-
+    auto root = parse_reply(reply);
     auto tags = std::make_shared<std::vector<Tag>>();
 
-    for (Json::Value v_tag : root) {
+    for (Json::Value v_tag : *root) {
         Tag tag;
 
         tag.bit_mask = v_tag["bit_mask"].asUInt();
