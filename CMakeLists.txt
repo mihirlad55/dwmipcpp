@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 project(dwmipcpp CXX)
 
+option(BUILD_EXAMPLES "Build examples" ON)
+
 add_library(${PROJECT_NAME} STATIC
     ${PROJECT_SOURCE_DIR}/include/connection.hpp
     ${PROJECT_SOURCE_DIR}/include/errors.hpp
@@ -22,8 +24,9 @@ target_link_libraries(${PROJECT_NAME} PUBLIC ${JSONCPP_LIBRARIES})
 target_include_directories(${PROJECT_NAME} PUBLIC ${JSONCPP_INCLUDEDIR})
 
 get_directory_property(HAS_PARENT PARENT_DIRECTORY)
-if (HAS_PARENT)
-  set(DWMIPCPP_LIBRARIES ${PROJECT_NAME} PARENT_SCOPE)
-  set(DWMIPCPP_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include ${JSONCPP_INCLUDEDIR} PARENT_SCOPE)
-endif()
+set(DWMIPCPP_LIBRARIES ${PROJECT_NAME})
+set(DWMIPCPP_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include ${JSONCPP_INCLUDEDIR})
 
+if (BUILD_EXAMPLES)
+    add_subdirectory("${PROJECT_SOURCE_DIR}/examples")
+endif()
