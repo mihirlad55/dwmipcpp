@@ -6,8 +6,8 @@
 
 namespace dwmipc {
 
-const char *DWM_MAGIC = "DWM-IPC";
-constexpr int DWM_MAGIC_LEN = 7;
+#define DWM_MAGIC "DWM-IPC"
+#define DWM_MAGIC_LEN 7
 
 typedef struct Header {
     uint8_t magic[DWM_MAGIC_LEN];
