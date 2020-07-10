@@ -76,6 +76,7 @@ class Connection {
     std::shared_ptr<std::vector<Layout>> get_layouts();
     std::shared_ptr<Client> get_client(Window win_id);
     void subscribe(const std::string &event_name);
+    void unsubscribe(const std::string &event_name);
 
   private:
     const int sockfd;
