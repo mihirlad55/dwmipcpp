@@ -23,6 +23,11 @@ class reply_error : public ipc_error {
     reply_error(const int expected, const int got);
 };
 
+class result_failure_error : public ipc_error {
+  public:
+    result_failure_error(const std::string &reason);
+};
+
 class errno_error : public ipc_error {
   public:
     errno_error();

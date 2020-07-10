@@ -27,6 +27,12 @@ static std::string format_reply(const int expected, const int got) {
     return out.str();
 }
 
+static std::string format_failure(const std::string &reason) {
+    std::stringstream out;
+    out << "[dwmipcpp] " << reason;
+    return out.str();
+}
+
 header_error::header_error(const size_t read_bytes, const size_t to_read)
     : ipc_error(format_eof(read_bytes, to_read)) {}
 
@@ -38,6 +44,9 @@ eof_error::eof_error(const size_t read_bytes, const size_t to_read)
 
 reply_error::reply_error(const int expected, const int got)
     : ipc_error(format_reply(expected, got)) {}
+
+result_failure_error::result_failure_error(const std::string &reason)
+    : ipc_error(format_failure(reason)) {}
 
 errno_error::errno_error() : ipc_error(format_errno()) {}
 
