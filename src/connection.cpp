@@ -1,14 +1,15 @@
 #include <cstring>
 #include <fcntl.h>
 #include <iostream>
+#include <json/json.h>
 #include <sstream>
 #include <string>
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <unistd.h>
 
-#include "errors.hpp"
 #include "connection.hpp"
+#include "errors.hpp"
 
 namespace dwmipc {
 Connection::Connection(const std::string &socket_path)
@@ -123,6 +124,61 @@ std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type,
 
 std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type) {
     return dwm_msg(type, "");
+}
+
+std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() {
+    auto reply = dwm_msg(MESSAGE_TYPE_GET_MONITORS);
+    std::string payload(reply->payload, reply->header->size);
+    const char *start = payload.c_str();
+    const char *end = start + reply->header->size;
+
+    Json::Value root;
+    std::string errs;
+
+    const Json::CharReaderBuilder builder;
+    const auto reader = builder.newCharReader();
+    reader->parse(start, end, &root, &errs);
+
+    if (root.isObject() && root["result"])
+        throw result_failure_error(root["reason"].asString());
+
+    auto monitors = std::make_shared<std::vector<Monitor>>();
+
+    for (Json::Value v_mon : root) {
+        Monitor mon;
+
+        mon.layout_symbol = v_mon["layout_symbol"].asString();
+        mon.old_layout = v_mon["layout"]["old"].asString();
+        mon.current_layout = v_mon["layout"]["current"].asString();
+        mon.mfact = v_mon["mfact"].asFloat();
+        mon.nmaster = v_mon["nmaster"].asInt();
+        mon.num = v_mon["num"].asInt();
+        mon.bar_y = v_mon["bar_y"].asInt();
+        mon.mx = v_mon["screen"]["x"].asInt();
+        mon.mx = v_mon["screen"]["y"].asInt();
+        mon.mw = v_mon["screen"]["width"].asInt();
+        mon.mh = v_mon["screen"]["height"].asInt();
+        mon.wx = v_mon["screen"]["x"].asInt();
+        mon.wx = v_mon["screen"]["y"].asInt();
+        mon.ww = v_mon["screen"]["width"].asInt();
+        mon.wh = v_mon["screen"]["height"].asInt();
+        mon.tagset = v_mon["tag_set"]["old"].asUInt();
+        mon.old_tagset = v_mon["tag_set"]["new"].asUInt();
+        mon.show_bar = v_mon["show_bar"].asBool();
+        mon.top_bar = v_mon["top_bar"].asBool();
+        mon.win_sel = v_mon["selected_client"].asUInt();
+        mon.win_bar = v_mon["bar_window_id"].asUInt();
+
+        for (Json::Value v : v_mon["clients"]) {
+            mon.win_clients.push_back(v.asUInt());
+        }
+
+        for (Json::Value v : v_mon["stack"]) {
+            mon.win_clients.push_back(v.asUInt());
+        }
+        monitors->push_back(mon);
+    }
+    return monitors;
 }
 
 } // namespace dwmipc

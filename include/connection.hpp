@@ -66,6 +66,12 @@ class Connection {
     Connection(const std::string &socket_path);
     ~Connection();
 
+    std::shared_ptr<std::vector<Monitor>> get_monitors();
+    std::shared_ptr<std::vector<TagState>> get_tags();
+    std::shared_ptr<std::vector<Layout>> get_layouts();
+    std::shared_ptr<Client> get_client(Window win_id);
+    void subscribe(const std::string &event_name);
+
   private:
     const int sockfd;
     const std::string socket_path;
