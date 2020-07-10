@@ -33,7 +33,8 @@ static ssize_t swrite(const int fd, const void *buf, const uint32_t count) {
     return written;
 }
 
-static std::shared_ptr<Json::Value> parse_reply(const std::shared_ptr<Packet>& reply) {
+static std::shared_ptr<Json::Value>
+parse_reply(const std::shared_ptr<Packet> &reply) {
     std::string payload(reply->payload, reply->header->size);
     const char *start = payload.c_str();
     const char *end = start + reply->header->size;
@@ -50,7 +51,6 @@ static std::shared_ptr<Json::Value> parse_reply(const std::shared_ptr<Packet>& r
 
     return std::make_shared<Json::Value>(root);
 }
-
 
 int Connection::connect(const std::string &socket_path) {
     struct sockaddr_un addr;
@@ -216,6 +216,46 @@ std::shared_ptr<std::vector<Layout>> Connection::get_layouts() {
         layouts->push_back(lt);
     }
     return layouts;
+}
+
+std::shared_ptr<Client> Connection::get_client(Window win_id) {
+    // No need to generate the JSON using library since it is so simple
+    auto reply =
+        dwm_msg(MESSAGE_TYPE_GET_DWM_CLIENT,
+                "{ \"client_window_id\":" + std::to_string(win_id) + " }");
+    auto root = parse_reply(reply);
+    auto client = std::make_shared<Client>();
+
+    client->name = (*root)["name"].asString();
+    client->mina = (*root)["mina"].asInt();
+    client->maxa = (*root)["maxa"].asInt();
+    client->tags = (*root)["tags"].asUInt();
+    client->x = (*root)["size"]["current"]["x"].asInt();
+    client->y = (*root)["size"]["current"]["y"].asInt();
+    client->w = (*root)["size"]["current"]["width"].asInt();
+    client->h = (*root)["size"]["current"]["height"].asInt();
+    client->oldx = (*root)["size"]["old"]["x"].asInt();
+    client->oldy = (*root)["size"]["old"]["y"].asInt();
+    client->oldw = (*root)["size"]["old"]["width"].asInt();
+    client->oldh = (*root)["size"]["old"]["height"].asInt();
+    client->basew = (*root)["size_hints"]["base_width"].asInt();
+    client->baseh = (*root)["size_hints"]["base_height"].asInt();
+    client->incw = (*root)["size_hints"]["increase_width"].asInt();
+    client->inch = (*root)["size_hints"]["increase_height"].asInt();
+    client->maxw = (*root)["size_hints"]["max_width"].asInt();
+    client->maxh = (*root)["size_hints"]["max_height"].asInt();
+    client->minw = (*root)["size_hints"]["min_width"].asInt();
+    client->minh = (*root)["size_hints"]["min_height"].asInt();
+    client->bw = (*root)["border"]["current_width"].asInt();
+    client->oldbw = (*root)["border"]["old_width"].asInt();
+    client->isfixed = (*root)["states"]["is_fixed"].asBool();
+    client->isfloating = (*root)["states"]["is_floating"].asBool();
+    client->isurgent = (*root)["states"]["is_urgent"].asBool();
+    client->isfullscreen = (*root)["states"]["is_fullscreen"].asBool();
+    client->neverfocus = (*root)["states"]["never_focus"].asBool();
+    client->oldstate = (*root)["states"]["old_state"].asBool();
+
+    return client;
 }
 
 } // namespace dwmipc
