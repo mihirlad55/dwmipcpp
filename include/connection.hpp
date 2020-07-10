@@ -76,6 +76,9 @@ class Connection {
     void send_message(const std::shared_ptr<Packet> &packet);
 
     std::shared_ptr<Packet> recv_message();
-    std::shared_ptr<Packet> dwm_msg(const MessageType type, const std::string &msg);
+    std::shared_ptr<Packet> dwm_msg(const MessageType type,
+                                    const std::string &msg);
+    std::shared_ptr<Packet> dwm_msg(const MessageType type);
+
 };
 } // namespace dwmipc
