@@ -120,7 +120,12 @@ class Connection {
         builder["indentation"] = "";
         const std::string msg = Json::writeString(builder, root);
 
-        dwm_msg(MESSAGE_TYPE_RUN_COMMAND, msg);
+        auto reply = dwm_msg(MESSAGE_TYPE_RUN_COMMAND, msg);
+
+        // Dummy value
+        Json::Value dummy;
+        // Throws exception on failure result
+        pre_parse_reply(dummy, reply);
     }
 
   private:
