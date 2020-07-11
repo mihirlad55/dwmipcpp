@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
 project(dwmipcpp CXX)
 
-option(BUILD_EXAMPLES "Build examples" ON)
+option(BUILD_EXAMPLES "Build examples" OFF)
 
 add_library(${PROJECT_NAME} STATIC
     ${PROJECT_SOURCE_DIR}/include/connection.hpp
