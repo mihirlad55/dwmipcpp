@@ -103,7 +103,7 @@ int Connection::connect(const std::string &socket_path) {
     addr.sun_family = AF_UNIX;
     std::strncpy(addr.sun_path, socket_path.c_str(), sizeof(addr.sun_path) - 1);
 
-    if (::connect(sockfd, (const struct sockaddr *)&addr,
+    if (::connect(sockfd, reinterpret_cast<struct sockaddr *>(&addr),
                   sizeof(struct sockaddr_un)) < 0) {
         throw ipc_error("Failed to connect to dwm ipc socket");
     }
@@ -117,8 +117,8 @@ std::shared_ptr<Packet> Connection::recv_message() {
     uint32_t read_bytes = 0;
     size_t to_read = sizeof(Header);
     auto packet = std::make_shared<Packet>(0);
-    char *header = (char *)packet->header;
-    char *walk = (char *)packet->data;
+    char *header = reinterpret_cast<char *>(packet->header);
+    char *walk = reinterpret_cast<char *>(packet->data);
 
     while (read_bytes < to_read) {
         const ssize_t n =
@@ -142,8 +142,8 @@ std::shared_ptr<Packet> Connection::recv_message() {
                            std::string(header, DWM_MAGIC_LEN));
 
     packet->realloc_to_header_size();
-    header = (char *)packet->header;
-    walk = (char *)packet->payload;
+    header = reinterpret_cast<char *>(packet->header);
+    walk = reinterpret_cast<char *>(packet->payload);
 
     // Extract payload
     read_bytes = 0;
