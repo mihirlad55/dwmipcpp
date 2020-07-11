@@ -13,4 +13,12 @@ int main() {
     con.run_command("view", 8);
     sleep(1);
     con.run_command("toggletag", 16);
+    sleep(1);
+
+    // Set layout to monocle
+    auto layouts = con.get_layouts();
+    for (dwmipc::Layout lt : *layouts) {
+        if (lt.symbol == "[M]")
+            con.run_command("setlayout", lt.address);
+    }
 }
