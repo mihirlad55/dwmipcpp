@@ -151,12 +151,25 @@ class Connection {
     // Base case
     template <typename T>
     static void run_command_build(Json::Value &arr, T arg) {
+        static_assert(std::is_arithmetic<T>::value ||            // number
+                          std::is_same<T, std::string>::value || // string
+                          std::is_same<T, const char*>::value || // string
+                          std::is_same<T, bool>::value,          // bool
+                      "The arguments to run_command must be a string, number, "
+                      "bool, or NULL");
         arr.append(arg);
     }
 
     // Recursive
-    template <typename... Ts>
-    static void run_command_build(Json::Value &arr, Ts... args) {
+    template <typename T, typename... Ts>
+    static void run_command_build(Json::Value &arr, T arg1, Ts... args) {
+        static_assert(std::is_arithmetic<T>::value ||            // number
+                          std::is_same<T, std::string>::value || // string
+                          std::is_same<T, const char*>::value || // string
+                          std::is_same<T, bool>::value,          // bool
+                      "The arguments to run_command must be a string, number, "
+                      "bool, or NULL");
+        run_command_build(arr, arg1);
         run_command_build(arr, args...);
     }
 };
