@@ -15,3 +15,6 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O2")
 
 add_executable(dump-all dump_all.cpp)
 target_link_libraries(dump-all ${DWMIPCPP_LIBRARIES})
+
+add_executable(subscribe subscribe.cpp)
+target_link_libraries(subscribe ${DWMIPCPP_LIBRARIES})
