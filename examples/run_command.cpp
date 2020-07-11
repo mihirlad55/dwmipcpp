@@ -6,9 +6,11 @@
 int main() {
     dwmipc::Connection con("/tmp/dwm.sock");
 
-    con.run_command("focusstack", 1);
+    con.run_command("togglefloating");
     sleep(1);
-    con.run_command("view", 1);
+    con.run_command("view", 0);
     sleep(1);
     con.run_command("view", 8);
+    sleep(1);
+    con.run_command("toggletag", 16);
 }
