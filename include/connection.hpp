@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include "packet.hpp"
@@ -66,6 +67,8 @@ enum Event {
     EVENT_LAYOUT_CHANGE = 4
 };
 
+extern const std::unordered_map<Event, std::string> event_map;
+
 class Connection {
   public:
     Connection(const std::string &socket_path);
@@ -75,12 +78,13 @@ class Connection {
     std::shared_ptr<std::vector<Tag>> get_tags();
     std::shared_ptr<std::vector<Layout>> get_layouts();
     std::shared_ptr<Client> get_client(Window win_id);
-    void subscribe(const std::string &event_name);
-    void unsubscribe(const std::string &event_name);
+    void subscribe(const Event ev);
+    void unsubscribe(const Event ev);
 
   private:
     const int sockfd;
     const std::string socket_path;
+    unsigned int subscriptions = 0;
 
     static int connect(const std::string &socket_path);
 
@@ -92,5 +96,6 @@ class Connection {
                                     const std::string &msg);
     std::shared_ptr<Packet> dwm_msg(const MessageType type);
 
+    void subscribe(const Event ev, const bool sub);
 };
 } // namespace dwmipc

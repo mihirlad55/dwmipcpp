@@ -12,6 +12,11 @@
 #include "errors.hpp"
 
 namespace dwmipc {
+const std::unordered_map<Event, std::string> event_map = {
+    {EVENT_TAG_CHANGE, "tag_change_event"},
+    {EVENT_SELECTED_CLIENT_CHANGE, "selected_client_change_event"},
+    {EVENT_LAYOUT_CHANGE, "layout_change_event"}};
+
 Connection::Connection(const std::string &socket_path)
     : sockfd(connect(socket_path)), socket_path(socket_path) {}
 
@@ -257,6 +262,35 @@ std::shared_ptr<Client> Connection::get_client(Window win_id) {
     client->oldstate = root["states"]["old_state"].asBool();
 
     return client;
+}
+
+void Connection::subscribe(const Event ev, const bool sub) {
+    const std::string ev_name = event_map.at(ev);
+    Json::StreamWriterBuilder builder;
+    builder["indentation"] = "";
+
+    Json::Value root;
+    root["event"] = ev_name;
+    root["action"] = (sub ? "subscribe" : "unsubscribe");
+
+    const std::string msg = Json::writeString(builder, root);
+    std::cout << msg << std::endl;
+    auto reply = dwm_msg(MESSAGE_TYPE_SUBSCRIBE, msg);
+
+    // Will throw error on failure result, we don't care about success result
+    Json::Value dummy;
+    pre_parse_reply(dummy, reply);
+}
+
+void Connection::subscribe(const Event ev) {
+    subscribe(ev, true);
+    this->subscriptions |= ev;
+}
+
+void Connection::unsubscribe(const Event ev) {
+    subscribe(ev, false);
+    if (this->subscriptions & ev)
+        this->subscriptions -= ev;
 }
 
 } // namespace dwmipc
