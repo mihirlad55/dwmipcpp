@@ -50,7 +50,7 @@ static void pre_parse_reply(Json::Value &root,
     const auto reader = builder.newCharReader();
     reader->parse(start, end, &root, &errs);
 
-    if (root.get("result", "") == "failure")
+    if (root.get("result", "") == "error")
         throw result_failure_error(root["reason"].asString());
 }
 
