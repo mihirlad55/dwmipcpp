@@ -38,7 +38,8 @@ static ssize_t swrite(const int fd, const void *buf, const uint32_t count) {
     return written;
 }
 
-void pre_parse_reply(Json::Value &root, const std::shared_ptr<Packet> &reply) {
+static void pre_parse_reply(Json::Value &root,
+                            const std::shared_ptr<Packet> &reply) {
     std::string payload(reply->payload, reply->header->size);
     const char *start = payload.c_str();
     const char *end = start + reply->header->size;
