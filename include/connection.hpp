@@ -130,6 +130,9 @@ class Connection {
 
     static int connect(const std::string &socket_path);
 
+    static void pre_parse_reply(Json::Value &root,
+                                const std::shared_ptr<Packet> &reply);
+
     void disconnect();
     void send_message(const std::shared_ptr<Packet> &packet);
 
