@@ -18,3 +18,6 @@ target_link_libraries(dump-all ${DWMIPCPP_LIBRARIES})
 
 add_executable(subscribe subscribe.cpp)
 target_link_libraries(subscribe ${DWMIPCPP_LIBRARIES})
+
+add_executable(run_command run_command.cpp)
+target_link_libraries(run_command ${DWMIPCPP_LIBRARIES})
