@@ -110,23 +110,14 @@ class Connection {
 
     template <typename... Types>
     void run_command(const std::string name, Types... args) {
-        Json::Value root;
-        root["command"] = name;
-        root["args"] = Json::Value(Json::arrayValue);
-
-        run_command_build(root["args"], args...);
-
-        Json::StreamWriterBuilder builder;
-        builder["indentation"] = "";
-        const std::string msg = Json::writeString(builder, root);
-
-        auto reply = dwm_msg(MESSAGE_TYPE_RUN_COMMAND, msg);
-
-        // Dummy value
-        Json::Value dummy;
-        // Throws exception on failure result
-        pre_parse_reply(dummy, reply);
+        Json::Value arr = Json::Value(Json::arrayValue);
+        run_command_build(arr, args...);
+        run_command(name, arr);
     }
+
+    // No command argument overload with default empty array
+    void run_command(const std::string name,
+                     const Json::Value &arr = Json::Value(Json::arrayValue));
 
   private:
     const int sockfd;
@@ -134,9 +125,6 @@ class Connection {
     unsigned int subscriptions = 0;
 
     static int connect(const std::string &socket_path);
-
-    static void pre_parse_reply(Json::Value &root,
-                                const std::shared_ptr<Packet> &reply);
 
     void disconnect();
     void send_message(const std::shared_ptr<Packet> &packet);
@@ -151,10 +139,10 @@ class Connection {
     // Base case
     template <typename T>
     static void run_command_build(Json::Value &arr, T arg) {
-        static_assert(std::is_arithmetic<T>::value ||            // number
-                          std::is_same<T, std::string>::value || // string
-                          std::is_same<T, const char*>::value || // string
-                          std::is_same<T, bool>::value,          // bool
+        static_assert(std::is_arithmetic<T>::value ||             // number
+                          std::is_same<T, std::string>::value ||  // string
+                          std::is_same<T, const char *>::value || // string
+                          std::is_same<T, bool>::value,           // bool
                       "The arguments to run_command must be a string, number, "
                       "bool, or NULL");
         arr.append(arg);
@@ -163,10 +151,10 @@ class Connection {
     // Recursive
     template <typename T, typename... Ts>
     static void run_command_build(Json::Value &arr, T arg1, Ts... args) {
-        static_assert(std::is_arithmetic<T>::value ||            // number
-                          std::is_same<T, std::string>::value || // string
-                          std::is_same<T, const char*>::value || // string
-                          std::is_same<T, bool>::value,          // bool
+        static_assert(std::is_arithmetic<T>::value ||             // number
+                          std::is_same<T, std::string>::value ||  // string
+                          std::is_same<T, const char *>::value || // string
+                          std::is_same<T, bool>::value,           // bool
                       "The arguments to run_command must be a string, number, "
                       "bool, or NULL");
         run_command_build(arr, arg1);

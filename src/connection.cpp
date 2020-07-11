@@ -38,7 +38,7 @@ static ssize_t swrite(const int fd, const void *buf, const uint32_t count) {
     return written;
 }
 
-void Connection::pre_parse_reply(Json::Value &root,
+static void pre_parse_reply(Json::Value &root,
                             const std::shared_ptr<Packet> &reply) {
     std::string payload(reply->payload, reply->header->size);
     const char *start = payload.c_str();
@@ -358,6 +358,23 @@ void Connection::handle_event() {
         }
     } else
         throw ipc_error("Invalid event type received");
+}
+
+void Connection::run_command(const std::string name, const Json::Value &arr) {
+    Json::Value root;
+    root["command"] = name;
+    root["args"].copy(arr);
+
+    Json::StreamWriterBuilder builder;
+    builder["indentation"] = "";
+    const std::string msg = Json::writeString(builder, root);
+
+    auto reply = dwm_msg(MESSAGE_TYPE_RUN_COMMAND, msg);
+
+    // Dummy value
+    Json::Value dummy;
+    // Throws exception on failure result
+    pre_parse_reply(dummy, reply);
 }
 
 } // namespace dwmipc
