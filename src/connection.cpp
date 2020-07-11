@@ -33,13 +33,11 @@ static ssize_t swrite(const int fd, const void *buf, const uint32_t count) {
     return written;
 }
 
-static std::shared_ptr<Json::Value>
-pre_parse_reply(const std::shared_ptr<Packet> &reply) {
+void pre_parse_reply(Json::Value &root, const std::shared_ptr<Packet> &reply) {
     std::string payload(reply->payload, reply->header->size);
     const char *start = payload.c_str();
     const char *end = start + reply->header->size;
 
-    Json::Value root;
     std::string errs;
 
     const Json::CharReaderBuilder builder;
@@ -147,10 +145,11 @@ std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type) {
 
 std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() {
     auto reply = dwm_msg(MESSAGE_TYPE_GET_MONITORS);
-    auto root = pre_parse_reply(reply);
+    Json::Value root;
+    pre_parse_reply(root, reply);
     auto monitors = std::make_shared<std::vector<Monitor>>();
 
-    for (Json::Value v_mon : *root) {
+    for (Json::Value v_mon : root) {
         Monitor mon;
 
         mon.layout_symbol = v_mon["layout_symbol"].asString();
@@ -175,13 +174,12 @@ std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() {
         mon.win_sel = v_mon["selected_client"].asUInt();
         mon.win_bar = v_mon["bar_window_id"].asUInt();
 
-        for (Json::Value v : v_mon["clients"]) {
+        for (Json::Value v : v_mon["clients"])
             mon.win_clients.push_back(v.asUInt());
-        }
 
-        for (Json::Value v : v_mon["stack"]) {
+        for (Json::Value v : v_mon["stack"])
             mon.win_clients.push_back(v.asUInt());
-        }
+
         monitors->push_back(mon);
     }
     return monitors;
@@ -189,10 +187,11 @@ std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() {
 
 std::shared_ptr<std::vector<Tag>> Connection::get_tags() {
     auto reply = dwm_msg(MESSAGE_TYPE_GET_TAGS);
-    auto root = pre_parse_reply(reply);
+    Json::Value root;
+    pre_parse_reply(root, reply);
     auto tags = std::make_shared<std::vector<Tag>>();
 
-    for (Json::Value v_tag : *root) {
+    for (Json::Value v_tag : root) {
         Tag tag;
 
         tag.bit_mask = v_tag["bit_mask"].asUInt();
@@ -204,10 +203,11 @@ std::shared_ptr<std::vector<Tag>> Connection::get_tags() {
 
 std::shared_ptr<std::vector<Layout>> Connection::get_layouts() {
     auto reply = dwm_msg(MESSAGE_TYPE_GET_LAYOUTS);
-    auto root = pre_parse_reply(reply);
+    Json::Value root;
+    pre_parse_reply(root, reply);
     auto layouts = std::make_shared<std::vector<Layout>>();
 
-    for (Json::Value v_lt : *root) {
+    for (Json::Value v_lt : root) {
         Layout lt;
 
         lt.address = v_lt["layout_address"].asUInt64();
@@ -223,37 +223,38 @@ std::shared_ptr<Client> Connection::get_client(Window win_id) {
     const std::string msg =
         "{\"client_window_id\":" + std::to_string(win_id) + "}";
     auto reply = dwm_msg(MESSAGE_TYPE_GET_DWM_CLIENT, msg);
-    auto root = pre_parse_reply(reply);
+    Json::Value root;
+    pre_parse_reply(root, reply);
     auto client = std::make_shared<Client>();
 
-    client->name = (*root)["name"].asString();
-    client->mina = (*root)["mina"].asInt();
-    client->maxa = (*root)["maxa"].asInt();
-    client->tags = (*root)["tags"].asUInt();
-    client->x = (*root)["size"]["current"]["x"].asInt();
-    client->y = (*root)["size"]["current"]["y"].asInt();
-    client->w = (*root)["size"]["current"]["width"].asInt();
-    client->h = (*root)["size"]["current"]["height"].asInt();
-    client->oldx = (*root)["size"]["old"]["x"].asInt();
-    client->oldy = (*root)["size"]["old"]["y"].asInt();
-    client->oldw = (*root)["size"]["old"]["width"].asInt();
-    client->oldh = (*root)["size"]["old"]["height"].asInt();
-    client->basew = (*root)["size_hints"]["base_width"].asInt();
-    client->baseh = (*root)["size_hints"]["base_height"].asInt();
-    client->incw = (*root)["size_hints"]["increase_width"].asInt();
-    client->inch = (*root)["size_hints"]["increase_height"].asInt();
-    client->maxw = (*root)["size_hints"]["max_width"].asInt();
-    client->maxh = (*root)["size_hints"]["max_height"].asInt();
-    client->minw = (*root)["size_hints"]["min_width"].asInt();
-    client->minh = (*root)["size_hints"]["min_height"].asInt();
-    client->bw = (*root)["border"]["current_width"].asInt();
-    client->oldbw = (*root)["border"]["old_width"].asInt();
-    client->isfixed = (*root)["states"]["is_fixed"].asBool();
-    client->isfloating = (*root)["states"]["is_floating"].asBool();
-    client->isurgent = (*root)["states"]["is_urgent"].asBool();
-    client->isfullscreen = (*root)["states"]["is_fullscreen"].asBool();
-    client->neverfocus = (*root)["states"]["never_focus"].asBool();
-    client->oldstate = (*root)["states"]["old_state"].asBool();
+    client->name = root["name"].asString();
+    client->mina = root["mina"].asInt();
+    client->maxa = root["maxa"].asInt();
+    client->tags = root["tags"].asUInt();
+    client->x = root["size"]["current"]["x"].asInt();
+    client->y = root["size"]["current"]["y"].asInt();
+    client->w = root["size"]["current"]["width"].asInt();
+    client->h = root["size"]["current"]["height"].asInt();
+    client->oldx = root["size"]["old"]["x"].asInt();
+    client->oldy = root["size"]["old"]["y"].asInt();
+    client->oldw = root["size"]["old"]["width"].asInt();
+    client->oldh = root["size"]["old"]["height"].asInt();
+    client->basew = root["size_hints"]["base_width"].asInt();
+    client->baseh = root["size_hints"]["base_height"].asInt();
+    client->incw = root["size_hints"]["increase_width"].asInt();
+    client->inch = root["size_hints"]["increase_height"].asInt();
+    client->maxw = root["size_hints"]["max_width"].asInt();
+    client->maxh = root["size_hints"]["max_height"].asInt();
+    client->minw = root["size_hints"]["min_width"].asInt();
+    client->minh = root["size_hints"]["min_height"].asInt();
+    client->bw = root["border"]["current_width"].asInt();
+    client->oldbw = root["border"]["old_width"].asInt();
+    client->isfixed = root["states"]["is_fixed"].asBool();
+    client->isfloating = root["states"]["is_floating"].asBool();
+    client->isurgent = root["states"]["is_urgent"].asBool();
+    client->isfullscreen = root["states"]["is_fullscreen"].asBool();
+    client->neverfocus = root["states"]["never_focus"].asBool();
+    client->oldstate = root["states"]["old_state"].asBool();
 
     return client;
 }
