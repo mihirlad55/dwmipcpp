@@ -40,9 +40,8 @@ static ssize_t swrite(const int fd, const void *buf, const uint32_t count) {
 
 static void pre_parse_reply(Json::Value &root,
                             const std::shared_ptr<Packet> &reply) {
-    std::string payload(reply->payload, reply->header->size);
-    const char *start = payload.c_str();
-    const char *end = start + reply->header->size;
+    const char *start = reply->payload;
+    const char *end = start + reply->header->size - 1;
 
     std::string errs;
 
@@ -50,7 +49,7 @@ static void pre_parse_reply(Json::Value &root,
     const auto reader = builder.newCharReader();
     reader->parse(start, end, &root, &errs);
 
-    if (root.get("result", "") == "error")
+    if (!root.isArray() && root.get("result", "") == "error")
         throw result_failure_error(root["reason"].asString());
 }
 
