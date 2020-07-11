@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -61,6 +62,24 @@ struct Monitor {
     Window win_bar;
 };
 
+struct TagChangeEvent {
+    TagState old_state;
+    TagState new_state;
+    unsigned int monitor_num;
+};
+
+struct SelectedClientChangeEvent {
+    Window old_client_win;
+    Window new_client_win;
+    unsigned int monitor_num;
+};
+
+struct LayoutChangeEvent {
+    std::string old_symbol;
+    std::string new_symbol;
+    unsigned int monitor_num;
+};
+
 enum Event {
     EVENT_TAG_CHANGE = 1,
     EVENT_SELECTED_CLIENT_CHANGE = 2,
@@ -80,6 +99,13 @@ class Connection {
     std::shared_ptr<Client> get_client(Window win_id);
     void subscribe(const Event ev);
     void unsubscribe(const Event ev);
+
+    std::function<void(const TagChangeEvent &ev)> on_tag_change;
+    std::function<void(const SelectedClientChangeEvent &ev)>
+        on_selected_client_change;
+    std::function<void(const LayoutChangeEvent &ev)> on_layout_change;
+
+    void handle_event();
 
   private:
     const int sockfd;

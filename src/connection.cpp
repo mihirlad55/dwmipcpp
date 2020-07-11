@@ -51,8 +51,42 @@ void pre_parse_reply(Json::Value &root, const std::shared_ptr<Packet> &reply) {
 
     if (root.get("result", "") == "failure")
         throw result_failure_error(root["reason"].asString());
+}
 
-    return std::make_shared<Json::Value>(root);
+static void parse_tag_change_event(const Json::Value &root,
+                                   TagChangeEvent &event) {
+    const std::string ev_name = event_map.at(EVENT_TAG_CHANGE);
+    auto v_event = root[ev_name];
+    auto v_old_state = v_event["old"];
+    auto v_new_state = v_event["new"];
+
+    event.old_state.selected = v_old_state["selected"].asUInt();
+    event.old_state.occupied = v_old_state["occupied"].asUInt();
+    event.old_state.urgent = v_old_state["urgent"].asUInt();
+    event.new_state.selected = v_new_state["selected"].asUInt();
+    event.new_state.occupied = v_new_state["occupied"].asUInt();
+    event.new_state.urgent = v_new_state["urgent"].asUInt();
+}
+
+static void parse_layout_change_event(const Json::Value &root,
+                                      LayoutChangeEvent &event) {
+    const std::string ev_name = event_map.at(EVENT_LAYOUT_CHANGE);
+    auto v_event = root[ev_name];
+
+    event.monitor_num = v_event["monitor_num"].asUInt();
+    event.old_symbol = v_event["old"].asString();
+    event.new_symbol = v_event["new"].asString();
+}
+
+static void
+parse_selected_client_change_event(const Json::Value &root,
+                                   SelectedClientChangeEvent &event) {
+    const std::string ev_name = event_map.at(EVENT_SELECTED_CLIENT_CHANGE);
+    auto v_event = root[ev_name];
+
+    event.monitor_num = v_event["monitor_number"].asUInt();
+    event.old_client_win = v_event["old"].asUInt();
+    event.new_client_win = v_event["new"].asUInt();
 }
 
 int Connection::connect(const std::string &socket_path) {
@@ -290,6 +324,39 @@ void Connection::unsubscribe(const Event ev) {
     subscribe(ev, false);
     if (this->subscriptions & ev)
         this->subscriptions -= ev;
+}
+
+void Connection::handle_event() {
+    auto reply = recv_message();
+    if (reply->header->type != MESSAGE_TYPE_EVENT)
+        throw ipc_error("Invalid message type received");
+
+    Json::Value root;
+    pre_parse_reply(root, reply);
+
+    if (root.get(event_map.at(EVENT_TAG_CHANGE), Json::nullValue) !=
+        Json::nullValue) {
+        if (on_tag_change) {
+            TagChangeEvent event;
+            parse_tag_change_event(root, event);
+            on_tag_change(event);
+        }
+    } else if (root.get(event_map.at(EVENT_LAYOUT_CHANGE), Json::nullValue) !=
+               Json::nullValue) {
+        if (on_layout_change) {
+            LayoutChangeEvent event;
+            parse_layout_change_event(root, event);
+            on_layout_change(event);
+        }
+    } else if (root.get(event_map.at(EVENT_SELECTED_CLIENT_CHANGE),
+                        Json::nullValue) != Json::nullValue) {
+        if (on_selected_client_change) {
+            SelectedClientChangeEvent event;
+            parse_selected_client_change_event(root, event);
+            on_selected_client_change(event);
+        }
+    } else
+        throw ipc_error("Invalid event type received");
 }
 
 } // namespace dwmipc
