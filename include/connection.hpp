@@ -1,6 +1,7 @@
 #pragma once
 
 #include <functional>
+#include <json/json.h>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -107,6 +108,21 @@ class Connection {
 
     void handle_event();
 
+    template <typename... Types>
+    void run_command(const std::string name, Types... args) {
+        Json::Value root;
+        root["command"] = name;
+        root["args"] = Json::Value(Json::arrayValue);
+
+        run_command_build(root["args"], args...);
+
+        Json::StreamWriterBuilder builder;
+        builder["indentation"] = "";
+        const std::string msg = Json::writeString(builder, root);
+
+        dwm_msg(MESSAGE_TYPE_RUN_COMMAND, msg);
+    }
+
   private:
     const int sockfd;
     const std::string socket_path;
@@ -123,5 +139,17 @@ class Connection {
     std::shared_ptr<Packet> dwm_msg(const MessageType type);
 
     void subscribe(const Event ev, const bool sub);
+
+    // Base case
+    template <typename T>
+    static void run_command_build(Json::Value &arr, T arg) {
+        arr.append(arg);
+    }
+
+    // Recursive
+    template <typename... Ts>
+    static void run_command_build(Json::Value &arr, Ts... args) {
+        run_command_build(arr, args...);
+    }
 };
 } // namespace dwmipc
