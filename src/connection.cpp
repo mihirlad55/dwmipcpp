@@ -49,7 +49,7 @@ void pre_parse_reply(Json::Value &root, const std::shared_ptr<Packet> &reply) {
     const auto reader = builder.newCharReader();
     reader->parse(start, end, &root, &errs);
 
-    if (root.isObject() && root["result"])
+    if (root.get("result", "") == "failure")
         throw result_failure_error(root["reason"].asString());
 
     return std::make_shared<Json::Value>(root);
