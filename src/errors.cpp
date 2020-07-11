@@ -42,6 +42,9 @@ header_error::header_error(const std::string &msg)
 eof_error::eof_error(const size_t read_bytes, const size_t to_read)
     : ipc_error(format_eof(read_bytes, to_read)) {}
 
+no_msg_error::no_msg_error()
+    : ipc_error("No messages available") {}
+
 reply_error::reply_error(const int expected, const int got)
     : ipc_error(format_reply(expected, got)) {}
 

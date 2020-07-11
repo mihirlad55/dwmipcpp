@@ -91,11 +91,10 @@ std::shared_ptr<Packet> Connection::recv_message() {
             read(this->sockfd, header + read_bytes, to_read - read_bytes);
 
         if (n == 0) {
-            if (read_bytes == 0) {
-                throw eof_error(read_bytes, to_read);
-            } else {
+            if (read_bytes == 0)
+                throw no_msg_error();
+            else
                 throw header_error(read_bytes, to_read);
-            }
         } else if (n == -1) {
             if (errno == EINTR || errno == EAGAIN)
                 continue;
