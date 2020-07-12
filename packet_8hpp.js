@@ -13,7 +13,7 @@ var packet_8hpp =
       [ "MESSAGE_TYPE_SUBSCRIBE", "packet_8hpp.html#a5a4525093012971835f4c2dab814178fa6fbad8d7ae0bcd0643f45714c80a6fde", null ],
       [ "MESSAGE_TYPE_EVENT", "packet_8hpp.html#a5a4525093012971835f4c2dab814178fa6e4ff36e90d7e26adbca71a8aa614c60", null ]
     ] ],
-    [ "__attribute", "packet_8hpp.html#a4667507ffc840922e930b46fda1aba6c", null ],
+    [ "__attribute", "packet_8hpp.html#a784be41b502cf0f9fece3fb7d8d0d036", null ],
     [ "__attribute", "packet_8hpp.html#ac286b5f870457827cdaad74c82785513", null ],
     [ "magic", "packet_8hpp.html#a7d801ae8817653629266959aa2c49f5a", null ],
     [ "size", "packet_8hpp.html#ab2c6b258f02add8fdf4cfc7c371dd772", null ],

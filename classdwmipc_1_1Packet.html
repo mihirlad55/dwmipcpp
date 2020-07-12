@@ -107,15 +107,21 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:af21466ebb73680cad80c6a29203a088b"><td class="memItemLeft" align="right" valign="top">uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Packet.html#af21466ebb73680cad80c6a29203a088b">data</a></td></tr>
+<tr class="memdesc:af21466ebb73680cad80c6a29203a088b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the start of the packet.  <a href="classdwmipc_1_1Packet.html#af21466ebb73680cad80c6a29203a088b">More...</a><br /></td></tr>
 <tr class="separator:af21466ebb73680cad80c6a29203a088b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73db415f3954f16b77e94c9272dbf3e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdwmipc_1_1Header.html">Header</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Packet.html#a73db415f3954f16b77e94c9272dbf3e5">header</a></td></tr>
+<tr class="memdesc:a73db415f3954f16b77e94c9272dbf3e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the start of the header.  <a href="classdwmipc_1_1Packet.html#a73db415f3954f16b77e94c9272dbf3e5">More...</a><br /></td></tr>
 <tr class="separator:a73db415f3954f16b77e94c9272dbf3e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23aa835f59e8d54aea1eb55ae0ebab44"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Packet.html#a23aa835f59e8d54aea1eb55ae0ebab44">size</a></td></tr>
+<tr class="memdesc:a23aa835f59e8d54aea1eb55ae0ebab44"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structdwmipc_1_1Size.html">Size</a> of the entire packet including the header.  <a href="classdwmipc_1_1Packet.html#a23aa835f59e8d54aea1eb55ae0ebab44">More...</a><br /></td></tr>
 <tr class="separator:a23aa835f59e8d54aea1eb55ae0ebab44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2dd177e54df63f59ebd18cf0c88cae67"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Packet.html#a2dd177e54df63f59ebd18cf0c88cae67">payload</a></td></tr>
+<tr class="memdesc:a2dd177e54df63f59ebd18cf0c88cae67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the start of the payload.  <a href="classdwmipc_1_1Packet.html#a2dd177e54df63f59ebd18cf0c88cae67">More...</a><br /></td></tr>
 <tr class="separator:a2dd177e54df63f59ebd18cf0c88cae67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This class defines the structure of a basic message that can be sent to DWM or received by DWM. The data allocated by this packet should not be reallocated or freed manually by the user. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a109d31025fe121eeec824c039d535449"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a109d31025fe121eeec824c039d535449">&#9670;&nbsp;</a></span>Packet() <span class="overload">[1/2]</span></h2>
 
@@ -131,6 +137,13 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Construct a packet and allocate the specified payload size</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>The size of the message payload not including the header </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -159,6 +172,14 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Construct a packet with the specified message type and payload</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of message to send </td></tr>
+    <tr><td class="paramname">msg</td><td>The payload of the packet. This will normally be a JSON document. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -176,6 +197,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Deconstruct a packet and free the allocated payload. </p>
 
 </div>
 </div>
@@ -194,6 +216,7 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Reallocate memory for the packet based on the size specified in the header. </p>
 
 </div>
 </div>
@@ -210,6 +233,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Pointer to the start of the packet. </p>
+
 </div>
 </div>
 <a id="a73db415f3954f16b77e94c9272dbf3e5"></a>
@@ -223,6 +248,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Pointer to the start of the header. </p>
 
 </div>
 </div>
@@ -238,6 +265,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Pointer to the start of the payload. </p>
+
 </div>
 </div>
 <a id="a23aa835f59e8d54aea1eb55ae0ebab44"></a>
@@ -251,6 +280,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p><a class="el" href="structdwmipc_1_1Size.html">Size</a> of the entire packet including the header. </p>
 
 </div>
 </div>

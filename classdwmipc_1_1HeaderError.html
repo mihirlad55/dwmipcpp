@@ -108,7 +108,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a31b5a93e4da8ce785c0da70c7cef3060"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1HeaderError.html#a31b5a93e4da8ce785c0da70c7cef3060">HeaderError</a> (const std::string &amp;msg)</td></tr>
 <tr class="separator:a31b5a93e4da8ce785c0da70c7cef3060"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This error is thrown when a message with a malformed header is read </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="addd7d93cf748aae9b39499a05ede73e5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#addd7d93cf748aae9b39499a05ede73e5">&#9670;&nbsp;</a></span>HeaderError() <span class="overload">[1/2]</span></h2>
 
@@ -134,6 +136,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Construct a <a class="el" href="classdwmipc_1_1HeaderError.html">HeaderError</a> in the case of an end of file while trying to read the header.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">read</td><td>The number of bytes read before EOF </td></tr>
+    <tr><td class="paramname">expected</td><td>The number of bytes expected to have been read before EOF </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -152,6 +162,13 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Construct a <a class="el" href="classdwmipc_1_1HeaderError.html">HeaderError</a> with the specified message</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msg</td><td>The details of why this error is being thrown </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
