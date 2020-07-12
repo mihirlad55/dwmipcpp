@@ -11,16 +11,6 @@
 
 namespace dwmipc {
 /**
- * The magic string that correctly formed DWM message should start with
- */
-#define DWM_MAGIC "DWM-IPC"
-
-/**
- * The length of the magic string excluding the null character
- */
-#define DWM_MAGIC_LEN 7
-
-/**
  * A struct representing the header of an IPC packet.
  */
 struct Header {
@@ -41,6 +31,16 @@ enum MessageType {
     MESSAGE_TYPE_SUBSCRIBE = 5,
     MESSAGE_TYPE_EVENT = 6
 };
+
+/**
+ * The magic string that correctly formed DWM message should start with
+ */
+static constexpr char DWM_MAGIC[] = "DWM-IPC";
+
+/**
+ * The length of the magic string excluding the null character
+ */
+static constexpr int DWM_MAGIC_LEN = 7;
 
 /**
  * This class defines the structure of a basic message that can be sent to DWM
