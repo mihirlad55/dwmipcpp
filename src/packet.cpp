@@ -1,3 +1,9 @@
+/**
+ * @file packet.cpp
+ *
+ * This file contains the implementation details for the Packet class.
+ */
+
 #include <cstring>
 
 #include "packet.hpp"

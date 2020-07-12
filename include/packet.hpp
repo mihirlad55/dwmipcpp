@@ -1,3 +1,8 @@
+/**
+ * @file packet.hpp
+ *
+ * This file contains the declarations for the Packet class.
+ */
 #pragma once
 
 #include <cerrno>
@@ -5,16 +10,23 @@
 #include <string>
 
 namespace dwmipc {
-
+// The magic string that correctly formed DWM message should start with
 #define DWM_MAGIC "DWM-IPC"
+// The length of the magic string excluding the null character
 #define DWM_MAGIC_LEN 7
 
-typedef struct Header {
-    uint8_t magic[DWM_MAGIC_LEN];
-    uint32_t size;
-    uint8_t type;
-} __attribute((packed)) Header;
+/**
+ * A struct representing the header of an IPC packet.
+ */
+struct Header {
+    uint8_t magic[DWM_MAGIC_LEN]; ///< The header begins with the magic string
+    uint32_t size;                ///< The size of the payload
+    uint8_t type;                 ///< The type of message sent
+} __attribute((packed));
 
+/**
+ * Enum of supported DWM message types
+ */
 enum MessageType {
     MESSAGE_TYPE_RUN_COMMAND = 0,
     MESSAGE_TYPE_GET_MONITORS = 1,
@@ -25,18 +37,43 @@ enum MessageType {
     MESSAGE_TYPE_EVENT = 6
 };
 
+/**
+ * This class defines the structure of a basic message that can be sent to DWM
+ * or received by DWM. The data allocated by this packet should not be
+ * reallocated or freed manually by the user.
+ */
 class Packet {
   public:
+    /**
+     * Construct a packet and allocate the specified payload size
+     *
+     * @param size The size of the message payload not including the header
+     */
     Packet(const uint32_t size);
+
+    /**
+     * Construct a packet with the specified message type and payload
+     *
+     * @param type The type of message to send
+     * @param msg The payload of the packet. This will normally be a JSON
+     * document.
+     */
     Packet(const MessageType type, const std::string &msg);
 
+    /**
+     * Deconstruct a packet and free the allocated payload.
+     */
     ~Packet();
 
-    uint8_t *data;
-    Header *header;
-    uint32_t size;
-    char *payload;
+    uint8_t *data;  ///< Pointer to the start of the packet
+    Header *header; ///< Pointer to the start of the header
+    uint32_t size;  ///< Size of the entire packet including the header
+    char *payload;  ///< Pointer to the start of the payload
 
+    /**
+     * Reallocate memory for the packet based on the size specified in the
+     * header.
+     */
     void realloc_to_header_size();
 };
 
