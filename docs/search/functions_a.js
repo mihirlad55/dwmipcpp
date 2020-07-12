@@ -1,4 +1,0 @@
-var searchData=
-[
-  ['subscribe_183',['subscribe',['../classdwmipc_1_1Connection.html#ac08dee67d7a104bb61a331ae8421f72c',1,'dwmipc::Connection']]]
-];
