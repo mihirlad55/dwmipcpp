@@ -9,30 +9,9 @@
 #include <cstdint>
 #include <string>
 
+#include "types.hpp"
+
 namespace dwmipc {
-/**
- * Enum of supported DWM message types
- */
-enum MessageType {
-    MESSAGE_TYPE_RUN_COMMAND = 0,
-    MESSAGE_TYPE_GET_MONITORS = 1,
-    MESSAGE_TYPE_GET_TAGS = 2,
-    MESSAGE_TYPE_GET_LAYOUTS = 3,
-    MESSAGE_TYPE_GET_DWM_CLIENT = 4,
-    MESSAGE_TYPE_SUBSCRIBE = 5,
-    MESSAGE_TYPE_EVENT = 6
-};
-
-/**
- * The magic string that correctly formed DWM message should start with
- */
-static constexpr char DWM_MAGIC[] = "DWM-IPC";
-
-/**
- * The length of the magic string excluding the null character
- */
-static constexpr int DWM_MAGIC_LEN = 7;
-
 /**
  * This class defines the structure of a basic message that can be sent to DWM
  * or received by DWM. The data allocated by this packet should not be

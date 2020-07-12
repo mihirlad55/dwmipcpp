@@ -19,11 +19,6 @@
 #include "errors.hpp"
 
 namespace dwmipc {
-const std::unordered_map<Event, std::string> event_map = {
-    {EVENT_TAG_CHANGE, "tag_change_event"},
-    {EVENT_SELECTED_CLIENT_CHANGE, "selected_client_change_event"},
-    {EVENT_LAYOUT_CHANGE, "layout_change_event"}};
-
 Connection::Connection(const std::string &socket_path)
     : sockfd(connect(socket_path)), socket_path(socket_path) {}
 
