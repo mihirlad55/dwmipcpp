@@ -106,7 +106,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a338c964bab7a4efc399ef400bb422792"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1ReplyError.html#a338c964bab7a4efc399ef400bb422792">ReplyError</a> (const int expected, const int got)</td></tr>
 <tr class="separator:a338c964bab7a4efc399ef400bb422792"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This error is thrown when an invalid reply is received from DWM after sending it a message. This is most commonly caused by the type of the reply message not matching the type of the sent message. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a338c964bab7a4efc399ef400bb422792"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a338c964bab7a4efc399ef400bb422792">&#9670;&nbsp;</a></span>ReplyError()</h2>
 
@@ -132,6 +134,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Construct a <a class="el" href="classdwmipc_1_1ReplyError.html">ReplyError</a> when there was a type mismatch</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">expected</td><td>The message type expected in the reply </td></tr>
+    <tr><td class="paramname">got</td><td>The message type that was specified in the reply </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

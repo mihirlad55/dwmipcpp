@@ -135,21 +135,26 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a4667507ffc840922e930b46fda1aba6c"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structdwmipc_1_1Header.html">dwmipc::Header</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedwmipc.html#a4667507ffc840922e930b46fda1aba6c">dwmipc::__attribute</a> ((packed)) Header</td></tr>
-<tr class="separator:a4667507ffc840922e930b46fda1aba6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a784be41b502cf0f9fece3fb7d8d0d036"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structdwmipc_1_1Header.html">dwmipc::Header</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedwmipc.html#a784be41b502cf0f9fece3fb7d8d0d036">dwmipc::__attribute</a> ((packed))</td></tr>
+<tr class="separator:a784be41b502cf0f9fece3fb7d8d0d036"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a7d801ae8817653629266959aa2c49f5a"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="packet_8hpp.html#a7d801ae8817653629266959aa2c49f5a">magic</a> [<a class="el" href="packet_8hpp.html#a7e8a855cff39eb3df2c76b35628671a4">DWM_MAGIC_LEN</a>]</td></tr>
+<tr class="memdesc:a7d801ae8817653629266959aa2c49f5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The header begins with the magic string.  <a href="packet_8hpp.html#a7d801ae8817653629266959aa2c49f5a">More...</a><br /></td></tr>
 <tr class="separator:a7d801ae8817653629266959aa2c49f5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2c6b258f02add8fdf4cfc7c371dd772"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="packet_8hpp.html#ab2c6b258f02add8fdf4cfc7c371dd772">size</a></td></tr>
+<tr class="memdesc:ab2c6b258f02add8fdf4cfc7c371dd772"><td class="mdescLeft">&#160;</td><td class="mdescRight">The size of the payload.  <a href="packet_8hpp.html#ab2c6b258f02add8fdf4cfc7c371dd772">More...</a><br /></td></tr>
 <tr class="separator:ab2c6b258f02add8fdf4cfc7c371dd772"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d127017fb298b889f4ba24752d08b8e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="packet_8hpp.html#a1d127017fb298b889f4ba24752d08b8e">type</a></td></tr>
+<tr class="memdesc:a1d127017fb298b889f4ba24752d08b8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of message sent.  <a href="packet_8hpp.html#a1d127017fb298b889f4ba24752d08b8e">More...</a><br /></td></tr>
 <tr class="separator:a1d127017fb298b889f4ba24752d08b8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac286b5f870457827cdaad74c82785513"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="namespacedwmipc.html#a5a4525093012971835f4c2dab814178f">dwmipc::MessageType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedwmipc.html#ac286b5f870457827cdaad74c82785513">dwmipc::__attribute</a></td></tr>
 <tr class="separator:ac286b5f870457827cdaad74c82785513"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This file contains the declarations for the Packet class. </p>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a2b025bfbe46bba33f19736c8b540322f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2b025bfbe46bba33f19736c8b540322f">&#9670;&nbsp;</a></span>DWM_MAGIC</h2>
 
@@ -191,6 +196,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>The header begins with the magic string. </p>
+
 </div>
 </div>
 <a id="ab2c6b258f02add8fdf4cfc7c371dd772"></a>
@@ -205,6 +212,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>The size of the payload. </p>
+
 </div>
 </div>
 <a id="a1d127017fb298b889f4ba24752d08b8e"></a>
@@ -218,6 +227,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>The type of message sent. </p>
 
 </div>
 </div>
