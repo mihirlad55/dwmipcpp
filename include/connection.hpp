@@ -143,45 +143,57 @@ class Connection {
     Connection(const std::string &socket_path);
     ~Connection();
 
-    std::shared_ptr<std::vector<Monitor>> get_monitors();
-    std::shared_ptr<std::vector<Tag>> get_tags();
-    std::shared_ptr<std::vector<Layout>> get_layouts();
-    std::shared_ptr<Client> get_client(Window win_id);
+    std::shared_ptr<std::vector<Monitor>> get_monitors() const;
+    std::shared_ptr<std::vector<Tag>> get_tags() const;
+    std::shared_ptr<std::vector<Layout>> get_layouts() const;
+    std::shared_ptr<Client> get_client(Window win_id) const;
     void subscribe(const Event ev);
+
     void unsubscribe(const Event ev);
 
-    std::function<void(const TagChangeEvent &ev)> on_tag_change;
-    std::function<void(const SelectedClientChangeEvent &ev)>
-        on_selected_client_change;
-    std::function<void(const LayoutChangeEvent &ev)> on_layout_change;
+    void handle_event() const;
 
-    void handle_event();
 
     template <typename... Types>
-    void run_command(const std::string name, Types... args) {
+    void run_command(const std::string name, Types... args) const {
         Json::Value arr = Json::Value(Json::arrayValue);
         run_command_build(arr, args...);
         run_command(name, arr);
     }
 
     // No command argument overload with default empty array
-    void run_command(const std::string name,
-                     const Json::Value &arr = Json::Value(Json::arrayValue));
+    void
+    run_command(const std::string name,
+                const Json::Value &arr = Json::Value(Json::arrayValue)) const;
 
-  private:
+    uint8_t get_subscriptions() const;
+
     const int sockfd;
     const std::string socket_path;
-    unsigned int subscriptions = 0;
+
+    std::function<void(const TagChangeEvent &ev)> on_tag_change;
+
+    std::function<void(const SelectedClientChangeEvent &ev)>
+        on_selected_client_change;
+
+    std::function<void(const LayoutChangeEvent &ev)> on_layout_change;
+
+  private:
+    uint8_t subscriptions = 0;
 
     static int connect(const std::string &socket_path);
 
     void disconnect();
-    void send_message(const std::shared_ptr<Packet> &packet);
 
-    std::shared_ptr<Packet> recv_message();
+    void send_message(const std::shared_ptr<Packet> &packet) const;
+
+    std::shared_ptr<Packet> recv_message() const;
+
     std::shared_ptr<Packet> dwm_msg(const MessageType type,
-                                    const std::string &msg);
-    std::shared_ptr<Packet> dwm_msg(const MessageType type);
+                                    const std::string &msg) const;
+
+    std::shared_ptr<Packet> dwm_msg(const MessageType type) const;
+
 
     void subscribe(const Event ev, const bool sub);
 

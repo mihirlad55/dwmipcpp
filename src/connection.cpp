@@ -117,7 +117,7 @@ int Connection::connect(const std::string &socket_path) {
 
 void Connection::disconnect() { close(this->sockfd); }
 
-std::shared_ptr<Packet> Connection::recv_message() {
+std::shared_ptr<Packet> Connection::recv_message() const {
     uint32_t read_bytes = 0;
     size_t to_read = sizeof(Header);
     auto packet = std::make_shared<Packet>(0);
@@ -167,12 +167,12 @@ std::shared_ptr<Packet> Connection::recv_message() {
     return packet;
 }
 
-void Connection::send_message(const std::shared_ptr<Packet> &packet) {
+void Connection::send_message(const std::shared_ptr<Packet> &packet) const {
     swrite(this->sockfd, packet->data, packet->size);
 }
 
 std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type,
-                                            const std::string &msg) {
+                                            const std::string &msg) const {
     auto packet = std::make_shared<Packet>(type, msg);
     send_message(packet);
     auto reply = recv_message();
@@ -181,11 +181,11 @@ std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type,
     return reply;
 }
 
-std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type) {
+std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type) const {
     return dwm_msg(type, "");
 }
 
-std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() {
+std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() const {
     auto reply = dwm_msg(MESSAGE_TYPE_GET_MONITORS);
     Json::Value root;
     pre_parse_reply(root, reply);
@@ -228,7 +228,7 @@ std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() {
     return monitors;
 }
 
-std::shared_ptr<std::vector<Tag>> Connection::get_tags() {
+std::shared_ptr<std::vector<Tag>> Connection::get_tags() const {
     auto reply = dwm_msg(MESSAGE_TYPE_GET_TAGS);
     Json::Value root;
     pre_parse_reply(root, reply);
@@ -244,7 +244,7 @@ std::shared_ptr<std::vector<Tag>> Connection::get_tags() {
     return tags;
 }
 
-std::shared_ptr<std::vector<Layout>> Connection::get_layouts() {
+std::shared_ptr<std::vector<Layout>> Connection::get_layouts() const {
     auto reply = dwm_msg(MESSAGE_TYPE_GET_LAYOUTS);
     Json::Value root;
     pre_parse_reply(root, reply);
@@ -261,7 +261,7 @@ std::shared_ptr<std::vector<Layout>> Connection::get_layouts() {
     return layouts;
 }
 
-std::shared_ptr<Client> Connection::get_client(Window win_id) {
+std::shared_ptr<Client> Connection::get_client(Window win_id) const {
     // No need to generate the JSON using library since it is so simple
     const std::string msg =
         "{\"client_window_id\":" + std::to_string(win_id) + "}";
@@ -333,7 +333,7 @@ void Connection::unsubscribe(const Event ev) {
         this->subscriptions -= ev;
 }
 
-void Connection::handle_event() {
+void Connection::handle_event() const {
     auto reply = recv_message();
     if (reply->header->type != MESSAGE_TYPE_EVENT)
         throw ipc_error("Invalid message type received");
@@ -366,7 +366,10 @@ void Connection::handle_event() {
         throw ipc_error("Invalid event type received");
 }
 
-void Connection::run_command(const std::string name, const Json::Value &arr) {
+uint8_t Connection::get_subscriptions() const { return this->subscriptions; }
+
+void Connection::run_command(const std::string name,
+                             const Json::Value &arr) const {
     Json::Value root;
     root["command"] = name;
     root["args"].copy(arr);
