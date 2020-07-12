@@ -72,10 +72,14 @@ static void parse_layout_change_event(const Json::Value &root,
                                       LayoutChangeEvent &event) {
     const std::string ev_name = event_map.at(EVENT_LAYOUT_CHANGE);
     auto v_event = root[ev_name];
+    auto v_old = v_event["old"];
+    auto v_new = v_event["new"];
 
     event.monitor_num = v_event["monitor_num"].asUInt();
-    event.old_symbol = v_event["old"].asString();
-    event.new_symbol = v_event["new"].asString();
+    event.old_symbol = v_old["symbol"].asString();
+    event.old_address = v_old["address"].asUInt();
+    event.new_symbol = v_new["symbol"].asString();
+    event.new_address = v_new["address"].asUInt();
 }
 
 static void
@@ -191,8 +195,8 @@ std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() {
         Monitor mon;
 
         mon.layout_symbol = v_mon["layout_symbol"].asString();
-        mon.old_layout = v_mon["layout"]["old"].asString();
-        mon.current_layout = v_mon["layout"]["current"].asString();
+        mon.old_layout_address = v_mon["layout"]["old_address"].asUInt();
+        mon.layout_address = v_mon["layout"]["current_address"].asUInt();
         mon.mfact = v_mon["mfact"].asFloat();
         mon.nmaster = v_mon["nmaster"].asInt();
         mon.num = v_mon["num"].asInt();

@@ -45,8 +45,8 @@ struct Tag {
 
 struct Monitor {
     std::string layout_symbol;
-    std::string old_layout;
-    std::string current_layout;
+    uintptr_t old_layout_address;
+    uintptr_t layout_address;
     float mfact;
     int nmaster;
     int num;
@@ -78,6 +78,8 @@ struct SelectedClientChangeEvent {
 struct LayoutChangeEvent {
     std::string old_symbol;
     std::string new_symbol;
+    uintptr_t old_address;
+    uintptr_t new_address;
     unsigned int monitor_num;
 };
 
