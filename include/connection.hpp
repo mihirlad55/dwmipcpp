@@ -379,7 +379,9 @@ class Connection {
     void send_message(const std::shared_ptr<Packet> &packet) const;
 
     /**
-     * Receive any incoming messages from DWM.
+     * Receive any incoming messages from DWM. This is the main helper function
+     * for attempting to read a message from DWM and validate the structure of
+     * the message. It absorbs EINTR, EAGAIN, and EWOULDBLOCK errors.
      *
      * @return A received packet from DWM
      *

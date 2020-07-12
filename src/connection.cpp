@@ -22,6 +22,10 @@ Connection::Connection(const std::string &socket_path)
 
 Connection::~Connection() { disconnect(); }
 
+/**
+ * Helper function keep attempting to write a buffer to a file descriptor,
+ * continuing on EINTR, EAGAIN, or EWOULDBLOCK errors.
+ */
 static ssize_t swrite(const int fd, const void *buf, const uint32_t count) {
     size_t written = 0;
 
@@ -38,6 +42,10 @@ static ssize_t swrite(const int fd, const void *buf, const uint32_t count) {
     return written;
 }
 
+/**
+ * Parse a reply packet from DWM into a Json::Value. Throw a ResultFailureError
+ * if DWM sends an error reply.
+ */
 static void pre_parse_reply(Json::Value &root,
                             const std::shared_ptr<Packet> &reply) {
     const char *start = reply->payload;
@@ -49,10 +57,15 @@ static void pre_parse_reply(Json::Value &root,
     const auto reader = builder.newCharReader();
     reader->parse(start, end, &root, &errs);
 
+    // Not properly documented, but if the reply is an array any type of
+    // function that checks for the existance of a key throws a Json::LogicError
     if (!root.isArray() && root.get("result", "") == "error")
         throw ResultFailureError(root["reason"].asString());
 }
 
+/**
+ * Parse a dwmipc::EVENT_TAG_CHANGE message
+ */
 static void parse_tag_change_event(const Json::Value &root,
                                    TagChangeEvent &event) {
     const std::string ev_name = event_map.at(EVENT_TAG_CHANGE);
@@ -68,6 +81,9 @@ static void parse_tag_change_event(const Json::Value &root,
     event.new_state.urgent = v_new_state["urgent"].asUInt();
 }
 
+/**
+ * Parse a dwmipc::EVENT_LAYOUT_CHANGE message
+ */
 static void parse_layout_change_event(const Json::Value &root,
                                       LayoutChangeEvent &event) {
     const std::string ev_name = event_map.at(EVENT_LAYOUT_CHANGE);
@@ -77,11 +93,14 @@ static void parse_layout_change_event(const Json::Value &root,
 
     event.monitor_num = v_event["monitor_num"].asUInt();
     event.old_symbol = v_old["symbol"].asString();
-    event.old_address = v_old["address"].asUInt();
+    event.old_address = v_old["address"].asUInt64();
     event.new_symbol = v_new["symbol"].asString();
-    event.new_address = v_new["address"].asUInt();
+    event.new_address = v_new["address"].asUInt64();
 }
 
+/**
+ * Parse a dwmipc::EVENT_SELECTED_CLIENT_CHANGE message
+ */
 static void
 parse_selected_client_change_event(const Json::Value &root,
                                    SelectedClientChangeEvent &event) {
@@ -124,6 +143,7 @@ std::shared_ptr<Packet> Connection::recv_message() const {
     char *header = reinterpret_cast<char *>(packet->header);
     char *walk = reinterpret_cast<char *>(packet->data);
 
+    // Read packet header
     while (read_bytes < to_read) {
         const ssize_t n =
             read(this->sockfd, header + read_bytes, to_read - read_bytes);
@@ -134,18 +154,22 @@ std::shared_ptr<Packet> Connection::recv_message() const {
             else
                 throw HeaderError(read_bytes, to_read);
         } else if (n == -1) {
-            if (errno == EINTR || errno == EAGAIN)
+            if (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK)
                 continue;
             throw ErrnoError("Error reading header");
         }
         read_bytes += n;
     }
 
+    // Check if magic string is correct
     if (memcmp(header, DWM_MAGIC, DWM_MAGIC_LEN) != 0)
         throw HeaderError("Invalid magic string: " +
-                           std::string(header, DWM_MAGIC_LEN));
+                          std::string(header, DWM_MAGIC_LEN));
 
+    // Reallocate payload size based on message size in header
     packet->realloc_to_header_size();
+
+    // Reinitialize addresses to header and walk
     header = reinterpret_cast<char *>(packet->header);
     walk = reinterpret_cast<char *>(packet->payload);
 
@@ -176,6 +200,8 @@ std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type,
     auto packet = std::make_shared<Packet>(type, msg);
     send_message(packet);
     auto reply = recv_message();
+
+    // Sent message type should match reply message type
     if (packet->header->type != reply->header->type)
         throw ReplyError(packet->header->type, reply->header->type);
     return reply;
@@ -263,6 +289,7 @@ std::shared_ptr<std::vector<Layout>> Connection::get_layouts() const {
 
 std::shared_ptr<Client> Connection::get_client(Window win_id) const {
     // No need to generate the JSON using library since it is so simple
+    // Format: { "client_window_id": <window id> }
     const std::string msg =
         "{\"client_window_id\":" + std::to_string(win_id) + "}";
     auto reply = dwm_msg(MESSAGE_TYPE_GET_DWM_CLIENT, msg);
@@ -305,8 +332,11 @@ std::shared_ptr<Client> Connection::get_client(Window win_id) const {
 }
 
 void Connection::subscribe(const Event ev, const bool sub) {
+    // Get string representation of event
     const std::string ev_name = event_map.at(ev);
+
     Json::StreamWriterBuilder builder;
+    // No need to waste bytes on pretty JSON
     builder["indentation"] = "";
 
     Json::Value root;
@@ -314,10 +344,9 @@ void Connection::subscribe(const Event ev, const bool sub) {
     root["action"] = (sub ? "subscribe" : "unsubscribe");
 
     const std::string msg = Json::writeString(builder, root);
-    std::cout << msg << std::endl;
     auto reply = dwm_msg(MESSAGE_TYPE_SUBSCRIBE, msg);
 
-    // Will throw error on failure result, we don't care about success result
+    // Throws error on failure result, we don't care about success result
     Json::Value dummy;
     pre_parse_reply(dummy, reply);
 }
@@ -341,6 +370,7 @@ void Connection::handle_event() const {
     Json::Value root;
     pre_parse_reply(root, reply);
 
+    // First key of JSON will be event name
     if (root.get(event_map.at(EVENT_TAG_CHANGE), Json::nullValue) !=
         Json::nullValue) {
         if (on_tag_change) {
@@ -375,6 +405,7 @@ void Connection::run_command(const std::string name,
     root["args"].copy(arr);
 
     Json::StreamWriterBuilder builder;
+    // No need to waste bytes on pretty JSON
     builder["indentation"] = "";
     const std::string msg = Json::writeString(builder, root);
 
