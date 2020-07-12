@@ -1,3 +1,8 @@
+/**
+ * @file errors.cpp
+ *
+ * This file contains the implementation details for errors.hpp.
+ */
 #include <cstring>
 #include <sstream>
 #include <string>
@@ -9,7 +14,6 @@ static std::string format_errno(const std::string &msg = std::string()) {
     std::stringstream out;
     out << "[dwmipcpp] errno " << errno << ": " << msg << "(" << strerror(errno)
         << ")";
-
     return out.str();
 }
 
