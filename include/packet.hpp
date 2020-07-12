@@ -10,9 +10,14 @@
 #include <string>
 
 namespace dwmipc {
-// The magic string that correctly formed DWM message should start with
+/**
+ * The magic string that correctly formed DWM message should start with
+ */
 #define DWM_MAGIC "DWM-IPC"
-// The length of the magic string excluding the null character
+
+/**
+ * The length of the magic string excluding the null character
+ */
 #define DWM_MAGIC_LEN 7
 
 /**

@@ -16,8 +16,7 @@ namespace dwmipc {
 struct Monitor;
 struct Client;
 
-// Definition of X11 Window from xlib
-typedef unsigned long Window;
+typedef unsigned long Window; ///< Definition of X11 Window from xlib
 
 /**
  * Struct that defines a generic rectangle geometry
