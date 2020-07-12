@@ -35,6 +35,9 @@ only need to worry about the `Connection`
 Some example code for interacting with the library can be found in
 [examples/](https://github.com/mihirlad55/dwmipcpp/tree/master/examples).
 
+To run the examples, you can execute the `build.sh` script in the project
+directory. The example executables will be located in `build/examples/`.
+
 
 ## Related Projects
 See the [dwm IPC patch](https://github.com/mihirlad55/dwm-ipc)
