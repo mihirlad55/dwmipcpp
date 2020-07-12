@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['client_127',['Client',['../structdwmipc_1_1Client.html',1,'dwmipc']]],
-  ['connection_128',['Connection',['../classdwmipc_1_1Connection.html',1,'dwmipc']]]
+  ['client_128',['Client',['../structdwmipc_1_1Client.html',1,'dwmipc']]],
+  ['connection_129',['Connection',['../classdwmipc_1_1Connection.html',1,'dwmipc']]]
 ];

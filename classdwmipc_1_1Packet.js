@@ -1,8 +1,10 @@
 var classdwmipc_1_1Packet =
 [
+    [ "Header", "structdwmipc_1_1Packet_1_1Header.html", "structdwmipc_1_1Packet_1_1Header" ],
     [ "Packet", "classdwmipc_1_1Packet.html#a109d31025fe121eeec824c039d535449", null ],
     [ "Packet", "classdwmipc_1_1Packet.html#af823c819dc9a97417ea790d77829920a", null ],
     [ "~Packet", "classdwmipc_1_1Packet.html#aa9a58c76d3f9f73d711850541c06b0a7", null ],
+    [ "__attribute", "classdwmipc_1_1Packet.html#a25e161720bea299d9995489f42fcb10d", null ],
     [ "realloc_to_header_size", "classdwmipc_1_1Packet.html#a99c1efadf671a95c41bd16af8235d494", null ],
     [ "data", "classdwmipc_1_1Packet.html#af21466ebb73680cad80c6a29203a088b", null ],
     [ "header", "classdwmipc_1_1Packet.html#a73db415f3954f16b77e94c9272dbf3e5", null ],
