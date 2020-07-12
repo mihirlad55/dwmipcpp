@@ -1,8 +1,11 @@
 /**
  * @file errors.hpp
  *
- * This file contains declarations for library related errors.
+ * This file contains declarations for library related errors. This file is used
+ * internally by dwmipcpp and these classes should not be instantiated outside
+ * of the library.
  */
+
 #pragma once
 
 #include <stdexcept>

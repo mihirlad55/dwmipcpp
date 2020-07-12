@@ -1,8 +1,10 @@
 /**
  * @file packet.hpp
  *
- * This file contains the declarations for the Packet class.
+ * This file contains the declarations for the Packet class. This file is used
+ * internally by dwmipcpp.
  */
+
 #pragma once
 
 #include <cerrno>
@@ -15,7 +17,9 @@ namespace dwmipc {
 /**
  * This class defines the structure of a basic message that can be sent to DWM
  * or received by DWM. The data allocated by this packet should not be
- * reallocated or freed manually by the user.
+ * reallocated or freed manually by the user. This class is used internally by
+ * the Connection class and should not be instantiated or used outside of the
+ * library.
  */
 class Packet {
   public:
@@ -45,8 +49,8 @@ class Packet {
      */
     struct Header {
         uint8_t magic[DWM_MAGIC_LEN]; ///< Header begins with the magic string
-        uint32_t size;            ///< Size of the payload
-        uint8_t type;             ///< Type of message sent
+        uint32_t size;                ///< Size of the payload
+        uint8_t type;                 ///< Type of message sent
     } __attribute((packed));
 
     /**

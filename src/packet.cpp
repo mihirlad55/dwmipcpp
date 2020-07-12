@@ -9,9 +9,7 @@
 #include "packet.hpp"
 
 namespace dwmipc {
-
-Packet::Packet(const uint32_t payload_size)
-    : size(payload_size + HEADER_SIZE) {
+Packet::Packet(const uint32_t payload_size) : size(payload_size + HEADER_SIZE) {
     // Use malloc since primitive type, and to allow realloc
     this->data = (uint8_t *)malloc(sizeof(uint8_t) * size);
     this->header = (Header *)data;

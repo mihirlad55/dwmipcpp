@@ -1,6 +1,9 @@
 /**
  * @file connection.hpp
+ *
+ * This is file contains the main class for interacting with DWM
  */
+
 #pragma once
 
 #include <functional>
