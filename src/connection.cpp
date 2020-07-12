@@ -1,3 +1,10 @@
+/**
+ * @file connection.cpp
+ *
+ * This file contains the implementation details for the Connection class as
+ * well as some helper functions for writing/reading sockets.
+ */
+
 #include <cstring>
 #include <fcntl.h>
 #include <iostream>
