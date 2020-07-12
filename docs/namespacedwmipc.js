@@ -5,7 +5,6 @@ var namespacedwmipc =
     [ "EOFError", "classdwmipc_1_1EOFError.html", "classdwmipc_1_1EOFError" ],
     [ "ErrnoError", "classdwmipc_1_1ErrnoError.html", "classdwmipc_1_1ErrnoError" ],
     [ "Geometry", "structdwmipc_1_1Geometry.html", "structdwmipc_1_1Geometry" ],
-    [ "Header", "structdwmipc_1_1Header.html", "structdwmipc_1_1Header" ],
     [ "HeaderError", "classdwmipc_1_1HeaderError.html", "classdwmipc_1_1HeaderError" ],
     [ "IPCError", "classdwmipc_1_1IPCError.html", null ],
     [ "Layout", "structdwmipc_1_1Layout.html", "structdwmipc_1_1Layout" ],

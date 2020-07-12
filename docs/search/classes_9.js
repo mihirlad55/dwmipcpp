@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['replyerror_140',['ReplyError',['../classdwmipc_1_1ReplyError.html',1,'dwmipc']]],
-  ['resultfailureerror_141',['ResultFailureError',['../classdwmipc_1_1ResultFailureError.html',1,'dwmipc']]]
+  ['replyerror_141',['ReplyError',['../classdwmipc_1_1ReplyError.html',1,'dwmipc']]],
+  ['resultfailureerror_142',['ResultFailureError',['../classdwmipc_1_1ResultFailureError.html',1,'dwmipc']]]
 ];

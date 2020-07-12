@@ -3,7 +3,7 @@ var hierarchy =
     [ "dwmipc::Client", "structdwmipc_1_1Client.html", null ],
     [ "dwmipc::Connection", "classdwmipc_1_1Connection.html", null ],
     [ "dwmipc::Geometry", "structdwmipc_1_1Geometry.html", null ],
-    [ "dwmipc::Header", "structdwmipc_1_1Header.html", null ],
+    [ "dwmipc::Packet::Header", "structdwmipc_1_1Packet_1_1Header.html", null ],
     [ "dwmipc::Layout", "structdwmipc_1_1Layout.html", null ],
     [ "dwmipc::LayoutChangeEvent", "structdwmipc_1_1LayoutChangeEvent.html", null ],
     [ "dwmipc::Monitor", "structdwmipc_1_1Monitor.html", null ],
