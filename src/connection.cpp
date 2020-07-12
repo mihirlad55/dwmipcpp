@@ -145,7 +145,7 @@ void Connection::disconnect() { close(this->sockfd); }
 
 std::shared_ptr<Packet> Connection::recv_message() const {
     uint32_t read_bytes = 0;
-    size_t to_read = sizeof(Header);
+    size_t to_read = Packet::HEADER_SIZE;
     auto packet = std::make_shared<Packet>(0);
     char *header = reinterpret_cast<char *>(packet->header);
     char *walk = reinterpret_cast<char *>(packet->data);

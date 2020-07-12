@@ -11,15 +11,6 @@
 
 namespace dwmipc {
 /**
- * A struct representing the header of an IPC packet.
- */
-struct Header {
-    uint8_t magic[DWM_MAGIC_LEN]; ///< The header begins with the magic string
-    uint32_t size;                ///< The size of the payload
-    uint8_t type;                 ///< The type of message sent
-} __attribute((packed));
-
-/**
  * Enum of supported DWM message types
  */
 enum MessageType {
@@ -69,6 +60,20 @@ class Packet {
      * Deconstruct a packet and free the allocated payload.
      */
     ~Packet();
+
+    /**
+     * A struct representing the header of an IPC packet.
+     */
+    struct Header {
+        uint8_t magic[DWM_MAGIC_LEN]; ///< Header begins with the magic string
+        uint32_t size;            ///< Size of the payload
+        uint8_t type;             ///< Type of message sent
+    } __attribute((packed));
+
+    /**
+     * Size of Header in bytes
+     */
+    static constexpr int HEADER_SIZE = sizeof(Header);
 
     uint8_t *data;  ///< Pointer to the start of the packet
     Header *header; ///< Pointer to the start of the header
