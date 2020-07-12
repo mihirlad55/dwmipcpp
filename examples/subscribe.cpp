@@ -62,7 +62,7 @@ int main() {
     while (true) {
         try {
             con.handle_event();
-        } catch (const dwmipc::no_msg_error&) {
+        } catch (const dwmipc::NoMsgError&) {
         }
         msleep(100);
     }

@@ -33,27 +33,27 @@ static std::string format_failure(const std::string &reason) {
     return out.str();
 }
 
-header_error::header_error(const size_t read_bytes, const size_t to_read)
-    : ipc_error(format_eof(read_bytes, to_read)) {}
+HeaderError::HeaderError(const size_t read_bytes, const size_t to_read)
+    : IPCError(format_eof(read_bytes, to_read)) {}
 
-header_error::header_error(const std::string &msg)
-    : ipc_error(format_errno(msg)) {}
+HeaderError::HeaderError(const std::string &msg)
+    : IPCError(format_errno(msg)) {}
 
-eof_error::eof_error(const size_t read_bytes, const size_t to_read)
-    : ipc_error(format_eof(read_bytes, to_read)) {}
+EOFError::EOFError(const size_t read_bytes, const size_t to_read)
+    : IPCError(format_eof(read_bytes, to_read)) {}
 
-no_msg_error::no_msg_error()
-    : ipc_error("No messages available") {}
+NoMsgError::NoMsgError()
+    : IPCError("No messages available") {}
 
-reply_error::reply_error(const int expected, const int got)
-    : ipc_error(format_reply(expected, got)) {}
+ReplyError::ReplyError(const int expected, const int got)
+    : IPCError(format_reply(expected, got)) {}
 
-result_failure_error::result_failure_error(const std::string &reason)
-    : ipc_error(format_failure(reason)) {}
+ResultFailureError::ResultFailureError(const std::string &reason)
+    : IPCError(format_failure(reason)) {}
 
-errno_error::errno_error() : ipc_error(format_errno()) {}
+ErrnoError::ErrnoError() : IPCError(format_errno()) {}
 
-errno_error::errno_error(const std::string &msg)
-    : ipc_error(format_errno(msg)) {}
+ErrnoError::ErrnoError(const std::string &msg)
+    : IPCError(format_errno(msg)) {}
 
 } // namespace dwmipc

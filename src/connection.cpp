@@ -31,7 +31,7 @@ static ssize_t swrite(const int fd, const void *buf, const uint32_t count) {
         if (n == -1) {
             if (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK)
                 continue;
-            throw errno_error("Error writing buffer to dwm socket");
+            throw ErrnoError("Error writing buffer to dwm socket");
         }
         written += n;
     }
@@ -50,7 +50,7 @@ static void pre_parse_reply(Json::Value &root,
     reader->parse(start, end, &root, &errs);
 
     if (!root.isArray() && root.get("result", "") == "error")
-        throw result_failure_error(root["reason"].asString());
+        throw ResultFailureError(root["reason"].asString());
 }
 
 static void parse_tag_change_event(const Json::Value &root,
@@ -98,7 +98,7 @@ int Connection::connect(const std::string &socket_path) {
 
     int sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
     if (sockfd < 0)
-        throw ipc_error("Failed to create dwm socket");
+        throw IPCError("Failed to create dwm socket");
     fcntl(sockfd, F_SETFD, FD_CLOEXEC);
 
     // Initialize struct to 0
@@ -109,7 +109,7 @@ int Connection::connect(const std::string &socket_path) {
 
     if (::connect(sockfd, reinterpret_cast<struct sockaddr *>(&addr),
                   sizeof(struct sockaddr_un)) < 0) {
-        throw ipc_error("Failed to connect to dwm ipc socket");
+        throw IPCError("Failed to connect to dwm ipc socket");
     }
 
     return sockfd;
@@ -130,19 +130,19 @@ std::shared_ptr<Packet> Connection::recv_message() const {
 
         if (n == 0) {
             if (read_bytes == 0)
-                throw no_msg_error();
+                throw NoMsgError();
             else
-                throw header_error(read_bytes, to_read);
+                throw HeaderError(read_bytes, to_read);
         } else if (n == -1) {
             if (errno == EINTR || errno == EAGAIN)
                 continue;
-            throw errno_error("Error reading header");
+            throw ErrnoError("Error reading header");
         }
         read_bytes += n;
     }
 
     if (memcmp(header, DWM_MAGIC, DWM_MAGIC_LEN) != 0)
-        throw header_error("Invalid magic string: " +
+        throw HeaderError("Invalid magic string: " +
                            std::string(header, DWM_MAGIC_LEN));
 
     packet->realloc_to_header_size();
@@ -156,11 +156,11 @@ std::shared_ptr<Packet> Connection::recv_message() const {
         const ssize_t n = read(sockfd, walk + read_bytes, to_read - read_bytes);
 
         if (n == 0)
-            throw eof_error(read_bytes, to_read);
+            throw EOFError(read_bytes, to_read);
         else if (n == -1) {
             if (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK)
                 continue;
-            throw errno_error("Error reading payload");
+            throw ErrnoError("Error reading payload");
         }
         read_bytes += n;
     }
@@ -177,7 +177,7 @@ std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type,
     send_message(packet);
     auto reply = recv_message();
     if (packet->header->type != reply->header->type)
-        throw reply_error(packet->header->type, reply->header->type);
+        throw ReplyError(packet->header->type, reply->header->type);
     return reply;
 }
 
@@ -336,7 +336,7 @@ void Connection::unsubscribe(const Event ev) {
 void Connection::handle_event() const {
     auto reply = recv_message();
     if (reply->header->type != MESSAGE_TYPE_EVENT)
-        throw ipc_error("Invalid message type received");
+        throw IPCError("Invalid message type received");
 
     Json::Value root;
     pre_parse_reply(root, reply);
@@ -363,7 +363,7 @@ void Connection::handle_event() const {
             on_selected_client_change(event);
         }
     } else
-        throw ipc_error("Invalid event type received");
+        throw IPCError("Invalid event type received");
 }
 
 uint8_t Connection::get_subscriptions() const { return this->subscriptions; }

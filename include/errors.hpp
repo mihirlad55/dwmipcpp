@@ -3,40 +3,40 @@
 #include <stdexcept>
 
 namespace dwmipc {
-class ipc_error : public std::runtime_error {
+class IPCError : public std::runtime_error {
     using std::runtime_error::runtime_error;
 };
 
-class header_error : public ipc_error {
+class HeaderError : public IPCError {
   public:
-    header_error(const size_t read, const size_t expected);
-    header_error(const std::string &msg);
+    HeaderError(const size_t read, const size_t expected);
+    HeaderError(const std::string &msg);
 };
 
-class eof_error : public ipc_error {
+class EOFError : public IPCError {
   public:
-    eof_error(const size_t read, const size_t expected);
+    EOFError(const size_t read, const size_t expected);
 };
 
-class no_msg_error : public ipc_error {
+class NoMsgError : public IPCError {
   public:
-    no_msg_error();
+    NoMsgError();
 };
 
-class reply_error : public ipc_error {
+class ReplyError : public IPCError {
   public:
-    reply_error(const int expected, const int got);
+    ReplyError(const int expected, const int got);
 };
 
-class result_failure_error : public ipc_error {
+class ResultFailureError : public IPCError {
   public:
-    result_failure_error(const std::string &reason);
+    ResultFailureError(const std::string &reason);
 };
 
-class errno_error : public ipc_error {
+class ErrnoError : public IPCError {
   public:
-    errno_error();
-    errno_error(const std::string &msg);
+    ErrnoError();
+    ErrnoError(const std::string &msg);
 };
 
 } // namespace dwmipc

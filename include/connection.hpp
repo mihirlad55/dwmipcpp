@@ -213,7 +213,7 @@ class Connection {
      *
      * @return A list of Monitor objects
      *
-     * @throw result_failure_error if DWM sends an error reply.
+     * @throw ResultFailureError if DWM sends an error reply.
      */
     std::shared_ptr<std::vector<Monitor>> get_monitors() const;
 
@@ -222,7 +222,7 @@ class Connection {
      *
      * @return A list of Tag objects
      *
-     * @throw result_failure_error if DWM sends an error reply.
+     * @throw ResultFailureError if DWM sends an error reply.
      */
     std::shared_ptr<std::vector<Tag>> get_tags() const;
 
@@ -231,7 +231,7 @@ class Connection {
      *
      * @return A list of Layout objects
      *
-     * @throw result_failure_error if DWM sends an error reply.
+     * @throw ResultFailureError if DWM sends an error reply.
      */
     std::shared_ptr<std::vector<Layout>> get_layouts() const;
 
@@ -242,7 +242,7 @@ class Connection {
      *
      * @return A Client object
      *
-     * @throw result_failure_error if DWM sends an error reply.
+     * @throw ResultFailureError if DWM sends an error reply.
      */
     std::shared_ptr<Client> get_client(Window win_id) const;
 
@@ -254,7 +254,7 @@ class Connection {
      *
      * @param ev The event to subscribe to
      *
-     * @throw result_failure_error if DWM sends an error reply.
+     * @throw ResultFailureError if DWM sends an error reply.
      */
     void subscribe(const Event ev);
 
@@ -271,8 +271,8 @@ class Connection {
     /**
      * Try to read any received event messages and call event handlers.
      *
-     * @throw no_msg_error if no messages were recieved
-     * @throw ipc_error if invalid message type received
+     * @throw NoMsgError if no messages were recieved
+     * @throw IPCError if invalid message type received
      */
     void handle_event() const;
 
@@ -283,7 +283,7 @@ class Connection {
      * @param args Arguments for the command. The arguments must be either a
      *   string, bool, or number.
      *
-     * @throw result_failure_error if the command doesn't exist, the number of
+     * @throw ResultFailureError if the command doesn't exist, the number of
      *   arguments are incorrect, the argument types are incorrect, or any other
      *   error reply from DWM.
      */
@@ -358,7 +358,7 @@ class Connection {
      *
      * @return The file descriptor of the socket
      *
-     * @throw ipc_error if failed to connect to socket
+     * @throw IPCError if failed to connect to socket
      */
     static int connect(const std::string &socket_path);
 
@@ -372,7 +372,7 @@ class Connection {
      *
      * @param packet The packet to send
      *
-     * @throw reply_error if invalid reply received. This could be caused by
+     * @throw ReplyError if invalid reply received. This could be caused by
      *   receiving an event message when expecting a reply to the newly sent
      *   message.
      */
@@ -383,9 +383,9 @@ class Connection {
      *
      * @return A received packet from DWM
      *
-     * @throw no_msg_error if no messages were received
-     * @throw header_error if packet with invalid header received
-     * @throw eof_error if unexpected EOF while reading message
+     * @throw NoMsgError if no messages were received
+     * @throw HeaderError if packet with invalid header received
+     * @throw EOFError if unexpected EOF while reading message
      */
     std::shared_ptr<Packet> recv_message() const;
 
@@ -397,7 +397,7 @@ class Connection {
      *
      * @return The reply packet from DWM
      *
-     * @throw reply_error if reply message type doesn't match sent message type
+     * @throw ReplyError if reply message type doesn't match sent message type
      */
     std::shared_ptr<Packet> dwm_msg(const MessageType type,
                                     const std::string &msg) const;
@@ -409,7 +409,7 @@ class Connection {
      *
      * @return The reply packet from DWM
      *
-     * @throw reply_error if reply message type doesn't match sent message type
+     * @throw ReplyError if reply message type doesn't match sent message type
      */
     std::shared_ptr<Packet> dwm_msg(const MessageType type) const;
 
@@ -419,7 +419,7 @@ class Connection {
      * @param ev The event to subscribe/unsubcribe to
      * @param sub true to subscribe, false to unsubscribe
      *
-     * @throw result_failure_error if DWM sends an error reply.
+     * @throw ResultFailureError if DWM sends an error reply.
      */
     void subscribe(const Event ev, const bool sub);
 
