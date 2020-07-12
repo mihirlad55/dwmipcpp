@@ -1,0 +1,28 @@
+var structdwmipc_1_1Client =
+[
+    [ "aspect_ratio", "structdwmipc_1_1Client.html#acd733de31faa8ba7fda67c82e37f4acf", null ],
+    [ "base", "structdwmipc_1_1Client.html#ab7a2fbb3faed30e5105d46d0f0863ad2", null ],
+    [ "border", "structdwmipc_1_1Client.html#a68328be82811748a1ca936244e2758d4", null ],
+    [ "cur", "structdwmipc_1_1Client.html#ab0f2ede83d28bb69fd3ee27e2850e720", null ],
+    [ "cur_width", "structdwmipc_1_1Client.html#a940c689f3b3a462ad9ccb379daf2f7f8", null ],
+    [ "geom", "structdwmipc_1_1Client.html#a081bd4e7c83f54b2b59ded6c87838304", null ],
+    [ "increment", "structdwmipc_1_1Client.html#aa4eaf669c979f714643f6b1daf128070", null ],
+    [ "is_fixed", "structdwmipc_1_1Client.html#af76b85f3f9a864a1149730e3d8465816", null ],
+    [ "is_floating", "structdwmipc_1_1Client.html#ad171dc85fbb7f2f88e0d8388363a86e5", null ],
+    [ "is_fullscreen", "structdwmipc_1_1Client.html#a6dd3192fdc5cc4a21e3eaa7d7c721edb", null ],
+    [ "is_urgent", "structdwmipc_1_1Client.html#af7f62b4c101b26822e00711cf6e24ad6", null ],
+    [ "max", "structdwmipc_1_1Client.html#ad6d7f27a3bf3eb452ef1b78a6ea367b2", null ],
+    [ "max", "structdwmipc_1_1Client.html#aa43a5407a80eb43a5fa524890ea54dfc", null ],
+    [ "min", "structdwmipc_1_1Client.html#ad5e731cd7296a0521a19bf041dba57f3", null ],
+    [ "min", "structdwmipc_1_1Client.html#acd7ad666bd10a6e40b010cce01e6e5b7", null ],
+    [ "monitor_num", "structdwmipc_1_1Client.html#a878354bfe17c10c51bc2545098a3bdf3", null ],
+    [ "name", "structdwmipc_1_1Client.html#a047ca37d9ce7ff35a82cc338f80e9f14", null ],
+    [ "never_focus", "structdwmipc_1_1Client.html#a49b655f14df5fde6f46a1ba5616116ae", null ],
+    [ "old", "structdwmipc_1_1Client.html#a719a53d15f49d67ada4435c4fbbe98a2", null ],
+    [ "old_state", "structdwmipc_1_1Client.html#acfb4ce2542be3405d25fc5f84cc43f31", null ],
+    [ "old_width", "structdwmipc_1_1Client.html#ab5440be6e5551aecede46038a7275f53", null ],
+    [ "size_hints", "structdwmipc_1_1Client.html#ab4b9f6e325d2de604705c4e9f342b7c2", null ],
+    [ "states", "structdwmipc_1_1Client.html#a32cd7be40a249187bec0b07f31374d0a", null ],
+    [ "tags", "structdwmipc_1_1Client.html#a785b46cecddac928a9eb563000bbb162", null ],
+    [ "window_id", "structdwmipc_1_1Client.html#adbf88d8942bafebd510e3a196f725d4c", null ]
+];
