@@ -194,33 +194,34 @@ std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() {
     for (Json::Value v_mon : root) {
         Monitor mon;
 
-        mon.layout_symbol = v_mon["layout_symbol"].asString();
-        mon.old_layout_address = v_mon["layout"]["old_address"].asUInt();
-        mon.layout_address = v_mon["layout"]["current_address"].asUInt();
-        mon.mfact = v_mon["mfact"].asFloat();
-        mon.nmaster = v_mon["nmaster"].asInt();
+        mon.layout.symbol.cur = v_mon["layout_symbol"].asString();
+        mon.layout.symbol.old = v_mon["old_layout_symbol"].asString();
+        mon.layout.address.old = v_mon["layout"]["old_address"].asUInt64();
+        mon.layout.address.cur = v_mon["layout"]["current_address"].asUInt64();
+        mon.master_factor = v_mon["mfact"].asFloat();
+        mon.num_master = v_mon["nmaster"].asInt();
         mon.num = v_mon["num"].asInt();
-        mon.bar_y = v_mon["bar_y"].asInt();
-        mon.mx = v_mon["screen"]["x"].asInt();
-        mon.mx = v_mon["screen"]["y"].asInt();
-        mon.mw = v_mon["screen"]["width"].asInt();
-        mon.mh = v_mon["screen"]["height"].asInt();
-        mon.wx = v_mon["screen"]["x"].asInt();
-        mon.wx = v_mon["screen"]["y"].asInt();
-        mon.ww = v_mon["screen"]["width"].asInt();
-        mon.wh = v_mon["screen"]["height"].asInt();
-        mon.tagset = v_mon["tag_set"]["old"].asUInt();
-        mon.old_tagset = v_mon["tag_set"]["new"].asUInt();
-        mon.show_bar = v_mon["show_bar"].asBool();
-        mon.top_bar = v_mon["top_bar"].asBool();
-        mon.win_sel = v_mon["selected_client"].asUInt();
-        mon.win_bar = v_mon["bar_window_id"].asUInt();
+        mon.bar.y = v_mon["bar_y"].asInt();
+        mon.monitor_geom.x = v_mon["screen"]["x"].asInt();
+        mon.monitor_geom.y = v_mon["screen"]["y"].asInt();
+        mon.monitor_geom.width = v_mon["screen"]["width"].asInt();
+        mon.monitor_geom.height = v_mon["screen"]["height"].asInt();
+        mon.window_geom.x = v_mon["window"]["x"].asInt();
+        mon.window_geom.y = v_mon["window"]["y"].asInt();
+        mon.window_geom.width = v_mon["window"]["width"].asInt();
+        mon.window_geom.height = v_mon["window"]["height"].asInt();
+        mon.tagset.old = v_mon["tag_set"]["old"].asUInt();
+        mon.tagset.cur = v_mon["tag_set"]["current"].asUInt();
+        mon.bar.is_shown = v_mon["show_bar"].asBool();
+        mon.bar.is_top = v_mon["top_bar"].asBool();
+        mon.bar.window_id = v_mon["bar_window_id"].asUInt();
+        mon.clients.selected = v_mon["selected_client"].asUInt();
 
         for (Json::Value v : v_mon["clients"])
-            mon.win_clients.push_back(v.asUInt());
+            mon.clients.all.push_back(v.asUInt());
 
         for (Json::Value v : v_mon["stack"])
-            mon.win_clients.push_back(v.asUInt());
+            mon.clients.stack.push_back(v.asUInt());
 
         monitors->push_back(mon);
     }
@@ -270,33 +271,35 @@ std::shared_ptr<Client> Connection::get_client(Window win_id) {
     auto client = std::make_shared<Client>();
 
     client->name = root["name"].asString();
-    client->mina = root["mina"].asInt();
-    client->maxa = root["maxa"].asInt();
     client->tags = root["tags"].asUInt();
-    client->x = root["size"]["current"]["x"].asInt();
-    client->y = root["size"]["current"]["y"].asInt();
-    client->w = root["size"]["current"]["width"].asInt();
-    client->h = root["size"]["current"]["height"].asInt();
-    client->oldx = root["size"]["old"]["x"].asInt();
-    client->oldy = root["size"]["old"]["y"].asInt();
-    client->oldw = root["size"]["old"]["width"].asInt();
-    client->oldh = root["size"]["old"]["height"].asInt();
-    client->basew = root["size_hints"]["base_width"].asInt();
-    client->baseh = root["size_hints"]["base_height"].asInt();
-    client->incw = root["size_hints"]["increase_width"].asInt();
-    client->inch = root["size_hints"]["increase_height"].asInt();
-    client->maxw = root["size_hints"]["max_width"].asInt();
-    client->maxh = root["size_hints"]["max_height"].asInt();
-    client->minw = root["size_hints"]["min_width"].asInt();
-    client->minh = root["size_hints"]["min_height"].asInt();
-    client->bw = root["border"]["current_width"].asInt();
-    client->oldbw = root["border"]["old_width"].asInt();
-    client->isfixed = root["states"]["is_fixed"].asBool();
-    client->isfloating = root["states"]["is_floating"].asBool();
-    client->isurgent = root["states"]["is_urgent"].asBool();
-    client->isfullscreen = root["states"]["is_fullscreen"].asBool();
-    client->neverfocus = root["states"]["never_focus"].asBool();
-    client->oldstate = root["states"]["old_state"].asBool();
+    client->geom.cur.x = root["size"]["current"]["x"].asInt();
+    client->geom.cur.y = root["size"]["current"]["y"].asInt();
+    client->geom.cur.width = root["size"]["current"]["width"].asInt();
+    client->geom.cur.height = root["size"]["current"]["height"].asInt();
+    client->geom.old.x = root["size"]["old"]["x"].asInt();
+    client->geom.old.y = root["size"]["old"]["y"].asInt();
+    client->geom.old.width = root["size"]["old"]["width"].asInt();
+    client->geom.old.height = root["size"]["old"]["height"].asInt();
+    client->size_hints.aspect_ratio.min = root["mina"].asInt();
+    client->size_hints.aspect_ratio.max = root["maxa"].asInt();
+    client->size_hints.base.width = root["size_hints"]["base_width"].asInt();
+    client->size_hints.base.height = root["size_hints"]["base_height"].asInt();
+    client->size_hints.increment.width =
+        root["size_hints"]["increase_width"].asInt();
+    client->size_hints.increment.height =
+        root["size_hints"]["increase_height"].asInt();
+    client->size_hints.max.width = root["size_hints"]["max_width"].asInt();
+    client->size_hints.max.height = root["size_hints"]["max_height"].asInt();
+    client->size_hints.min.width = root["size_hints"]["min_width"].asInt();
+    client->size_hints.min.height = root["size_hints"]["min_height"].asInt();
+    client->border.cur_width = root["border"]["current_width"].asInt();
+    client->border.old_width = root["border"]["old_width"].asInt();
+    client->states.is_fixed = root["states"]["is_fixed"].asBool();
+    client->states.is_floating = root["states"]["is_floating"].asBool();
+    client->states.is_urgent = root["states"]["is_urgent"].asBool();
+    client->states.is_fullscreen = root["states"]["is_fullscreen"].asBool();
+    client->states.never_focus = root["states"]["never_focus"].asBool();
+    client->states.old_state = root["states"]["old_state"].asBool();
 
     return client;
 }

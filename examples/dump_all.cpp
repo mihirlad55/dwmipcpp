@@ -3,38 +3,39 @@
 #include "../include/connection.hpp"
 
 void dump_monitor(const std::shared_ptr<dwmipc::Monitor> &m) {
-    std::cout << "layout_symbol: " << m->layout_symbol << std::endl;
-    std::cout << "mfact: " << m->mfact << std::endl;
-    std::cout << "nmaster: " << m->nmaster << std::endl;
+    std::cout << "layout_symbol: " << m->layout.symbol.cur << std::endl;
+    std::cout << "old_layout_symbol: " << m->layout.symbol.old << std::endl;
+    std::cout << "mfact: " << m->master_factor << std::endl;
+    std::cout << "nmaster: " << m->num_master << std::endl;
     std::cout << "num: " << m->num << std::endl;
-    std::cout << "bar_y: " << m->bar_y << std::endl;
-    std::cout << "show_bar: " << m->show_bar << std::endl;
-    std::cout << "top_bar: " << m->top_bar << std::endl;
-    std::cout << "bar_window_id: " << m->win_bar << std::endl;
-    std::cout << "screen:" << std::endl;
-    std::cout << "  x: " << m->mx << std::endl;
-    std::cout << "  y: " << m->my << std::endl;
-    std::cout << "  width: " << m->mw << std::endl;
-    std::cout << "  height: " << m->mh << std::endl;
+    std::cout << "bar_y: " << m->bar.y << std::endl;
+    std::cout << "show_bar: " << m->bar.is_shown << std::endl;
+    std::cout << "top_bar: " << m->bar.is_top << std::endl;
+    std::cout << "bar_window_id: " << m->bar.window_id << std::endl;
+    std::cout << "monitor:" << std::endl;
+    std::cout << "  x: " << m->monitor_geom.x << std::endl;
+    std::cout << "  y: " << m->monitor_geom.y << std::endl;
+    std::cout << "  width: " << m->monitor_geom.width << std::endl;
+    std::cout << "  height: " << m->monitor_geom.height << std::endl;
     std::cout << "window:" << std::endl;
-    std::cout << "  x: " << m->wx << std::endl;
-    std::cout << "  y: " << m->wy << std::endl;
-    std::cout << "  width: " << m->ww << std::endl;
-    std::cout << "  height: " << m->wh << std::endl;
+    std::cout << "  x: " << m->window_geom.x << std::endl;
+    std::cout << "  y: " << m->window_geom.y << std::endl;
+    std::cout << "  width: " << m->window_geom.width << std::endl;
+    std::cout << "  height: " << m->window_geom.height << std::endl;
     std::cout << "tag_set:" << std::endl;
-    std::cout << "  old: " << m->old_tagset << std::endl;
-    std::cout << "  current: " << m->tagset << std::endl;
+    std::cout << "  old: " << m->tagset.old << std::endl;
+    std::cout << "  current: " << m->tagset.cur << std::endl;
     std::cout << "layout:" << std::endl;
-    std::cout << "  old: " << m->old_layout << std::endl;
-    std::cout << "  current: " << m->current_layout << std::endl;
-    std::cout << "selected_client: " << m->win_sel << std::endl;
+    std::cout << "  old: " << m->layout.address.old << std::endl;
+    std::cout << "  current: " << m->layout.address.cur << std::endl;
+    std::cout << "selected_client: " << m->clients.selected << std::endl;
 
     std::cout << "stack:" << std::endl;
-    for (auto c : m->win_stack)
+    for (auto c : m->clients.stack)
         std::cout << "  " << c << std::endl;
 
     std::cout << "clients:" << std::endl;
-    for (auto c : m->win_clients)
+    for (auto c : m->clients.all)
         std::cout << "  " << c << std::endl;
 }
 
@@ -50,40 +51,41 @@ void dump_layout(const std::shared_ptr<dwmipc::Layout> &layout) {
 
 void dump_client(const std::shared_ptr<dwmipc::Client> &c) {
     std::cout << "name: " << c->name << std::endl;
-    std::cout << "maxa: " << c->maxa << std::endl;
     std::cout << "tags: " << c->tags << std::endl;
-    std::cout << "window_id: " << c->win << std::endl;
+    std::cout << "window_id: " << c->window_id << std::endl;
     std::cout << "monitor_number: " << c->monitor_num << std::endl;
     std::cout << "size:" << std::endl;
     std::cout << "  current:" << std::endl;
-    std::cout << "    x: " << c->x << std::endl;
-    std::cout << "    y: " << c->y << std::endl;
-    std::cout << "    width: " << c->w << std::endl;
-    std::cout << "    height: " << c->h << std::endl;
+    std::cout << "    x: " << c->geom.cur.x << std::endl;
+    std::cout << "    y: " << c->geom.cur.y << std::endl;
+    std::cout << "    width: " << c->geom.cur.width << std::endl;
+    std::cout << "    height: " << c->geom.cur.height << std::endl;
     std::cout << "  old " << std::endl;
-    std::cout << "    x: " << c->oldx << std::endl;
-    std::cout << "    y: " << c->oldy << std::endl;
-    std::cout << "    width: " << c->oldw << std::endl;
-    std::cout << "    height: " << c->oldh << std::endl;
+    std::cout << "    x: " << c->geom.old.x << std::endl;
+    std::cout << "    y: " << c->geom.old.y << std::endl;
+    std::cout << "    width: " << c->geom.old.width << std::endl;
+    std::cout << "    height: " << c->geom.old.height << std::endl;
     std::cout << "size_hints:" << std::endl;
-    std::cout << "  base_width: " << c->basew << std::endl;
-    std::cout << "  base_height: " << c->baseh << std::endl;
-    std::cout << "  increase_width: " << c->incw << std::endl;
-    std::cout << "  increase_height: " << c->inch << std::endl;
-    std::cout << "  max_width: " << c->maxw << std::endl;
-    std::cout << "  max_height: " << c->maxh << std::endl;
-    std::cout << "  min_width: " << c->minw << std::endl;
-    std::cout << "  min_height: " << c->minh << std::endl;
+    std::cout << "  base_width: " << c->size_hints.base.width << std::endl;
+    std::cout << "  base_height: " << c->size_hints.base.height << std::endl;
+    std::cout << "  increase_width: " << c->size_hints.increment.width << std::endl;
+    std::cout << "  increase_height: " << c->size_hints.increment.height << std::endl;
+    std::cout << "  max_width: " << c->size_hints.max.width << std::endl;
+    std::cout << "  max_height: " << c->size_hints.max.height << std::endl;
+    std::cout << "  min_width: " << c->size_hints.min.width << std::endl;
+    std::cout << "  min_height: " << c->size_hints.min.height << std::endl;
+    std::cout << "  maxa: " << c->size_hints.aspect_ratio.max << std::endl;
+    std::cout << "  mina: " << c->size_hints.aspect_ratio.min << std::endl;
     std::cout << "border:" << std::endl;
-    std::cout << "  current_width: " << c->bw << std::endl;
-    std::cout << "  old_width: " << c->oldbw << std::endl;
+    std::cout << "  current_width: " << c->border.cur_width << std::endl;
+    std::cout << "  old_width: " << c->border.old_width << std::endl;
     std::cout << "states:" << std::endl;
-    std::cout << "  is_fixed: " << c->isfixed << std::endl;
-    std::cout << "  is_floating: " << c->isfloating << std::endl;
-    std::cout << "  is_urgent: " << c->isurgent << std::endl;
-    std::cout << "  is_fullscreen: " << c->isfullscreen << std::endl;
-    std::cout << "  never_focus: " << c->neverfocus << std::endl;
-    std::cout << "  old_state: " << c->oldstate << std::endl;
+    std::cout << "  is_fixed: " << c->states.is_fixed << std::endl;
+    std::cout << "  is_floating: " << c->states.is_floating << std::endl;
+    std::cout << "  is_urgent: " << c->states.is_urgent << std::endl;
+    std::cout << "  is_fullscreen: " << c->states.is_fullscreen << std::endl;
+    std::cout << "  never_focus: " << c->states.never_focus << std::endl;
+    std::cout << "  old_state: " << c->states.old_state << std::endl;
 }
 
 int main() {
@@ -102,7 +104,7 @@ int main() {
     for (auto l: *layouts)
         dump_layout(std::make_shared<dwmipc::Layout>(l));
 
-    auto c = connection.get_client((*monitors)[0].win_sel);
+    auto c = connection.get_client((*monitors)[0].clients.selected);
     dump_client(c);
 }
 

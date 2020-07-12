@@ -10,21 +10,88 @@
 #include "packet.hpp"
 
 namespace dwmipc {
-typedef unsigned long Window;
 struct Monitor;
 struct Client;
 
+typedef unsigned long Window;
+
+struct Geometry {
+    int x;
+    int y;
+    int width;
+    int height;
+};
+
+struct Size {
+    int width;
+    int height;
+};
+
+struct Monitor {
+    Geometry monitor_geom;
+    Geometry window_geom;
+    float master_factor;
+    int num_master;
+    int num;
+    struct {
+        unsigned int cur;
+        unsigned int old;
+    } tagset;
+    struct {
+        std::vector<Window> all;
+        std::vector<Window> stack;
+        Window selected;
+    } clients;
+    struct {
+        struct {
+            std::string cur;
+            std::string old;
+        } symbol;
+
+        struct {
+            uintptr_t cur;
+            uintptr_t old;
+        } address;
+    } layout;
+    struct {
+        int y;
+        bool is_shown;
+        bool is_top;
+        Window window_id;
+    } bar;
+};
+
 struct Client {
     std::string name;
-    float mina, maxa;
-    int x, y, w, h;
-    int oldx, oldy, oldw, oldh;
-    int basew, baseh, incw, inch, maxw, maxh, minw, minh;
-    int bw, oldbw;
-    unsigned int tags;
-    bool isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen;
+    Window window_id;
     int monitor_num;
-    Window win;
+    unsigned int tags;
+    struct {
+        int cur_width;
+        int old_width;
+    } border;
+    struct {
+        Geometry cur;
+        Geometry old;
+    } geom;
+    struct {
+        Size base;
+        Size increment;
+        Size max;
+        Size min;
+        struct {
+            float min;
+            float max;
+        } aspect_ratio;
+    } size_hints;
+    struct {
+        bool is_fixed;
+        bool is_floating;
+        bool is_urgent;
+        bool never_focus;
+        bool old_state;
+        bool is_fullscreen;
+    } states;
 };
 
 struct Layout {
@@ -41,26 +108,6 @@ struct TagState {
 struct Tag {
     unsigned int bit_mask;
     std::string tag_name;
-};
-
-struct Monitor {
-    std::string layout_symbol;
-    uintptr_t old_layout_address;
-    uintptr_t layout_address;
-    float mfact;
-    int nmaster;
-    int num;
-    int bar_y;          // bar geometry
-    int mx, my, mw, mh; // screen size
-    int wx, wy, ww, wh; // window area
-    unsigned int tagset;
-    unsigned int old_tagset;
-    bool show_bar;
-    bool top_bar;
-    std::vector<Window> win_clients;
-    std::vector<Window> win_stack;
-    Window win_sel;
-    Window win_bar;
 };
 
 struct TagChangeEvent {
