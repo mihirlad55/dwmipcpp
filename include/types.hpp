@@ -47,11 +47,11 @@ struct Size {
  * A DWM monitor
  */
 struct Monitor {
-    Geometry monitor_geom; ///< Monitor geometry
-    Geometry window_geom;  ///< Window area geometry
     float master_factor;   ///< Percentage of space master clients should occupy
     int num_master;        ///< Number of clients that should be masters
-    int num;               ///< Index of monitor (according to DWM)
+    unsigned int num;      ///< Index of monitor (according to DWM)
+    Geometry monitor_geom; ///< Monitor geometry
+    Geometry window_geom;  ///< Window area geometry
     struct {
         unsigned int cur; ///< Current tags in view, each bit is a tag
         unsigned int old; ///< Last tags in view, each bit is a tag
@@ -84,23 +84,23 @@ struct Monitor {
  * DWM client describing a window
  */
 struct Client {
-    std::string name;  ///< Name of window
-    Window window_id;  ///< Window XID
-    int monitor_num;   ///< Index of monitor that client belongs to
+    std::string name;         ///< Name of window
+    Window window_id;         ///< Window XID
+    unsigned int monitor_num; ///< Index of monitor that client belongs to
     unsigned int tags; ///< Tags the client belongs to represented by bits
     struct {
-        int cur_width; ///< Current border width
-        int old_width; ///< Border width before border width change
-    } border;          ///< Properties about border width
+        int cur;    ///< Current border width
+        int old;    ///< Border width before border width change
+    } border_width; ///< Properties about border width
     struct {
         Geometry cur; ///< Current window geometry
         Geometry old; ///< Window geometry before it was changed
     } geom;           ///< Window geometry
     struct {
-        Size base;      ///< Preferred window size
-        Size increment; ///< Preferred window size change increments
-        Size max;       ///< Preferred maximum window size
-        Size min;       ///< Preferred minimum window size
+        Size base; ///< Preferred window size
+        Size step; ///< Preferred window size change increments
+        Size max;  ///< Preferred maximum window size
+        Size min;  ///< Preferred minimum window size
         struct {
             float min;  ///< Preferred minimum aspect ratio
             float max;  ///< Preferred maximum aspect raito
@@ -161,8 +161,8 @@ struct TagChangeEvent {
  * Struct describing a selected_client_change_event
  */
 struct SelectedClientChangeEvent {
-    Window old_client_win;    ///< Window XID of the last selected client
-    Window new_client_win;    ///< Window XID of the currently selected client
+    Window old_win_id;        ///< Window XID of the last selected client
+    Window new_win_id;        ///< Window XID of the newly selected client
     unsigned int monitor_num; ///< Index of monitor that this event occured on
 };
 

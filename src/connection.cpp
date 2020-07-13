@@ -72,9 +72,10 @@ static void parse_tag_change_event(const Json::Value &root,
                                    TagChangeEvent &event) {
     const std::string ev_name = event_map.at(Event::TAG_CHANGE);
     auto v_event = root[ev_name];
-    auto v_old_state = v_event["old"];
-    auto v_new_state = v_event["new"];
+    auto v_old_state = v_event["old_state"];
+    auto v_new_state = v_event["new_state"];
 
+    event.monitor_num = v_event["monitor_number"].asUInt();
     event.old_state.selected = v_old_state["selected"].asUInt();
     event.old_state.occupied = v_old_state["occupied"].asUInt();
     event.old_state.urgent = v_old_state["urgent"].asUInt();
@@ -90,14 +91,12 @@ static void parse_layout_change_event(const Json::Value &root,
                                       LayoutChangeEvent &event) {
     const std::string ev_name = event_map.at(Event::LAYOUT_CHANGE);
     auto v_event = root[ev_name];
-    auto v_old = v_event["old"];
-    auto v_new = v_event["new"];
 
-    event.monitor_num = v_event["monitor_num"].asUInt();
-    event.old_symbol = v_old["symbol"].asString();
-    event.old_address = v_old["address"].asUInt64();
-    event.new_symbol = v_new["symbol"].asString();
-    event.new_address = v_new["address"].asUInt64();
+    event.monitor_num = v_event["monitor_number"].asUInt();
+    event.old_symbol = v_event["old_symbol"].asString();
+    event.old_address = v_event["old_address"].asUInt64();
+    event.new_symbol = v_event["new_symbol"].asString();
+    event.new_address = v_event["new_address"].asUInt64();
 }
 
 /**
@@ -110,8 +109,8 @@ parse_selected_client_change_event(const Json::Value &root,
     auto v_event = root[ev_name];
 
     event.monitor_num = v_event["monitor_number"].asUInt();
-    event.old_client_win = v_event["old"].asUInt();
-    event.new_client_win = v_event["new"].asUInt();
+    event.old_win_id = v_event["old_win_id"].asUInt();
+    event.new_win_id = v_event["new_win_id"].asUInt();
 }
 
 int Connection::connect(const std::string &socket_path) {
@@ -222,34 +221,49 @@ std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() const {
     for (Json::Value v_mon : root) {
         Monitor mon;
 
-        mon.layout.symbol.cur = v_mon["layout_symbol"].asString();
-        mon.layout.symbol.old = v_mon["old_layout_symbol"].asString();
-        mon.layout.address.old = v_mon["layout"]["old_address"].asUInt64();
-        mon.layout.address.cur = v_mon["layout"]["current_address"].asUInt64();
-        mon.master_factor = v_mon["mfact"].asFloat();
-        mon.num_master = v_mon["nmaster"].asInt();
-        mon.num = v_mon["num"].asInt();
-        mon.bar.y = v_mon["bar_y"].asInt();
-        mon.monitor_geom.x = v_mon["screen"]["x"].asInt();
-        mon.monitor_geom.y = v_mon["screen"]["y"].asInt();
-        mon.monitor_geom.width = v_mon["screen"]["width"].asInt();
-        mon.monitor_geom.height = v_mon["screen"]["height"].asInt();
-        mon.window_geom.x = v_mon["window"]["x"].asInt();
-        mon.window_geom.y = v_mon["window"]["y"].asInt();
-        mon.window_geom.width = v_mon["window"]["width"].asInt();
-        mon.window_geom.height = v_mon["window"]["height"].asInt();
-        mon.tagset.old = v_mon["tag_set"]["old"].asUInt();
-        mon.tagset.cur = v_mon["tag_set"]["current"].asUInt();
-        mon.bar.is_shown = v_mon["show_bar"].asBool();
-        mon.bar.is_top = v_mon["top_bar"].asBool();
-        mon.bar.window_id = v_mon["bar_window_id"].asUInt();
-        mon.clients.selected = v_mon["selected_client"].asUInt();
+        mon.master_factor = v_mon["master_factor"].asFloat();
+        mon.num_master = v_mon["num_master"].asInt();
+        mon.num = v_mon["num"].asUInt();
 
-        for (Json::Value v : v_mon["clients"])
-            mon.clients.all.push_back(v.asUInt());
+        auto v_monitor_geom = v_mon["monitor_geometry"];
+        mon.monitor_geom.x = v_monitor_geom["x"].asInt();
+        mon.monitor_geom.y = v_monitor_geom["y"].asInt();
+        mon.monitor_geom.width = v_monitor_geom["width"].asInt();
+        mon.monitor_geom.height = v_monitor_geom["height"].asInt();
 
-        for (Json::Value v : v_mon["stack"])
+        auto v_window_geom = v_mon["window_geometry"];
+        mon.window_geom.x = v_window_geom["x"].asInt();
+        mon.window_geom.y = v_window_geom["y"].asInt();
+        mon.window_geom.width = v_window_geom["width"].asInt();
+        mon.window_geom.height = v_window_geom["height"].asInt();
+
+        auto v_layout = v_mon["layout"];
+        auto v_symbol = v_layout["symbol"];
+        mon.layout.symbol.cur = v_symbol["current"].asString();
+        mon.layout.symbol.old = v_symbol["old"].asString();
+
+        auto v_address = v_layout["address"];
+        mon.layout.address.cur = v_address["current"].asUInt64();
+        mon.layout.address.old = v_address["old"].asUInt64();
+
+        auto v_bar = v_mon["bar"];
+        mon.bar.y = v_bar["y"].asInt();
+        mon.bar.is_shown = v_bar["is_shown"].asBool();
+        mon.bar.is_top = v_bar["is_top"].asBool();
+        mon.bar.window_id = v_bar["window_id"].asUInt();
+
+        auto v_tagset = v_mon["tagset"];
+        mon.tagset.cur = v_tagset["current"].asUInt();
+        mon.tagset.old = v_tagset["old"].asUInt();
+
+        auto v_clients = v_mon["clients"];
+        mon.clients.selected = v_clients["selected"].asUInt();
+
+        for (Json::Value v : v_clients["stack"])
             mon.clients.stack.push_back(v.asUInt());
+
+        for (Json::Value v : v_clients["all"])
+            mon.clients.all.push_back(v.asUInt());
 
         monitors->push_back(mon);
     }
@@ -281,8 +295,8 @@ std::shared_ptr<std::vector<Layout>> Connection::get_layouts() const {
     for (Json::Value v_lt : root) {
         Layout lt;
 
-        lt.address = v_lt["layout_address"].asUInt64();
-        lt.symbol = v_lt["layout_symbol"].asString();
+        lt.symbol = v_lt["symbol"].asString();
+        lt.address = v_lt["address"].asUInt64();
 
         layouts->push_back(lt);
     }
@@ -301,34 +315,54 @@ std::shared_ptr<Client> Connection::get_client(Window win_id) const {
 
     client->name = root["name"].asString();
     client->tags = root["tags"].asUInt();
-    client->geom.cur.x = root["size"]["current"]["x"].asInt();
-    client->geom.cur.y = root["size"]["current"]["y"].asInt();
-    client->geom.cur.width = root["size"]["current"]["width"].asInt();
-    client->geom.cur.height = root["size"]["current"]["height"].asInt();
-    client->geom.old.x = root["size"]["old"]["x"].asInt();
-    client->geom.old.y = root["size"]["old"]["y"].asInt();
-    client->geom.old.width = root["size"]["old"]["width"].asInt();
-    client->geom.old.height = root["size"]["old"]["height"].asInt();
-    client->size_hints.aspect_ratio.min = root["mina"].asInt();
-    client->size_hints.aspect_ratio.max = root["maxa"].asInt();
-    client->size_hints.base.width = root["size_hints"]["base_width"].asInt();
-    client->size_hints.base.height = root["size_hints"]["base_height"].asInt();
-    client->size_hints.increment.width =
-        root["size_hints"]["increase_width"].asInt();
-    client->size_hints.increment.height =
-        root["size_hints"]["increase_height"].asInt();
-    client->size_hints.max.width = root["size_hints"]["max_width"].asInt();
-    client->size_hints.max.height = root["size_hints"]["max_height"].asInt();
-    client->size_hints.min.width = root["size_hints"]["min_width"].asInt();
-    client->size_hints.min.height = root["size_hints"]["min_height"].asInt();
-    client->border.cur_width = root["border"]["current_width"].asInt();
-    client->border.old_width = root["border"]["old_width"].asInt();
-    client->states.is_fixed = root["states"]["is_fixed"].asBool();
-    client->states.is_floating = root["states"]["is_floating"].asBool();
-    client->states.is_urgent = root["states"]["is_urgent"].asBool();
-    client->states.is_fullscreen = root["states"]["is_fullscreen"].asBool();
-    client->states.never_focus = root["states"]["never_focus"].asBool();
-    client->states.old_state = root["states"]["old_state"].asBool();
+    client->window_id = root["window_id"].asUInt();
+    client->monitor_num = root["monitor_num"].asUInt();
+
+    auto v_geom = root["geometry"];
+    auto v_geom_cur = v_geom["current"];
+    client->geom.cur.x = v_geom_cur["x"].asInt();
+    client->geom.cur.y = v_geom_cur["y"].asInt();
+    client->geom.cur.width = v_geom_cur["width"].asInt();
+    client->geom.cur.height = v_geom_cur["height"].asInt();
+
+    auto v_geom_old = v_geom["old"];
+    client->geom.old.x = v_geom_old["x"].asInt();
+    client->geom.old.y = v_geom_old["y"].asInt();
+    client->geom.old.width = v_geom_old["width"].asInt();
+    client->geom.old.height = v_geom_old["height"].asInt();
+
+    auto v_size_hints = root["size_hints"];
+    auto v_base = v_size_hints["base"];
+    client->size_hints.base.width = v_base["width"].asInt();
+    client->size_hints.base.height = v_base["height"].asInt();
+
+    auto v_step = v_size_hints["step"];
+    client->size_hints.step.width = v_step["width"].asInt();
+    client->size_hints.step.height = v_step["height"].asInt();
+
+    auto v_max = v_size_hints["max"];
+    client->size_hints.max.width = v_max["width"].asInt();
+    client->size_hints.max.height = v_max["height"].asInt();
+
+    auto v_min = v_size_hints["min"];
+    client->size_hints.min.width = v_min["width"].asInt();
+    client->size_hints.min.height = v_min["height"].asInt();
+
+    auto v_aspect_ratio = v_size_hints["aspect_ratio"];
+    client->size_hints.aspect_ratio.min = v_aspect_ratio["min"].asInt();
+    client->size_hints.aspect_ratio.max = v_aspect_ratio["max"].asInt();
+
+    auto v_border_width = root["border_width"];
+    client->border_width.cur = v_border_width["current"].asInt();
+    client->border_width.old = v_border_width["old"].asInt();
+
+    auto v_states = root["states"];
+    client->states.is_fixed = v_states["is_fixed"].asBool();
+    client->states.is_floating = v_states["is_floating"].asBool();
+    client->states.is_urgent = v_states["is_urgent"].asBool();
+    client->states.is_fullscreen = v_states["is_fullscreen"].asBool();
+    client->states.never_focus = v_states["never_focus"].asBool();
+    client->states.old_state = v_states["old_state"].asBool();
 
     return client;
 }
