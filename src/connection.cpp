@@ -70,7 +70,7 @@ static void pre_parse_reply(Json::Value &root,
  */
 static void parse_tag_change_event(const Json::Value &root,
                                    TagChangeEvent &event) {
-    const std::string ev_name = event_map.at(EVENT_TAG_CHANGE);
+    const std::string ev_name = event_map.at(Event::TAG_CHANGE);
     auto v_event = root[ev_name];
     auto v_old_state = v_event["old"];
     auto v_new_state = v_event["new"];
@@ -88,7 +88,7 @@ static void parse_tag_change_event(const Json::Value &root,
  */
 static void parse_layout_change_event(const Json::Value &root,
                                       LayoutChangeEvent &event) {
-    const std::string ev_name = event_map.at(EVENT_LAYOUT_CHANGE);
+    const std::string ev_name = event_map.at(Event::LAYOUT_CHANGE);
     auto v_event = root[ev_name];
     auto v_old = v_event["old"];
     auto v_new = v_event["new"];
@@ -106,7 +106,7 @@ static void parse_layout_change_event(const Json::Value &root,
 static void
 parse_selected_client_change_event(const Json::Value &root,
                                    SelectedClientChangeEvent &event) {
-    const std::string ev_name = event_map.at(EVENT_SELECTED_CLIENT_CHANGE);
+    const std::string ev_name = event_map.at(Event::SELECTED_CLIENT_CHANGE);
     auto v_event = root[ev_name];
 
     event.monitor_num = v_event["monitor_number"].asUInt();
@@ -214,7 +214,7 @@ std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type) const {
 }
 
 std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() const {
-    auto reply = dwm_msg(MESSAGE_TYPE_GET_MONITORS);
+    auto reply = dwm_msg(MessageType::GET_MONITORS);
     Json::Value root;
     pre_parse_reply(root, reply);
     auto monitors = std::make_shared<std::vector<Monitor>>();
@@ -257,7 +257,7 @@ std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() const {
 }
 
 std::shared_ptr<std::vector<Tag>> Connection::get_tags() const {
-    auto reply = dwm_msg(MESSAGE_TYPE_GET_TAGS);
+    auto reply = dwm_msg(MessageType::GET_TAGS);
     Json::Value root;
     pre_parse_reply(root, reply);
     auto tags = std::make_shared<std::vector<Tag>>();
@@ -273,7 +273,7 @@ std::shared_ptr<std::vector<Tag>> Connection::get_tags() const {
 }
 
 std::shared_ptr<std::vector<Layout>> Connection::get_layouts() const {
-    auto reply = dwm_msg(MESSAGE_TYPE_GET_LAYOUTS);
+    auto reply = dwm_msg(MessageType::GET_LAYOUTS);
     Json::Value root;
     pre_parse_reply(root, reply);
     auto layouts = std::make_shared<std::vector<Layout>>();
@@ -294,7 +294,7 @@ std::shared_ptr<Client> Connection::get_client(Window win_id) const {
     // Format: { "client_window_id": <window id> }
     const std::string msg =
         "{\"client_window_id\":" + std::to_string(win_id) + "}";
-    auto reply = dwm_msg(MESSAGE_TYPE_GET_DWM_CLIENT, msg);
+    auto reply = dwm_msg(MessageType::GET_DWM_CLIENT, msg);
     Json::Value root;
     pre_parse_reply(root, reply);
     auto client = std::make_shared<Client>();
@@ -346,7 +346,7 @@ void Connection::subscribe(const Event ev, const bool sub) {
     root["action"] = (sub ? "subscribe" : "unsubscribe");
 
     const std::string msg = Json::writeString(builder, root);
-    auto reply = dwm_msg(MESSAGE_TYPE_SUBSCRIBE, msg);
+    auto reply = dwm_msg(MessageType::SUBSCRIBE, msg);
 
     // Throws error on failure result, we don't care about success result
     Json::Value dummy;
@@ -355,39 +355,39 @@ void Connection::subscribe(const Event ev, const bool sub) {
 
 void Connection::subscribe(const Event ev) {
     subscribe(ev, true);
-    this->subscriptions |= ev;
+    this->subscriptions |= static_cast<uint8_t>(ev);
 }
 
 void Connection::unsubscribe(const Event ev) {
     subscribe(ev, false);
-    if (this->subscriptions & ev)
-        this->subscriptions -= ev;
+    if (this->subscriptions & static_cast<uint8_t>(ev))
+        this->subscriptions -= static_cast<uint8_t>(ev);
 }
 
 void Connection::handle_event() const {
     auto reply = recv_message();
-    if (reply->header->type != MESSAGE_TYPE_EVENT)
+    if (reply->header->type != static_cast<uint8_t>(MessageType::EVENT))
         throw IPCError("Invalid message type received");
 
     Json::Value root;
     pre_parse_reply(root, reply);
 
     // First key of JSON will be event name
-    if (root.get(event_map.at(EVENT_TAG_CHANGE), Json::nullValue) !=
+    if (root.get(event_map.at(Event::TAG_CHANGE), Json::nullValue) !=
         Json::nullValue) {
         if (on_tag_change) {
             TagChangeEvent event;
             parse_tag_change_event(root, event);
             on_tag_change(event);
         }
-    } else if (root.get(event_map.at(EVENT_LAYOUT_CHANGE), Json::nullValue) !=
+    } else if (root.get(event_map.at(Event::LAYOUT_CHANGE), Json::nullValue) !=
                Json::nullValue) {
         if (on_layout_change) {
             LayoutChangeEvent event;
             parse_layout_change_event(root, event);
             on_layout_change(event);
         }
-    } else if (root.get(event_map.at(EVENT_SELECTED_CLIENT_CHANGE),
+    } else if (root.get(event_map.at(Event::SELECTED_CLIENT_CHANGE),
                         Json::nullValue) != Json::nullValue) {
         if (on_selected_client_change) {
             SelectedClientChangeEvent event;
@@ -411,7 +411,7 @@ void Connection::run_command(const std::string name,
     builder["indentation"] = "";
     const std::string msg = Json::writeString(builder, root);
 
-    auto reply = dwm_msg(MESSAGE_TYPE_RUN_COMMAND, msg);
+    auto reply = dwm_msg(MessageType::RUN_COMMAND, msg);
 
     // Dummy value
     Json::Value dummy;

@@ -184,23 +184,23 @@ struct LayoutChangeEvent {
 /**
  * Enum of supported DWM message types
  */
-enum MessageType {
-    MESSAGE_TYPE_RUN_COMMAND = 0,
-    MESSAGE_TYPE_GET_MONITORS = 1,
-    MESSAGE_TYPE_GET_TAGS = 2,
-    MESSAGE_TYPE_GET_LAYOUTS = 3,
-    MESSAGE_TYPE_GET_DWM_CLIENT = 4,
-    MESSAGE_TYPE_SUBSCRIBE = 5,
-    MESSAGE_TYPE_EVENT = 6
+enum class MessageType : uint8_t {
+    RUN_COMMAND = 0,
+    GET_MONITORS = 1,
+    GET_TAGS = 2,
+    GET_LAYOUTS = 3,
+    GET_DWM_CLIENT = 4,
+    SUBSCRIBE = 5,
+    EVENT = 6
 };
 
 /**
  * IPC events that can be subscribed to. Each event value represents a bit.
  */
-enum Event : uint8_t {
-    EVENT_TAG_CHANGE = 1,
-    EVENT_SELECTED_CLIENT_CHANGE = 2,
-    EVENT_LAYOUT_CHANGE = 4
+enum class Event : uint8_t {
+    TAG_CHANGE = 1,
+    SELECTED_CLIENT_CHANGE = 2,
+    LAYOUT_CHANGE = 4
 };
 
 /**
