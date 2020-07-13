@@ -1,4 +1,6 @@
 # dwmipcpp
+![CI](https://github.com/mihirlad55/dwmipcpp/workflows/CI/badge.svg)
+
 dwmipcpp is a C++ client library for communicating with an IPC-patched dwm. This
 library requires that dwm have the IPC patch which can be found
 [here](https://github.com/mihirlad55/dwm-ipc). This library contains a very
