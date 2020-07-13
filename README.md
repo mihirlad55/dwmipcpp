@@ -9,7 +9,7 @@ It also supports subscribing to and listening for events.
 ## Requirements
 To build dwmipcpp, you will need:
 - `cmake (>= 3.0)` to build the library
-- `jsoncpp` for generating and parsing IPC messages
+- `jsoncpp (>= 1.7.2)` for generating and parsing IPC messages
 - C+11 compiler to compile the library
 
 
