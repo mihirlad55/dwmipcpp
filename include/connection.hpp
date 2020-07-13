@@ -111,6 +111,11 @@ class Connection {
      * @param args Arguments for the command. The arguments must be either a
      *   string, bool, or number.
      *
+     * @warning On particular versions of jsoncpp (i.e. 1.7.2), you may get
+     *   compilation errors about unambigous function overloads. To fix this,
+     *   you must cast the arguments to a Json type definition i.e.
+     *   Json::UInt64, Json::UInt.
+     *
      * @throw ResultFailureError if the command doesn't exist, the number of
      *   arguments are incorrect, the argument types are incorrect, or any other
      *   error reply from DWM.

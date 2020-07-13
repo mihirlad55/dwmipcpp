@@ -19,6 +19,6 @@ int main() {
     auto layouts = con.get_layouts();
     for (dwmipc::Layout lt : *layouts) {
         if (lt.symbol == "[M]")
-            con.run_command("setlayoutsafe", lt.address);
+            con.run_command("setlayoutsafe", (Json::UInt64)lt.address);
     }
 }

@@ -404,7 +404,7 @@ void Connection::run_command(const std::string name,
                              const Json::Value &arr) const {
     Json::Value root;
     root["command"] = name;
-    root["args"].copy(arr);
+    root["args"] = Json::Value(arr);
 
     Json::StreamWriterBuilder builder;
     // No need to waste bytes on pretty JSON
