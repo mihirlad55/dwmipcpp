@@ -63,6 +63,8 @@ static void pre_parse_reply(Json::Value &root,
     // function that checks for the existance of a key throws a Json::LogicError
     if (!root.isArray() && root.get("result", "") == "error")
         throw ResultFailureError(root["reason"].asString());
+
+    delete reader;
 }
 
 /**
