@@ -3,40 +3,48 @@
 #include "../include/connection.hpp"
 
 void dump_monitor(const std::shared_ptr<dwmipc::Monitor> &m) {
-    std::cout << "layout_symbol: " << m->layout.symbol.cur << std::endl;
-    std::cout << "old_layout_symbol: " << m->layout.symbol.old << std::endl;
-    std::cout << "mfact: " << m->master_factor << std::endl;
-    std::cout << "nmaster: " << m->num_master << std::endl;
+    std::cout << "master_factor: " << m->master_factor << std::endl;
+    std::cout << "num_master: " << m->num_master << std::endl;
     std::cout << "num: " << m->num << std::endl;
-    std::cout << "bar_y: " << m->bar.y << std::endl;
-    std::cout << "show_bar: " << m->bar.is_shown << std::endl;
-    std::cout << "top_bar: " << m->bar.is_top << std::endl;
-    std::cout << "bar_window_id: " << m->bar.window_id << std::endl;
-    std::cout << "monitor:" << std::endl;
+
+    std::cout << "monitor_geometry:" << std::endl;
     std::cout << "  x: " << m->monitor_geom.x << std::endl;
     std::cout << "  y: " << m->monitor_geom.y << std::endl;
     std::cout << "  width: " << m->monitor_geom.width << std::endl;
     std::cout << "  height: " << m->monitor_geom.height << std::endl;
-    std::cout << "window:" << std::endl;
+
+    std::cout << "window_geometry:" << std::endl;
     std::cout << "  x: " << m->window_geom.x << std::endl;
     std::cout << "  y: " << m->window_geom.y << std::endl;
     std::cout << "  width: " << m->window_geom.width << std::endl;
     std::cout << "  height: " << m->window_geom.height << std::endl;
-    std::cout << "tag_set:" << std::endl;
-    std::cout << "  old: " << m->tagset.old << std::endl;
-    std::cout << "  current: " << m->tagset.cur << std::endl;
-    std::cout << "layout:" << std::endl;
-    std::cout << "  old: " << m->layout.address.old << std::endl;
-    std::cout << "  current: " << m->layout.address.cur << std::endl;
-    std::cout << "selected_client: " << m->clients.selected << std::endl;
 
-    std::cout << "stack:" << std::endl;
-    for (auto c : m->clients.stack)
-        std::cout << "  " << c << std::endl;
+    std::cout << "tagset:" << std::endl;
+    std::cout << "  current: " << m->tagset.cur << std::endl;
+    std::cout << "  old: " << m->tagset.old << std::endl;
 
     std::cout << "clients:" << std::endl;
+    std::cout << "  selected: " << m->clients.selected << std::endl;
+    std::cout << "  stack:" << std::endl;
+    for (auto c : m->clients.stack)
+        std::cout << "  - " << c << std::endl;
+    std::cout << "  all:" << std::endl;
     for (auto c : m->clients.all)
-        std::cout << "  " << c << std::endl;
+        std::cout << "  - " << c << std::endl;
+
+    std::cout << "layout:" << std::endl;
+    std::cout << "  symbol:" << std::endl;
+    std::cout << "    current: " << m->layout.symbol.cur << std::endl;
+    std::cout << "    old: " << m->layout.symbol.old << std::endl;
+    std::cout << "  address:" << std::endl;
+    std::cout << "    current: " << m->layout.address.cur << std::endl;
+    std::cout << "    old: " << m->layout.address.old << std::endl;
+
+    std::cout << "bar:" << std::endl;
+    std::cout << "  y: " << m->bar.y << std::endl;
+    std::cout << "  is_shown: " << m->bar.is_shown << std::endl;
+    std::cout << "  is_top: " << m->bar.is_top << std::endl;
+    std::cout << "  window_id: " << m->bar.window_id << std::endl;
 }
 
 void dump_tag(const std::shared_ptr<dwmipc::Tag> &tag) {
@@ -45,8 +53,8 @@ void dump_tag(const std::shared_ptr<dwmipc::Tag> &tag) {
 }
 
 void dump_layout(const std::shared_ptr<dwmipc::Layout> &layout) {
-    std::cout << "layout_symbol: " << layout->symbol << std::endl;
-    std::cout << "layout_address: " << layout->address << std::endl;
+    std::cout << "symbol: " << layout->symbol << std::endl;
+    std::cout << "address: " << layout->address << std::endl;
 }
 
 void dump_client(const std::shared_ptr<dwmipc::Client> &c) {
@@ -54,7 +62,8 @@ void dump_client(const std::shared_ptr<dwmipc::Client> &c) {
     std::cout << "tags: " << c->tags << std::endl;
     std::cout << "window_id: " << c->window_id << std::endl;
     std::cout << "monitor_number: " << c->monitor_num << std::endl;
-    std::cout << "size:" << std::endl;
+
+    std::cout << "geometry:" << std::endl;
     std::cout << "  current:" << std::endl;
     std::cout << "    x: " << c->geom.cur.x << std::endl;
     std::cout << "    y: " << c->geom.cur.y << std::endl;
@@ -65,20 +74,28 @@ void dump_client(const std::shared_ptr<dwmipc::Client> &c) {
     std::cout << "    y: " << c->geom.old.y << std::endl;
     std::cout << "    width: " << c->geom.old.width << std::endl;
     std::cout << "    height: " << c->geom.old.height << std::endl;
+
     std::cout << "size_hints:" << std::endl;
-    std::cout << "  base_width: " << c->size_hints.base.width << std::endl;
-    std::cout << "  base_height: " << c->size_hints.base.height << std::endl;
-    std::cout << "  increase_width: " << c->size_hints.increment.width << std::endl;
-    std::cout << "  increase_height: " << c->size_hints.increment.height << std::endl;
-    std::cout << "  max_width: " << c->size_hints.max.width << std::endl;
-    std::cout << "  max_height: " << c->size_hints.max.height << std::endl;
-    std::cout << "  min_width: " << c->size_hints.min.width << std::endl;
-    std::cout << "  min_height: " << c->size_hints.min.height << std::endl;
-    std::cout << "  maxa: " << c->size_hints.aspect_ratio.max << std::endl;
-    std::cout << "  mina: " << c->size_hints.aspect_ratio.min << std::endl;
-    std::cout << "border:" << std::endl;
-    std::cout << "  current_width: " << c->border.cur_width << std::endl;
-    std::cout << "  old_width: " << c->border.old_width << std::endl;
+    std::cout << "  base:" << std::endl;
+    std::cout << "    width: " << c->size_hints.base.width << std::endl;
+    std::cout << "    height: " << c->size_hints.base.height << std::endl;
+    std::cout << "  step:" << std::endl;
+    std::cout << "    width: " << c->size_hints.step.width << std::endl;
+    std::cout << "    height: " << c->size_hints.step.height << std::endl;
+    std::cout << "  max:" << std::endl;
+    std::cout << "    width: " << c->size_hints.max.width << std::endl;
+    std::cout << "    height: " << c->size_hints.max.height << std::endl;
+    std::cout << "  min:" << std::endl;
+    std::cout << "    width: " << c->size_hints.min.width << std::endl;
+    std::cout << "    height: " << c->size_hints.min.height << std::endl;
+    std::cout << "  aspect_ratio:" << std::endl;
+    std::cout << "    min: " << c->size_hints.aspect_ratio.min << std::endl;
+    std::cout << "    max: " << c->size_hints.aspect_ratio.max << std::endl;
+
+    std::cout << "border_width:" << std::endl;
+    std::cout << "  current: " << c->border_width.cur << std::endl;
+    std::cout << "  old: " << c->border_width.old << std::endl;
+
     std::cout << "states:" << std::endl;
     std::cout << "  is_fixed: " << c->states.is_fixed << std::endl;
     std::cout << "  is_floating: " << c->states.is_floating << std::endl;

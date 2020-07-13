@@ -39,8 +39,8 @@ int main() {
         [](const dwmipc::SelectedClientChangeEvent &event) {
             std::cout << "selected_client_change_event:" << std::endl;
             std::cout << "  monitor_num: " << event.monitor_num << std::endl;
-            std::cout << "  old: " << event.old_client_win << std::endl;
-            std::cout << "  new: " << event.new_client_win << std::endl;
+            std::cout << "  old: " << event.old_win_id << std::endl;
+            std::cout << "  new: " << event.new_win_id << std::endl;
         };
 
     con.on_tag_change = [](const dwmipc::TagChangeEvent &event) {
@@ -55,9 +55,9 @@ int main() {
         std::cout << "    urgent: " << event.new_state.urgent << std::endl;
     };
 
-    con.subscribe(dwmipc::EVENT_LAYOUT_CHANGE);
-    con.subscribe(dwmipc::EVENT_SELECTED_CLIENT_CHANGE);
-    con.subscribe(dwmipc::EVENT_TAG_CHANGE);
+    con.subscribe(dwmipc::Event::LAYOUT_CHANGE);
+    con.subscribe(dwmipc::Event::SELECTED_CLIENT_CHANGE);
+    con.subscribe(dwmipc::Event::TAG_CHANGE);
 
     while (true) {
         try {
