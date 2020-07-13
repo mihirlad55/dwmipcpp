@@ -1,0 +1,21 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v2
+        with:
+          ref: master
+
+      - name: Install compilation dependencies
+        run: sudo apt-get install libjsoncpp-dev cmake
+
+      - name: Generate Makefile
+        run: cmake -S . -B build/ -DBUILD_EXAMPLES:OPTION=ON
+
+      - name: Compile library
+        run: cd build && make
