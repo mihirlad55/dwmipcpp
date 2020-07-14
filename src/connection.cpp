@@ -15,8 +15,8 @@
 #include <sys/un.h>
 #include <unistd.h>
 
-#include "connection.hpp"
-#include "errors.hpp"
+#include "dwmipcpp/connection.hpp"
+#include "dwmipcpp/errors.hpp"
 
 namespace dwmipc {
 Connection::Connection(const std::string &socket_path)

@@ -6,7 +6,7 @@
 
 #include <cstring>
 
-#include "packet.hpp"
+#include "dwmipcpp/packet.hpp"
 
 namespace dwmipc {
 Packet::Packet(const uint32_t payload_size) : size(payload_size + HEADER_SIZE) {

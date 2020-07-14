@@ -5,7 +5,7 @@
  * to their event names.
  */
 
-#include "types.hpp"
+#include "dwmipcpp/types.hpp"
 
 namespace dwmipc {
 const std::unordered_map<Event, std::string> event_map = {

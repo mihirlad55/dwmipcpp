@@ -1,8 +1,8 @@
 #include <iostream>
 #include <unistd.h>
 
-#include "connection.hpp"
-#include "errors.hpp"
+#include "dwmipcpp/connection.hpp"
+#include "dwmipcpp/errors.hpp"
 
 bool msleep(const long milliseconds) {
     struct timespec ts;

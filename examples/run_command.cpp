@@ -1,7 +1,7 @@
 #include <unistd.h>
 #include <iostream>
 
-#include "connection.hpp"
+#include "dwmipcpp/connection.hpp"
 
 int main() {
     dwmipc::Connection con("/tmp/dwm.sock");

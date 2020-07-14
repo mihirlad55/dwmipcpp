@@ -5,10 +5,10 @@ option(BUILD_EXAMPLES "Build examples" OFF)
 option(BUILD_JSONCPP_STATIC "Build and link jsoncpp as a static library" OFF)
 
 add_library(${PROJECT_NAME} STATIC
-    ${PROJECT_SOURCE_DIR}/include/connection.hpp
-    ${PROJECT_SOURCE_DIR}/include/errors.hpp
-    ${PROJECT_SOURCE_DIR}/include/packet.hpp
-    ${PROJECT_SOURCE_DIR}/include/types.hpp
+    ${PROJECT_SOURCE_DIR}/include/dwmipcpp/connection.hpp
+    ${PROJECT_SOURCE_DIR}/include/dwmipcpp/errors.hpp
+    ${PROJECT_SOURCE_DIR}/include/dwmipcpp/packet.hpp
+    ${PROJECT_SOURCE_DIR}/include/dwmipcpp/types.hpp
     ${PROJECT_SOURCE_DIR}/src/connection.cpp
     ${PROJECT_SOURCE_DIR}/src/errors.cpp
     ${PROJECT_SOURCE_DIR}/src/packet.cpp

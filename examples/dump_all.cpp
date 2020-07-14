@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../include/connection.hpp"
+#include "dwmipcpp/connection.hpp"
 
 void dump_monitor(const std::shared_ptr<dwmipc::Monitor> &m) {
     std::cout << "master_factor: " << m->master_factor << std::endl;

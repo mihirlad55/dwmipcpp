@@ -7,7 +7,7 @@
 #include <sstream>
 #include <string>
 
-#include "errors.hpp"
+#include "dwmipcpp/errors.hpp"
 
 namespace dwmipc {
 static std::string format_errno(const std::string &msg = std::string()) {
