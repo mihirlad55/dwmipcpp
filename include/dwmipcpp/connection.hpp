@@ -99,10 +99,12 @@ class Connection {
     /**
      * Try to read any received event messages and call event handlers.
      *
-     * @throw NoMsgError if no messages were recieved
+     * @return true if an event message was received and handled, false if no
+     *   event messages were available.
+     *
      * @throw IPCError if invalid message type received
      */
-    void handle_event() const;
+    bool handle_event() const;
 
     /**
      * Run a DWM command

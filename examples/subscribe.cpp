@@ -72,7 +72,8 @@ int main() {
     while (true) {
         try {
             con.handle_event();
-        } catch (const dwmipc::NoMsgError &) {
+        } catch (const dwmipc::IPCError &err) {
+            std::cout << "Error handling event" << err.what() << std::endl;
         }
         msleep(100);
     }

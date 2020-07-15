@@ -440,8 +440,14 @@ void Connection::unsubscribe(const Event ev) {
         this->subscriptions -= static_cast<uint8_t>(ev);
 }
 
-void Connection::handle_event() const {
-    auto reply = recv_message(event_sockfd, false);
+bool Connection::handle_event() const {
+    std::shared_ptr<Packet> reply;
+    try {
+        reply = recv_message(event_sockfd, false);
+    } catch (NoMsgError&) {
+        return false;
+    }
+
     if (reply->header->type != static_cast<uint8_t>(MessageType::EVENT))
         throw IPCError("Invalid message type received");
 
@@ -480,6 +486,8 @@ void Connection::handle_event() const {
     } else
         throw IPCError("Invalid event type received" +
                        std::string(reply->payload, reply->header->size));
+
+    return true;
 }
 
 uint8_t Connection::get_subscriptions() const { return this->subscriptions; }
