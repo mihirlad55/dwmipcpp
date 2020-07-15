@@ -115,6 +115,18 @@ parse_selected_client_change_event(const Json::Value &root,
     event.new_win_id = v_event["new_win_id"].asUInt();
 }
 
+/**
+ * Parse a Event::SELECTED_MONITOR_CHANGE message
+ */
+static void parse_selected_monitor_change(const Json::Value &root,
+                                          SelectedMonitorChangeEvent &event) {
+    const std::string ev_name = event_map.at(Event::SELECTED_MONITOR_CHANGE);
+    auto v_event = root[ev_name];
+
+    event.old_mon_num = v_event["old_monitor_number"].asUInt();
+    event.new_mon_num = v_event["new_monitor_number"].asUInt();
+}
+
 int Connection::connect(const std::string &socket_path) {
     struct sockaddr_un addr;
 
@@ -435,8 +447,16 @@ void Connection::handle_event() const {
             parse_selected_client_change_event(root, event);
             on_selected_client_change(event);
         }
+    } else if (root.get(event_map.at(Event::SELECTED_MONITOR_CHANGE),
+                        Json::nullValue) != Json::nullValue) {
+        if (on_selected_monitor_change) {
+            SelectedMonitorChangeEvent event;
+            parse_selected_monitor_change(root, event);
+            on_selected_monitor_change(event);
+        }
     } else
-        throw IPCError("Invalid event type received");
+        throw IPCError("Invalid event type received" +
+                       std::string(reply->payload, reply->header->size));
 }
 
 uint8_t Connection::get_subscriptions() const { return this->subscriptions; }

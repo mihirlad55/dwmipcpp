@@ -175,6 +175,14 @@ class Connection {
      */
     std::function<void(const LayoutChangeEvent &ev)> on_layout_change;
 
+    /**
+     * The Event::SELECTED_MONITOR_CHANGE handler. This will be called by
+     * handle_event if an Event::SELECTED_MONITOR_CHANGE event message is
+     * received.
+     */
+    std::function<void(const SelectedMonitorChangeEvent &ev)>
+        on_selected_monitor_change;
+
   private:
     /**
      * The events that the connection is subscribed to. Use dwmipc::Event values

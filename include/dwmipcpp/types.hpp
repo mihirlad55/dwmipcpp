@@ -183,6 +183,14 @@ struct LayoutChangeEvent {
 };
 
 /**
+ * Struct describing a selected_monitor_change_event
+ */
+struct SelectedMonitorChangeEvent {
+    unsigned int old_mon_num; ///< Index of previously selected monitor
+    unsigned int new_mon_num; ///< Index of newly selected monitor
+};
+
+/**
  * Enum of supported DWM message types
  */
 enum class MessageType : uint8_t {
@@ -201,7 +209,8 @@ enum class MessageType : uint8_t {
 enum class Event : uint8_t {
     TAG_CHANGE = 1,
     SELECTED_CLIENT_CHANGE = 2,
-    LAYOUT_CHANGE = 4
+    LAYOUT_CHANGE = 4,
+    SELECTED_MONITOR_CHANGE = 8
 };
 
 /**

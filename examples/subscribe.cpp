@@ -55,14 +55,24 @@ int main() {
         std::cout << "    urgent: " << event.new_state.urgent << std::endl;
     };
 
+    con.on_selected_monitor_change =
+        [](const dwmipc::SelectedMonitorChangeEvent &event) {
+            std::cout << "selected_monitor_change_event:" << std::endl;
+            std::cout << "  old_monitor_number: " << event.old_mon_num
+                      << std::endl;
+            std::cout << "  new_monitor_number: " << event.new_mon_num
+                      << std::endl;
+        };
+
     con.subscribe(dwmipc::Event::LAYOUT_CHANGE);
     con.subscribe(dwmipc::Event::SELECTED_CLIENT_CHANGE);
     con.subscribe(dwmipc::Event::TAG_CHANGE);
+    con.subscribe(dwmipc::Event::SELECTED_MONITOR_CHANGE);
 
     while (true) {
         try {
             con.handle_event();
-        } catch (const dwmipc::NoMsgError&) {
+        } catch (const dwmipc::NoMsgError &) {
         }
         msleep(100);
     }
