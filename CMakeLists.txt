@@ -9,10 +9,12 @@ add_library(${PROJECT_NAME} STATIC
     ${PROJECT_SOURCE_DIR}/include/dwmipcpp/errors.hpp
     ${PROJECT_SOURCE_DIR}/include/dwmipcpp/packet.hpp
     ${PROJECT_SOURCE_DIR}/include/dwmipcpp/types.hpp
+    ${PROJECT_SOURCE_DIR}/include/dwmipcpp/util.hpp
     ${PROJECT_SOURCE_DIR}/src/connection.cpp
     ${PROJECT_SOURCE_DIR}/src/errors.cpp
     ${PROJECT_SOURCE_DIR}/src/packet.cpp
-    ${PROJECT_SOURCE_DIR}/src/types.cpp)
+    ${PROJECT_SOURCE_DIR}/src/types.cpp
+    ${PROJECT_SOURCE_DIR}/src/util.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 

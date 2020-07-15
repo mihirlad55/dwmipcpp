@@ -201,56 +201,9 @@ class Connection {
     uint8_t subscriptions = 0;
 
     /**
-     * Connect to the DWM IPC socket at the specified path and get the file
-     * descriptor to the socket. This is used to initialize the const sockfd
-     * class member in the constructor initializer list.
-     *
-     * @param socket_path Path to the DWM IPC socket
-     * @param is_blocking If false, the socket will have the O_NONBLOCK flag set
-     *
-     * @return The file descriptor of the socket
-     *
-     * @throw IPCError if failed to connect to socket
-     */
-    static int connect(const std::string &socket_path, const bool is_blocking);
-
-    /**
      * Disconnect from the DWM IPC socket.
      */
     void disconnect();
-
-    /**
-     * Send a packet to DWM
-     *
-     * @param sockfd The file descriptor of the socket to write the message to
-     * @param packet The packet to send
-     *
-     * @throw ReplyError if invalid reply received. This could be caused by
-     *   receiving an event message when expecting a reply to the newly sent
-     *   message.
-     */
-    void send_message(const int sockfd,
-                      const std::shared_ptr<Packet> &packet) const;
-
-    /**
-     * Receive any incoming messages from DWM. This is the main helper function
-     * for attempting to read a message from DWM and validate the structure of
-     * the message. It absorbs EINTR, EAGAIN, and EWOULDBLOCK errors.
-     *
-     * @param sockfd The file descriptor of the socket to receive the message
-     *   from
-     * @param wait Should it wait for a message to be received if a message is
-     *   not already received? If this is false, the file descriptor should have
-     *   the O_NONBLOCK flag set.
-     *
-     * @return A received packet from DWM
-     *
-     * @throw NoMsgError if no messages were received
-     * @throw HeaderError if packet with invalid header received
-     * @throw EOFError if unexpected EOF while reading message
-     */
-    std::shared_ptr<Packet> recv_message(const int sockfd,
-                                         const bool wait) const;
 
     /**
      * Send a message to DWM with the specified payload and message type
