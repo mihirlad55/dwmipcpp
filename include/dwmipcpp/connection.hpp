@@ -229,7 +229,8 @@ class Connection {
      *   receiving an event message when expecting a reply to the newly sent
      *   message.
      */
-    void send_message(int sockfd, const std::shared_ptr<Packet> &packet) const;
+    void send_message(const int sockfd,
+                      const std::shared_ptr<Packet> &packet) const;
 
     /**
      * Receive any incoming messages from DWM. This is the main helper function
@@ -248,7 +249,8 @@ class Connection {
      * @throw HeaderError if packet with invalid header received
      * @throw EOFError if unexpected EOF while reading message
      */
-    std::shared_ptr<Packet> recv_message(int sockfd, const bool wait) const;
+    std::shared_ptr<Packet> recv_message(const int sockfd,
+                                         const bool wait) const;
 
     /**
      * Send a message to DWM with the specified payload and message type
