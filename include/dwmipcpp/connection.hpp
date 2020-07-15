@@ -156,22 +156,22 @@ class Connection {
     const std::string socket_path;
 
     /**
-     * The dwmipc::EVENT_TAG_CHANGE handler. This will be called by handle_event
-     * if an dwmipc::EVENT_TAG_CHANGE event message is received.
+     * The Event::TAG_CHANGE handler. This will be called by handle_event
+     * if an Event::TAG_CHANGE event message is received.
      */
     std::function<void(const TagChangeEvent &ev)> on_tag_change;
 
     /**
-     * The dwmipc::EVENT_SELECTED_CLIENT_CHANGE handler. This will be called by
-     * handle_event if an dwmipc::EVENT_SELECTED_CLIENT_CHANGE event message is
+     * The Event::SELECTED_CLIENT_CHANGE handler. This will be called by
+     * handle_event if an Event::SELECTED_CLIENT_CHANGE event message is
      * received.
      */
     std::function<void(const SelectedClientChangeEvent &ev)>
         on_selected_client_change;
 
     /**
-     * The dwmipc::EVENT_LAYOUT_CHANGE handler. This will be called by
-     * handle_event if an dwmipc::EVENT_LAYOUT_CHANGE event message is received.
+     * The Event::LAYOUT_CHANGE handler. This will be called by
+     * handle_event if an Event::LAYOUT_CHANGE event message is received.
      */
     std::function<void(const LayoutChangeEvent &ev)> on_layout_change;
 

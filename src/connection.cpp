@@ -68,7 +68,7 @@ static void pre_parse_reply(Json::Value &root,
 }
 
 /**
- * Parse a dwmipc::EVENT_TAG_CHANGE message
+ * Parse a Event::TAG_CHANGE message
  */
 static void parse_tag_change_event(const Json::Value &root,
                                    TagChangeEvent &event) {
@@ -87,7 +87,7 @@ static void parse_tag_change_event(const Json::Value &root,
 }
 
 /**
- * Parse a dwmipc::EVENT_LAYOUT_CHANGE message
+ * Parse a Event::LAYOUT_CHANGE message
  */
 static void parse_layout_change_event(const Json::Value &root,
                                       LayoutChangeEvent &event) {
@@ -102,7 +102,7 @@ static void parse_layout_change_event(const Json::Value &root,
 }
 
 /**
- * Parse a dwmipc::EVENT_SELECTED_CLIENT_CHANGE message
+ * Parse a Event::SELECTED_CLIENT_CHANGE message
  */
 static void
 parse_selected_client_change_event(const Json::Value &root,
