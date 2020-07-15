@@ -258,6 +258,11 @@ std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() const {
         mon.tagset.cur = v_tagset["current"].asUInt();
         mon.tagset.old = v_tagset["old"].asUInt();
 
+        auto v_tag_state = v_mon["tag_state"];
+        mon.tag_state.selected = v_tag_state["selected"].asUInt();
+        mon.tag_state.occupied = v_tag_state["occupied"].asUInt();
+        mon.tag_state.urgent = v_tag_state["urgent"].asUInt();
+
         auto v_clients = v_mon["clients"];
         mon.clients.selected = v_clients["selected"].asUInt();
 

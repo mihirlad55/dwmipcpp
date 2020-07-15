@@ -88,6 +88,7 @@ struct Monitor {
         unsigned int cur; ///< Current tags in view, each bit is a tag
         unsigned int old; ///< Last tags in view, each bit is a tag
     } tagset;             ///< Tags in view
+    TagState tag_state;   ///< Current tag state
     struct {
         std::vector<Window> all;   ///< Vector of all client window XIDs
         std::vector<Window> stack; ///< Vector of client window XIDs in stack

@@ -23,6 +23,11 @@ void dump_monitor(const std::shared_ptr<dwmipc::Monitor> &m) {
     std::cout << "  current: " << m->tagset.cur << std::endl;
     std::cout << "  old: " << m->tagset.old << std::endl;
 
+    std::cout << "tag_state:" << std::endl;
+    std::cout << "  selected: " << m->tag_state.selected << std::endl;
+    std::cout << "  occupied: " << m->tag_state.occupied << std::endl;
+    std::cout << "  urgent: " << m->tag_state.urgent << std::endl;
+
     std::cout << "clients:" << std::endl;
     std::cout << "  selected: " << m->clients.selected << std::endl;
     std::cout << "  stack:" << std::endl;
