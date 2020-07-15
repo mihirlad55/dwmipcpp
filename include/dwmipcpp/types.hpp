@@ -44,6 +44,38 @@ struct Size {
 };
 
 /**
+ * DWM layout.
+ */
+struct Layout {
+    std::string
+        symbol; ///< Symbol that represents the layout. Note that the symbol
+                ///< given here is the defining symbol of the layout. The layout
+                ///< symbol given in Monitor or LayoutChangeEvent may be a
+                ///< variation of this symbol. This symbol should not be assumed
+                ///< to be the same symbol found in Monitor or in a
+                ///< LayoutChangeEvent.
+    uintptr_t address; ///< Address of layout in dwm's memory, used in
+                       ///< setlayoutsafe command
+};
+
+/**
+ * A struct representing states of each tag
+ */
+struct TagState {
+    unsigned int selected; ///< Each bit is a tag, tags in view are 1
+    unsigned int occupied; ///< Each bit is a tag, tags with clients are 1
+    unsigned int urgent; ///< Each bit is a tag, tags with urgent clients are 1
+};
+
+/**
+ * A tag
+ */
+struct Tag {
+    unsigned int bit_mask; ///< The bit mask of this tag
+    std::string tag_name;  ///< The name of the tag
+};
+
+/**
  * A DWM monitor
  */
 struct Monitor {
@@ -114,38 +146,6 @@ struct Client {
         bool old_state;   ///< Stores the floating state if client is fullscreen
         bool is_fullscreen; ///< Is the client fullscreen (not monocle layout)
     } states;               ///< Client states
-};
-
-/**
- * DWM layout.
- */
-struct Layout {
-    std::string
-        symbol; ///< Symbol that represents the layout. Note that the symbol
-                ///< given here is the defining symbol of the layout. The layout
-                ///< symbol given in Monitor or LayoutChangeEvent may be a
-                ///< variation of this symbol. This symbol should not be assumed
-                ///< to be the same symbol found in Monitor or in a
-                ///< LayoutChangeEvent.
-    uintptr_t address; ///< Address of layout in dwm's memory, used in
-                       ///< setlayoutsafe command
-};
-
-/**
- * A struct representing states of each tag
- */
-struct TagState {
-    unsigned int selected; ///< Each bit is a tag, tags in view are 1
-    unsigned int occupied; ///< Each bit is a tag, tags with clients are 1
-    unsigned int urgent; ///< Each bit is a tag, tags with urgent clients are 1
-};
-
-/**
- * A tag
- */
-struct Tag {
-    unsigned int bit_mask; ///< The bit mask of this tag
-    std::string tag_name;  ///< The name of the tag
 };
 
 /**
