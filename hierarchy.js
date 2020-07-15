@@ -19,6 +19,7 @@ var hierarchy =
       ] ]
     ] ],
     [ "dwmipc::SelectedClientChangeEvent", "structdwmipc_1_1SelectedClientChangeEvent.html", null ],
+    [ "dwmipc::SelectedMonitorChangeEvent", "structdwmipc_1_1SelectedMonitorChangeEvent.html", null ],
     [ "dwmipc::Size", "structdwmipc_1_1Size.html", null ],
     [ "dwmipc::Tag", "structdwmipc_1_1Tag.html", null ],
     [ "dwmipc::TagChangeEvent", "structdwmipc_1_1TagChangeEvent.html", null ],

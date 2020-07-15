@@ -133,6 +133,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a4a2676c93598719d57c821a60028474f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9cca0ff89eb8dbcf428867dab0c9dbbc"><td class="memItemLeft" align="right" valign="top">std::function&lt; void(const <a class="el" href="structdwmipc_1_1LayoutChangeEvent.html">LayoutChangeEvent</a> &amp;ev)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Connection.html#a9cca0ff89eb8dbcf428867dab0c9dbbc">on_layout_change</a></td></tr>
 <tr class="separator:a9cca0ff89eb8dbcf428867dab0c9dbbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0727ed5001200324e569e1ca15281723"><td class="memItemLeft" align="right" valign="top">std::function&lt; void(const <a class="el" href="structdwmipc_1_1SelectedMonitorChangeEvent.html">SelectedMonitorChangeEvent</a> &amp;ev)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Connection.html#a0727ed5001200324e569e1ca15281723">on_selected_monitor_change</a></td></tr>
+<tr class="separator:a0727ed5001200324e569e1ca15281723"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The DWM IPC connection class used to initiate a connection with DWM's IPC socket and send/receive messages. </p>
@@ -435,7 +437,7 @@ template&lt;typename... Types&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Subscribe to the specified DWM event. After subscribing to an event, DWM will send <a class="el" href="namespacedwmipc.html#a5a4525093012971835f4c2dab814178fa6e4ff36e90d7e26adbca71a8aa614c60">dwmipc::MESSAGE_TYPE_EVENT</a> messages when the specified event is raised. Subscribing to an already subscribed event will not throw an error.</p>
+<p>Subscribe to the specified DWM event. After subscribing to an event, DWM will send dwmipc::MESSAGE_TYPE_EVENT messages when the specified event is raised. Subscribing to an already subscribed event will not throw an error.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ev</td><td>The event to subscribe to</td></tr>
@@ -466,7 +468,7 @@ template&lt;typename... Types&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Unsubscribe to the specified DWM event. After unsubscribing to an event, DWM will no longer send <a class="el" href="namespacedwmipc.html#a5a4525093012971835f4c2dab814178fa6e4ff36e90d7e26adbca71a8aa614c60">dwmipc::MESSAGE_TYPE_EVENT</a> messages for the specified event. Unsubscribing to an already unsubscribed event will not throw an error.</p>
+<p>Unsubscribe to the specified DWM event. After unsubscribing to an event, DWM will no longer send dwmipc::MESSAGE_TYPE_EVENT messages for the specified event. Unsubscribing to an already unsubscribed event will not throw an error.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ev</td><td>The event to subscribe to </td></tr>
@@ -488,7 +490,7 @@ template&lt;typename... Types&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957ad1a4fbcf86d71dfb039f29e5971a8720">dwmipc::EVENT_LAYOUT_CHANGE</a> handler. This will be called by handle_event if an <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957ad1a4fbcf86d71dfb039f29e5971a8720">dwmipc::EVENT_LAYOUT_CHANGE</a> event message is received. </p>
+<p>The <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957ac5c2380f606d9ae1fa7360b73a982a9c">Event::LAYOUT_CHANGE</a> handler. This will be called by handle_event if an <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957ac5c2380f606d9ae1fa7360b73a982a9c">Event::LAYOUT_CHANGE</a> event message is received. </p>
 
 </div>
 </div>
@@ -503,7 +505,22 @@ template&lt;typename... Types&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957aa0ccb4961c0e20ca6071fb29c40e5f0f">dwmipc::EVENT_SELECTED_CLIENT_CHANGE</a> handler. This will be called by handle_event if an <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957aa0ccb4961c0e20ca6071fb29c40e5f0f">dwmipc::EVENT_SELECTED_CLIENT_CHANGE</a> event message is received. </p>
+<p>The <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957a093276ebae8cfc0230b4c46d4785e481">Event::SELECTED_CLIENT_CHANGE</a> handler. This will be called by handle_event if an <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957a093276ebae8cfc0230b4c46d4785e481">Event::SELECTED_CLIENT_CHANGE</a> event message is received. </p>
+
+</div>
+</div>
+<a id="a0727ed5001200324e569e1ca15281723"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0727ed5001200324e569e1ca15281723">&#9670;&nbsp;</a></span>on_selected_monitor_change</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::function&lt;void(const <a class="el" href="structdwmipc_1_1SelectedMonitorChangeEvent.html">SelectedMonitorChangeEvent</a> &amp;ev)&gt; dwmipc::Connection::on_selected_monitor_change</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957a2c3c936b8434568cee52de7126997d40">Event::SELECTED_MONITOR_CHANGE</a> handler. This will be called by handle_event if an <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957a2c3c936b8434568cee52de7126997d40">Event::SELECTED_MONITOR_CHANGE</a> event message is received. </p>
 
 </div>
 </div>
@@ -518,7 +535,7 @@ template&lt;typename... Types&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957abc321d45e5b7aa4299702f444b1f8036">dwmipc::EVENT_TAG_CHANGE</a> handler. This will be called by handle_event if an <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957abc321d45e5b7aa4299702f444b1f8036">dwmipc::EVENT_TAG_CHANGE</a> event message is received. </p>
+<p>The <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957a6ca91df80f2c63dd0b569b2a2737e3d9">Event::TAG_CHANGE</a> handler. This will be called by handle_event if an <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957a6ca91df80f2c63dd0b569b2a2737e3d9">Event::TAG_CHANGE</a> event message is received. </p>
 
 </div>
 </div>
@@ -553,7 +570,7 @@ template&lt;typename... Types&gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/<a class="el" href="connection_8hpp_source.html">connection.hpp</a></li>
+<li>include/dwmipcpp/<a class="el" href="connection_8hpp_source.html">connection.hpp</a></li>
 <li>src/<a class="el" href="connection_8cpp.html">connection.cpp</a></li>
 </ul>
 </div><!-- contents -->

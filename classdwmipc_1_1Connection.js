@@ -14,6 +14,7 @@ var classdwmipc_1_1Connection =
     [ "unsubscribe", "classdwmipc_1_1Connection.html#a5fae7826594dc4b7b7ff0c9c9f446095", null ],
     [ "on_layout_change", "classdwmipc_1_1Connection.html#a9cca0ff89eb8dbcf428867dab0c9dbbc", null ],
     [ "on_selected_client_change", "classdwmipc_1_1Connection.html#a4a2676c93598719d57c821a60028474f", null ],
+    [ "on_selected_monitor_change", "classdwmipc_1_1Connection.html#a0727ed5001200324e569e1ca15281723", null ],
     [ "on_tag_change", "classdwmipc_1_1Connection.html#a5a0c085ab59908261fc5fc08c2469e48", null ],
     [ "socket_path", "classdwmipc_1_1Connection.html#a3a6482dbed51a281143b3d475d228c8d", null ],
     [ "sockfd", "classdwmipc_1_1Connection.html#a35d30511667df799f46229b71d4d8e2c", null ]

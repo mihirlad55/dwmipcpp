@@ -15,6 +15,7 @@ var namespacedwmipc =
     [ "ReplyError", "classdwmipc_1_1ReplyError.html", "classdwmipc_1_1ReplyError" ],
     [ "ResultFailureError", "classdwmipc_1_1ResultFailureError.html", "classdwmipc_1_1ResultFailureError" ],
     [ "SelectedClientChangeEvent", "structdwmipc_1_1SelectedClientChangeEvent.html", "structdwmipc_1_1SelectedClientChangeEvent" ],
+    [ "SelectedMonitorChangeEvent", "structdwmipc_1_1SelectedMonitorChangeEvent.html", "structdwmipc_1_1SelectedMonitorChangeEvent" ],
     [ "Size", "structdwmipc_1_1Size.html", "structdwmipc_1_1Size" ],
     [ "Tag", "structdwmipc_1_1Tag.html", "structdwmipc_1_1Tag" ],
     [ "TagChangeEvent", "structdwmipc_1_1TagChangeEvent.html", "structdwmipc_1_1TagChangeEvent" ],
