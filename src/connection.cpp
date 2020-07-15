@@ -131,10 +131,6 @@ std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type,
     return reply;
 }
 
-std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type) const {
-    return dwm_msg(type, "");
-}
-
 std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() const {
     auto reply = dwm_msg(MessageType::GET_MONITORS);
     Json::Value root;

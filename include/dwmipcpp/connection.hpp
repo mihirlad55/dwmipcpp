@@ -209,25 +209,15 @@ class Connection {
      * Send a message to DWM with the specified payload and message type
      *
      * @param type IPC message type
-     * @param msg The payload
+     * @param msg The payload. This can be left empty for message types where
+     *   the payload is not needed/used.
      *
      * @return The reply packet from DWM
      *
      * @throw ReplyError if reply message type doesn't match sent message type
      */
     std::shared_ptr<Packet> dwm_msg(const MessageType type,
-                                    const std::string &msg) const;
-
-    /**
-     * Send a message to DWM of the specified message type with an empty payload
-     *
-     * @param type IPC message type
-     *
-     * @return The reply packet from DWM
-     *
-     * @throw ReplyError if reply message type doesn't match sent message type
-     */
-    std::shared_ptr<Packet> dwm_msg(const MessageType type) const;
+                                    const std::string &msg = "") const;
 
     /**
      * Subscribe or unsubscribe to the specified event
