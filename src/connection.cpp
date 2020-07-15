@@ -20,8 +20,8 @@
 
 namespace dwmipc {
 Connection::Connection(const std::string &socket_path)
-    : main_sockfd(connect(socket_path)), event_sockfd(connect(socket_path)),
-      socket_path(socket_path) {}
+    : main_sockfd(connect(socket_path, true)),
+      event_sockfd(connect(socket_path, false)), socket_path(socket_path) {}
 
 Connection::~Connection() { disconnect(); }
 
@@ -36,6 +36,7 @@ static ssize_t swrite(const int fd, const void *buf, const uint32_t count) {
         const ssize_t n = write(fd, buf, count);
 
         if (n == -1) {
+            // This may block, but shouldn't for long
             if (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK)
                 continue;
             throw ErrnoError("Error writing buffer to dwm socket");
@@ -128,13 +129,16 @@ static void parse_selected_monitor_change(const Json::Value &root,
     event.new_mon_num = v_event["new_monitor_number"].asUInt();
 }
 
-int Connection::connect(const std::string &socket_path) {
+int Connection::connect(const std::string &socket_path, bool is_blocking) {
     struct sockaddr_un addr;
 
-    int sockfd = socket(AF_UNIX, SOCK_STREAM, 0);
+    int flags = SOCK_STREAM | FD_CLOEXEC;
+    if (!is_blocking)
+        flags |= O_NONBLOCK;
+
+    int sockfd = socket(AF_UNIX, flags, 0);
     if (sockfd < 0)
         throw IPCError("Failed to create dwm socket");
-    fcntl(sockfd, F_SETFD, FD_CLOEXEC);
 
     // Initialize struct to 0
     memset(&addr, 0, sizeof(struct sockaddr_un));
@@ -155,8 +159,7 @@ void Connection::disconnect() {
     close(this->event_sockfd);
 }
 
-
-std::shared_ptr<Packet> Connection::recv_message(int sockfd) const {
+std::shared_ptr<Packet> Connection::recv_message(int sockfd, bool wait) const {
     uint32_t read_bytes = 0;
     size_t to_read = Packet::HEADER_SIZE;
     auto packet = std::make_shared<Packet>(0);
@@ -169,13 +172,22 @@ std::shared_ptr<Packet> Connection::recv_message(int sockfd) const {
             read(sockfd, header + read_bytes, to_read - read_bytes);
 
         if (n == 0) {
-            if (read_bytes == 0)
+            if (read_bytes == 0) {
+                // If waiting for message, try read again
+                if (wait)
+                    continue;
                 throw NoMsgError();
-            else
-                throw HeaderError(read_bytes, to_read);
+            }
+            throw HeaderError(read_bytes, to_read);
         } else if (n == -1) {
-            if (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK)
+            if (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK) {
+                // If no bytes read yet and we shouldn't wait for a message,
+                // throw a NoMsgError. If the fd is non-blocking, this will most
+                // likely occur if there is nothing to be read.
+                if (read_bytes == 0 && !wait)
+                    throw NoMsgError();
                 continue;
+            }
             throw ErrnoError("Error reading header");
         }
         read_bytes += n;
@@ -224,7 +236,7 @@ std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type,
     int sockfd = (type == MessageType::SUBSCRIBE ? event_sockfd : main_sockfd);
 
     send_message(sockfd, packet);
-    auto reply = recv_message(sockfd);
+    auto reply = recv_message(sockfd, true);
 
     // Check if message type matches
     if (packet->header->type != static_cast<uint8_t>(type))
@@ -429,7 +441,7 @@ void Connection::unsubscribe(const Event ev) {
 }
 
 void Connection::handle_event() const {
-    auto reply = recv_message(event_sockfd);
+    auto reply = recv_message(event_sockfd, false);
     if (reply->header->type != static_cast<uint8_t>(MessageType::EVENT))
         throw IPCError("Invalid message type received");
 

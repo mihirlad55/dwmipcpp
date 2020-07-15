@@ -204,12 +204,13 @@ class Connection {
      * class member in the constructor initializer list.
      *
      * @param socket_path Path to the DWM IPC socket
+     * @param is_blocking If false, the socket will have the O_NONBLOCK flag set
      *
      * @return The file descriptor of the socket
      *
      * @throw IPCError if failed to connect to socket
      */
-    static int connect(const std::string &socket_path);
+    static int connect(const std::string &socket_path, const bool is_blocking);
 
     /**
      * Disconnect from the DWM IPC socket.
@@ -235,13 +236,17 @@ class Connection {
      *
      * @param sockfd The file descriptor of the socket to receive the message
      *   from
+     * @param wait Should it wait for a message to be received if a message is
+     *   not already received? If this is false, the file descriptor should have
+     *   the O_NONBLOCK flag set.
+     *
      * @return A received packet from DWM
      *
      * @throw NoMsgError if no messages were received
      * @throw HeaderError if packet with invalid header received
      * @throw EOFError if unexpected EOF while reading message
      */
-    std::shared_ptr<Packet> recv_message(int sockfd) const;
+    std::shared_ptr<Packet> recv_message(int sockfd, const bool wait) const;
 
     /**
      * Send a message to DWM with the specified payload and message type
