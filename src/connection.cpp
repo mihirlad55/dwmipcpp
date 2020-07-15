@@ -20,7 +20,8 @@
 
 namespace dwmipc {
 Connection::Connection(const std::string &socket_path)
-    : sockfd(connect(socket_path)), socket_path(socket_path) {}
+    : main_sockfd(connect(socket_path)), event_sockfd(connect(socket_path)),
+      socket_path(socket_path) {}
 
 Connection::~Connection() { disconnect(); }
 
@@ -149,9 +150,13 @@ int Connection::connect(const std::string &socket_path) {
     return sockfd;
 }
 
-void Connection::disconnect() { close(this->sockfd); }
+void Connection::disconnect() {
+    close(this->main_sockfd);
+    close(this->event_sockfd);
+}
 
-std::shared_ptr<Packet> Connection::recv_message() const {
+
+std::shared_ptr<Packet> Connection::recv_message(int sockfd) const {
     uint32_t read_bytes = 0;
     size_t to_read = Packet::HEADER_SIZE;
     auto packet = std::make_shared<Packet>(0);
@@ -161,7 +166,7 @@ std::shared_ptr<Packet> Connection::recv_message() const {
     // Read packet header
     while (read_bytes < to_read) {
         const ssize_t n =
-            read(this->sockfd, header + read_bytes, to_read - read_bytes);
+            read(sockfd, header + read_bytes, to_read - read_bytes);
 
         if (n == 0) {
             if (read_bytes == 0)
@@ -206,19 +211,25 @@ std::shared_ptr<Packet> Connection::recv_message() const {
     return packet;
 }
 
-void Connection::send_message(const std::shared_ptr<Packet> &packet) const {
-    swrite(this->sockfd, packet->data, packet->size);
+void Connection::send_message(int sockfd,
+                              const std::shared_ptr<Packet> &packet) const {
+    swrite(sockfd, packet->data, packet->size);
 }
 
 std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type,
                                             const std::string &msg) const {
     auto packet = std::make_shared<Packet>(type, msg);
-    send_message(packet);
-    auto reply = recv_message();
 
-    // Sent message type should match reply message type
-    if (packet->header->type != reply->header->type)
-        throw ReplyError(packet->header->type, reply->header->type);
+    // If receiving an event message, use the event_sockfd
+    int sockfd = (type == MessageType::SUBSCRIBE ? event_sockfd : main_sockfd);
+
+    send_message(sockfd, packet);
+    auto reply = recv_message(sockfd);
+
+    // Check if message type matches
+    if (packet->header->type != static_cast<uint8_t>(type))
+        throw ReplyError(packet->header->type, static_cast<uint8_t>(type));
+
     return reply;
 }
 
@@ -418,7 +429,7 @@ void Connection::unsubscribe(const Event ev) {
 }
 
 void Connection::handle_event() const {
-    auto reply = recv_message();
+    auto reply = recv_message(event_sockfd);
     if (reply->header->type != static_cast<uint8_t>(MessageType::EVENT))
         throw IPCError("Invalid message type received");
 

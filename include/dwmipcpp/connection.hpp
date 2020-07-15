@@ -146,9 +146,17 @@ class Connection {
     uint8_t get_subscriptions() const;
 
     /**
-     * The DWM IPC socket file descriptor
+     * The main DWM IPC socket file descriptor for all non-event messages
      */
-    const int sockfd;
+    const int main_sockfd;
+
+    /**
+     * The event DWM IPC socket file descriptor for all event messages. This is
+     * kept separate to avoid conflicts between replies for sent messages and
+     * event messages. For example, if a message were to be sent, and and an
+     * event message was received before the reply, it could cause issues.
+     */
+    const int event_sockfd;
 
     /**
      * The path to the DWM IPC socket specified when Connection is constructed.
@@ -211,26 +219,29 @@ class Connection {
     /**
      * Send a packet to DWM
      *
+     * @param sockfd The file descriptor of the socket to write the message to
      * @param packet The packet to send
      *
      * @throw ReplyError if invalid reply received. This could be caused by
      *   receiving an event message when expecting a reply to the newly sent
      *   message.
      */
-    void send_message(const std::shared_ptr<Packet> &packet) const;
+    void send_message(int sockfd, const std::shared_ptr<Packet> &packet) const;
 
     /**
      * Receive any incoming messages from DWM. This is the main helper function
      * for attempting to read a message from DWM and validate the structure of
      * the message. It absorbs EINTR, EAGAIN, and EWOULDBLOCK errors.
      *
+     * @param sockfd The file descriptor of the socket to receive the message
+     *   from
      * @return A received packet from DWM
      *
      * @throw NoMsgError if no messages were received
      * @throw HeaderError if packet with invalid header received
      * @throw EOFError if unexpected EOF while reading message
      */
-    std::shared_ptr<Packet> recv_message() const;
+    std::shared_ptr<Packet> recv_message(int sockfd) const;
 
     /**
      * Send a message to DWM with the specified payload and message type
