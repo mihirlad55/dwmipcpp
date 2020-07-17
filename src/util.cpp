@@ -42,12 +42,15 @@ ssize_t swrite(const int fd, const void *buf, const uint32_t count) {
     size_t written = 0;
 
     while (written < count) {
-        const ssize_t n = write(fd, buf, count);
+        const ssize_t n = send(fd, buf, count, MSG_NOSIGNAL);
 
         if (n == -1) {
             // This may block, but shouldn't for long
             if (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK)
                 continue;
+            else if (errno == EPIPE)
+                throw SocketClosedError(fd);
+
             throw ErrnoError("Error writing buffer to dwm socket");
         }
         written += n;
@@ -69,10 +72,8 @@ std::shared_ptr<Packet> recv_message(int sockfd, bool wait) {
 
         if (n == 0) {
             if (read_bytes == 0) {
-                // If waiting for message, try read again
-                if (wait)
-                    continue;
-                throw NoMsgError();
+                // If no bytes returned and no bytes read, socket is closed
+                throw SocketClosedError(sockfd);
             }
             throw HeaderError(read_bytes, to_read);
         } else if (n == -1) {

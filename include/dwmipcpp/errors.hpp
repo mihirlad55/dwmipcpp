@@ -117,4 +117,23 @@ class ErrnoError : public IPCError {
     ErrnoError(const std::string &msg);
 };
 
+/**
+ * This error is thrown when a read/write operation is attempted on a
+ * disconnected socket
+ */
+class SocketClosedError : public IPCError {
+  public:
+    /**
+     * Construct a SocketClosedError with the specified message
+     */
+    SocketClosedError(const std::string &msg);
+
+    /**
+     * Construct a SocketClosedError with the specified socket file descriptor
+     *
+     * @param fd The file descriptor of the socket that has been closed
+     */
+    SocketClosedError(const int fd);
+};
+
 } // namespace dwmipc
