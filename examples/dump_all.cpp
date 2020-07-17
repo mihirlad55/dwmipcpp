@@ -6,6 +6,7 @@ void dump_monitor(const std::shared_ptr<dwmipc::Monitor> &m) {
     std::cout << "master_factor: " << m->master_factor << std::endl;
     std::cout << "num_master: " << m->num_master << std::endl;
     std::cout << "num: " << m->num << std::endl;
+    std::cout << "is_selected: " << m->is_selected << std::endl;
 
     std::cout << "monitor_geometry:" << std::endl;
     std::cout << "  x: " << m->monitor_geom.x << std::endl;

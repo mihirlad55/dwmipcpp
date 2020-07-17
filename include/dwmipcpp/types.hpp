@@ -82,6 +82,7 @@ struct Monitor {
     float master_factor;   ///< Percentage of space master clients should occupy
     int num_master;        ///< Number of clients that should be masters
     unsigned int num;      ///< Index of monitor (according to DWM)
+    bool is_selected;      ///< Is the monitor selected (in focus)
     Geometry monitor_geom; ///< Monitor geometry
     Geometry window_geom;  ///< Window area geometry
     struct {

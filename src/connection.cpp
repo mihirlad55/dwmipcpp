@@ -236,6 +236,7 @@ std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() {
         mon.master_factor = v_mon["master_factor"].asFloat();
         mon.num_master = v_mon["num_master"].asInt();
         mon.num = v_mon["num"].asUInt();
+        mon.is_selected = v_mon["is_selected"].asBool();
 
         auto v_monitor_geom = v_mon["monitor_geometry"];
         mon.monitor_geom.x = v_monitor_geom["x"].asInt();
