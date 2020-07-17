@@ -267,6 +267,23 @@ class Connection {
     uint8_t subscriptions = 0;
 
     /**
+     * Obtain the appropriate file descriptor to use based on the type of
+     * message
+     *
+     * @param type The type of message to be received/sent
+     */
+    int get_socket_fd(const MessageType type) const;
+
+    /**
+     * Require that the appropriate socket is connected to write/receive the
+     * specified message type. This function throws a SocketClosedError if the
+     * socket is disconnected.
+     *
+     * @throw SocketClosedError if the required socket is disconnected
+     */
+    void assert_socket_connected(const MessageType type) const;
+
+    /**
      * Send a message to DWM with the specified payload and message type
      *
      * @param type IPC message type

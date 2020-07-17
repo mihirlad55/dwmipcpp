@@ -157,19 +157,31 @@ void Connection::disconnect_event_socket() {
     this->event_sockfd = -1;
 }
 
+int Connection::get_socket_fd(const MessageType type) const {
+    // For subscribe/event messages, use the event fd
+    if (type == MessageType::SUBSCRIBE || type == MessageType::EVENT)
+        return event_sockfd;
+
+    return main_sockfd;
+}
+
+void Connection::assert_socket_connected(const MessageType type) const {
+    int sockfd = get_socket_fd(type);
+
+    // Check if appropriate socket is connected
+    if (sockfd == this->main_sockfd && !is_main_socket_connected())
+        throw SocketClosedError("Disconnected main socket: Cannot read/write");
+    else if (sockfd == this->event_sockfd && !is_event_socket_connected())
+        throw SocketClosedError("Disconnected event socket: Cannot read/write");
+}
+
 std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type,
                                             const std::string &msg) {
     auto packet = std::make_shared<Packet>(type, msg);
-
-    // If receiving an event message, use the event_sockfd
-    int sockfd = (type == MessageType::SUBSCRIBE ? event_sockfd : main_sockfd);
+    auto sockfd = get_socket_fd(type);
 
     // Throw error if disconnected socket
-    if (type == MessageType::SUBSCRIBE && !is_event_socket_connected()) {
-        throw SocketClosedError("Cannot write to disconnected event socket");
-    } else if (type != MessageType::SUBSCRIBE && !is_main_socket_connected()) {
-        throw SocketClosedError("Cannot write to disconnected main socket");
-    }
+    assert_socket_connected(type);
 
     try {
         send_message(sockfd, packet);
@@ -392,9 +404,9 @@ void Connection::unsubscribe(const Event ev) {
 
 bool Connection::handle_event() {
     std::shared_ptr<Packet> reply;
-    if (!is_event_socket_connected())
-        throw SocketClosedError(
-            "Cannot handle event on disconnected event socket");
+    // Throw error if disconnected socket
+    assert_socket_connected(MessageType::EVENT);
+
     try {
         reply = recv_message(event_sockfd, false);
     } catch (NoMsgError &) {
