@@ -7,7 +7,8 @@ var searchData=
   ['is_5ffloating_52',['is_floating',['../structdwmipc_1_1Client.html#ad171dc85fbb7f2f88e0d8388363a86e5',1,'dwmipc::Client']]],
   ['is_5ffullscreen_53',['is_fullscreen',['../structdwmipc_1_1Client.html#a6dd3192fdc5cc4a21e3eaa7d7c721edb',1,'dwmipc::Client']]],
   ['is_5fmain_5fsocket_5fconnected_54',['is_main_socket_connected',['../classdwmipc_1_1Connection.html#afcae072a3f91698a8ae9c3b7ed4df8b4',1,'dwmipc::Connection']]],
-  ['is_5fshown_55',['is_shown',['../structdwmipc_1_1Monitor.html#adfb563fa807a1818fa6f79a1112a986c',1,'dwmipc::Monitor']]],
-  ['is_5ftop_56',['is_top',['../structdwmipc_1_1Monitor.html#a660186f1e2d1762fa6f74855752cd7f6',1,'dwmipc::Monitor']]],
-  ['is_5furgent_57',['is_urgent',['../structdwmipc_1_1Client.html#af7f62b4c101b26822e00711cf6e24ad6',1,'dwmipc::Client']]]
+  ['is_5fselected_55',['is_selected',['../structdwmipc_1_1Monitor.html#ad236e81631f0ff0a3e889d00d43d36b0',1,'dwmipc::Monitor']]],
+  ['is_5fshown_56',['is_shown',['../structdwmipc_1_1Monitor.html#adfb563fa807a1818fa6f79a1112a986c',1,'dwmipc::Monitor']]],
+  ['is_5ftop_57',['is_top',['../structdwmipc_1_1Monitor.html#a660186f1e2d1762fa6f74855752cd7f6',1,'dwmipc::Monitor']]],
+  ['is_5furgent_58',['is_urgent',['../structdwmipc_1_1Client.html#af7f62b4c101b26822e00711cf6e24ad6',1,'dwmipc::Client']]]
 ];

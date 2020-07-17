@@ -7,6 +7,7 @@ var structdwmipc_1_1Monitor =
     [ "cur", "structdwmipc_1_1Monitor.html#ab6a4bfe0354583401d259be451980f45", null ],
     [ "cur", "structdwmipc_1_1Monitor.html#aac55bc4de19a704ac1e84e4cfc6ce74e", null ],
     [ "cur", "structdwmipc_1_1Monitor.html#a449a2bdb8e8dad1972f8d9cb0cbd7e24", null ],
+    [ "is_selected", "structdwmipc_1_1Monitor.html#ad236e81631f0ff0a3e889d00d43d36b0", null ],
     [ "is_shown", "structdwmipc_1_1Monitor.html#adfb563fa807a1818fa6f79a1112a986c", null ],
     [ "is_top", "structdwmipc_1_1Monitor.html#a660186f1e2d1762fa6f74855752cd7f6", null ],
     [ "layout", "structdwmipc_1_1Monitor.html#a4762a12ad0c982b20232d1fb1fdce875", null ],
