@@ -81,9 +81,9 @@ class Connection {
 
     /**
      * Subscribe to the specified DWM event. After subscribing to an event, DWM
-     * will send Event::MESSAGE_TYPE_EVENT messages when the specified event is
-     * raised. Subscribing to an already subscribed event will not throw an
-     * error.
+     * will send dwmipc::MessageType::EVENT messages when the specified
+     * event is raised. Subscribing to an already subscribed event will not
+     * throw an error.
      *
      * @param ev The event to subscribe to
      *
@@ -94,9 +94,9 @@ class Connection {
 
     /**
      * Unsubscribe to the specified DWM event. After unsubscribing to an event,
-     * DWM will no longer send Event::MESSAGE_TYPE_EVENT messages for the
-     * specified event. Unsubscribing to an already unsubscribed event will not
-     * throw an error.
+     * DWM will no longer send dwmipc::MessageType::EVENT messages for
+     * the specified event. Unsubscribing to an already unsubscribed event will
+     * not throw an error.
      *
      * @param ev The event to subscribe to
      *
@@ -219,29 +219,29 @@ class Connection {
     const std::string socket_path;
 
     /**
-     * The Event::TAG_CHANGE handler. This will be called by handle_event
-     * if an Event::TAG_CHANGE event message is received.
+     * The dwmipc::Event::TAG_CHANGE handler. This will be called by
+     * handle_event if an dwmipc::Event::TAG_CHANGE event message is received.
      */
     std::function<void(const TagChangeEvent &ev)> on_tag_change;
 
     /**
-     * The Event::SELECTED_CLIENT_CHANGE handler. This will be called by
-     * handle_event if an Event::SELECTED_CLIENT_CHANGE event message is
+     * The dwmipc::Event::SELECTED_CLIENT_CHANGE handler. This will be called by
+     * handle_event if an dwmipc::Event::SELECTED_CLIENT_CHANGE event message is
      * received.
      */
     std::function<void(const SelectedClientChangeEvent &ev)>
         on_selected_client_change;
 
     /**
-     * The Event::LAYOUT_CHANGE handler. This will be called by
-     * handle_event if an Event::LAYOUT_CHANGE event message is received.
+     * The dwmipc::Event::LAYOUT_CHANGE handler. This will be called by
+     * handle_event if an dwmipc::Event::LAYOUT_CHANGE event message is received.
      */
     std::function<void(const LayoutChangeEvent &ev)> on_layout_change;
 
     /**
-     * The Event::SELECTED_MONITOR_CHANGE handler. This will be called by
-     * handle_event if an Event::SELECTED_MONITOR_CHANGE event message is
-     * received.
+     * The dwmipc::Event::SELECTED_MONITOR_CHANGE handler. This will be called
+     * by handle_event if an dwmipc::Event::SELECTED_MONITOR_CHANGE event
+     * message is received.
      */
     std::function<void(const SelectedMonitorChangeEvent &ev)>
         on_selected_monitor_change;
