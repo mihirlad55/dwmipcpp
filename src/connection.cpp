@@ -139,6 +139,7 @@ void Connection::connect_event_socket() {
         throw InvalidOperationError(
             "Cannot connect to event socket. Already connected.");
     this->event_sockfd = dwmipc::connect(socket_path, false);
+    resubscribe();
 }
 
 void Connection::disconnect_main_socket() {
@@ -173,6 +174,18 @@ void Connection::assert_socket_connected(const MessageType type) const {
         throw SocketClosedError("Disconnected main socket: Cannot read/write");
     else if (sockfd == this->event_sockfd && !is_event_socket_connected())
         throw SocketClosedError("Disconnected event socket: Cannot read/write");
+}
+
+void Connection::resubscribe() {
+    uint8_t mask = 1;
+
+    while (mask < subscriptions) {
+        if (subscriptions & mask) {
+            auto ev = static_cast<Event>(mask);
+            subscribe(ev);
+        }
+        mask <<= 1;
+    }
 }
 
 std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type,

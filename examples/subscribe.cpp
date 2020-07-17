@@ -72,8 +72,13 @@ int main() {
     while (true) {
         try {
             con.handle_event();
+        } catch (const dwmipc::SocketClosedError &err) {
+            std::cerr << err.what() << std::endl;
+            std::cout << "Attempting to reconnect" << std::endl;
+            msleep(500);
+            con.connect_event_socket();
         } catch (const dwmipc::IPCError &err) {
-            std::cout << "Error handling event" << err.what() << std::endl;
+            std::cerr << "Error handling event" << err.what() << std::endl;
         }
         msleep(100);
     }

@@ -267,6 +267,12 @@ class Connection {
     uint8_t subscriptions = 0;
 
     /**
+     * Subscribe to all events specified in subscriptions. This is used to
+     * resubscribe to events after a reconnection.
+     */
+    void resubscribe();
+
+    /**
      * Obtain the appropriate file descriptor to use based on the type of
      * message
      *
