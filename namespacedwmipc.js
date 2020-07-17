@@ -6,6 +6,7 @@ var namespacedwmipc =
     [ "ErrnoError", "classdwmipc_1_1ErrnoError.html", "classdwmipc_1_1ErrnoError" ],
     [ "Geometry", "structdwmipc_1_1Geometry.html", "structdwmipc_1_1Geometry" ],
     [ "HeaderError", "classdwmipc_1_1HeaderError.html", "classdwmipc_1_1HeaderError" ],
+    [ "InvalidOperationError", "classdwmipc_1_1InvalidOperationError.html", "classdwmipc_1_1InvalidOperationError" ],
     [ "IPCError", "classdwmipc_1_1IPCError.html", null ],
     [ "Layout", "structdwmipc_1_1Layout.html", "structdwmipc_1_1Layout" ],
     [ "LayoutChangeEvent", "structdwmipc_1_1LayoutChangeEvent.html", "structdwmipc_1_1LayoutChangeEvent" ],
@@ -17,6 +18,7 @@ var namespacedwmipc =
     [ "SelectedClientChangeEvent", "structdwmipc_1_1SelectedClientChangeEvent.html", "structdwmipc_1_1SelectedClientChangeEvent" ],
     [ "SelectedMonitorChangeEvent", "structdwmipc_1_1SelectedMonitorChangeEvent.html", "structdwmipc_1_1SelectedMonitorChangeEvent" ],
     [ "Size", "structdwmipc_1_1Size.html", "structdwmipc_1_1Size" ],
+    [ "SocketClosedError", "classdwmipc_1_1SocketClosedError.html", "classdwmipc_1_1SocketClosedError" ],
     [ "Tag", "structdwmipc_1_1Tag.html", "structdwmipc_1_1Tag" ],
     [ "TagChangeEvent", "structdwmipc_1_1TagChangeEvent.html", "structdwmipc_1_1TagChangeEvent" ],
     [ "TagState", "structdwmipc_1_1TagState.html", "structdwmipc_1_1TagState" ]

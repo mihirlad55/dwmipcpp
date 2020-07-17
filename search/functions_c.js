@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['_7econnection_184',['~Connection',['../classdwmipc_1_1Connection.html#a29e0fe63c9b346f37464eb9ed08acda2',1,'dwmipc::Connection']]],
-  ['_7epacket_185',['~Packet',['../classdwmipc_1_1Packet.html#aa9a58c76d3f9f73d711850541c06b0a7',1,'dwmipc::Packet']]]
+  ['unsubscribe_218',['unsubscribe',['../classdwmipc_1_1Connection.html#a5fae7826594dc4b7b7ff0c9c9f446095',1,'dwmipc::Connection']]]
 ];

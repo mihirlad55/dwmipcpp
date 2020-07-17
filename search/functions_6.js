@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['main_174',['main',['../dump__all_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;dump_all.cpp'],['../run__command_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;run_command.cpp'],['../subscribe_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;subscribe.cpp']]],
-  ['msleep_175',['msleep',['../subscribe_8cpp.html#afcc41e6d15174562d32511d911624cd6',1,'subscribe.cpp']]]
+  ['invalidoperationerror_202',['InvalidOperationError',['../classdwmipc_1_1InvalidOperationError.html#a693229aa7e195786cd556adade6e5f20',1,'dwmipc::InvalidOperationError']]],
+  ['is_5fevent_5fsocket_5fconnected_203',['is_event_socket_connected',['../classdwmipc_1_1Connection.html#a0c36e1d36c9845f0f07993583ccd3738',1,'dwmipc::Connection']]],
+  ['is_5fmain_5fsocket_5fconnected_204',['is_main_socket_connected',['../classdwmipc_1_1Connection.html#afcae072a3f91698a8ae9c3b7ed4df8b4',1,'dwmipc::Connection']]]
 ];

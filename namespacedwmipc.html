@@ -86,6 +86,7 @@ $(document).ready(function(){initNavTree('namespacedwmipc.html',''); initResizab
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">dwmipc Namespace Reference</div>  </div>
@@ -105,6 +106,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdwmipc_1_1Geometry.html">Geometry</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1HeaderError.html">HeaderError</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1InvalidOperationError.html">InvalidOperationError</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1IPCError.html">IPCError</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,6 +130,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdwmipc_1_1SelectedMonitorChangeEvent.html">SelectedMonitorChangeEvent</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdwmipc_1_1Size.html">Size</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1SocketClosedError.html">SocketClosedError</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdwmipc_1_1Tag.html">Tag</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,6 +166,19 @@ Enumerations</h2></td></tr>
 <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957a2c3c936b8434568cee52de7126997d40">Event::SELECTED_MONITOR_CHANGE</a> = 8
  }</td></tr>
 <tr class="separator:a733c653e029ebd431939c1499dc73957"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a68215b794815736aefc3bc5e6ea77786"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedwmipc.html#a68215b794815736aefc3bc5e6ea77786">connect</a> (const std::string &amp;socket_path, bool is_blocking)</td></tr>
+<tr class="separator:a68215b794815736aefc3bc5e6ea77786"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bdae541fde7deffb00db252098b0015"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedwmipc.html#a4bdae541fde7deffb00db252098b0015">disconnect</a> (int fd)</td></tr>
+<tr class="separator:a4bdae541fde7deffb00db252098b0015"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ae7c17b82f391fce80cd02b4a5a28f9"><td class="memItemLeft" align="right" valign="top">ssize_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedwmipc.html#a9ae7c17b82f391fce80cd02b4a5a28f9">swrite</a> (const int fd, const void *buf, const uint32_t count)</td></tr>
+<tr class="separator:a9ae7c17b82f391fce80cd02b4a5a28f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff00f98f18c457dfc1465110a1a18f1b"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classdwmipc_1_1Packet.html">Packet</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedwmipc.html#aff00f98f18c457dfc1465110a1a18f1b">recv_message</a> (int sockfd, bool wait)</td></tr>
+<tr class="separator:aff00f98f18c457dfc1465110a1a18f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedd9c17c99cabf47a27641e38309c0a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedwmipc.html#aedd9c17c99cabf47a27641e38309c0a2">send_message</a> (int sockfd, const std::shared_ptr&lt; <a class="el" href="classdwmipc_1_1Packet.html">Packet</a> &gt; &amp;packet)</td></tr>
+<tr class="separator:aedd9c17c99cabf47a27641e38309c0a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -245,6 +263,206 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a4a31c2561918e0aff754744ea33842e2a45b73ef479821e71be9f69a190f2bb86"></a>SUBSCRIBE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a4a31c2561918e0aff754744ea33842e2a030d962d0faa148f02848881a3b4fdb6"></a>EVENT&#160;</td><td class="fielddoc"></td></tr>
 </table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a68215b794815736aefc3bc5e6ea77786"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68215b794815736aefc3bc5e6ea77786">&#9670;&nbsp;</a></span>connect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int dwmipc::connect </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>socket_path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_blocking</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Connect to the DWM IPC socket at the specified path and get the file descriptor to the socket.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">socket_path</td><td>Path to the DWM IPC socket </td></tr>
+    <tr><td class="paramname">is_blocking</td><td>If false, the socket will have the O_NONBLOCK flag set</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The file descriptor of the socket</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classdwmipc_1_1IPCError.html">IPCError</a></td><td>if failed to connect to socket </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4bdae541fde7deffb00db252098b0015"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bdae541fde7deffb00db252098b0015">&#9670;&nbsp;</a></span>disconnect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void dwmipc::disconnect </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>fd</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Disconnect from the DWM IPC socket and close the specified file descriptor</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fd</td><td>The file descriptor of the socket to close </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aff00f98f18c457dfc1465110a1a18f1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff00f98f18c457dfc1465110a1a18f1b">&#9670;&nbsp;</a></span>recv_message()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt; <a class="el" href="classdwmipc_1_1Packet.html">Packet</a> &gt; dwmipc::recv_message </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sockfd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>wait</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Receive any incoming messages from the specified socket. This is the main helper function for attempting to read a message from DWM and validate the structure of the message. It absorbs EINTR, EAGAIN, and EWOULDBLOCK errors.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sockfd</td><td>The file descriptor of the socket to receive the message from </td></tr>
+    <tr><td class="paramname">wait</td><td>Should it wait for a message to be received if a message is not already received? If this is false, the file descriptor should have the O_NONBLOCK flag set.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A received packet from DWM</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classdwmipc_1_1NoMsgError.html">NoMsgError</a></td><td>if no messages were received </td></tr>
+    <tr><td class="paramname"><a class="el" href="classdwmipc_1_1HeaderError.html">HeaderError</a></td><td>if packet with invalid header received </td></tr>
+    <tr><td class="paramname"><a class="el" href="classdwmipc_1_1EOFError.html">EOFError</a></td><td>if unexpected EOF while reading message </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aedd9c17c99cabf47a27641e38309c0a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedd9c17c99cabf47a27641e38309c0a2">&#9670;&nbsp;</a></span>send_message()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void dwmipc::send_message </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sockfd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="classdwmipc_1_1Packet.html">Packet</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>packet</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Send a packet to the specified socket</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sockfd</td><td>The file descriptor of the socket to write the message to </td></tr>
+    <tr><td class="paramname">packet</td><td>The packet to send</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classdwmipc_1_1ReplyError.html">ReplyError</a></td><td>if invalid reply received. This could be caused by receiving an event message when expecting a reply to the newly sent message. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9ae7c17b82f391fce80cd02b4a5a28f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ae7c17b82f391fce80cd02b4a5a28f9">&#9670;&nbsp;</a></span>swrite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ssize_t dwmipc::swrite </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>fd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const void *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint32_t&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Helper function keep attempting to write a buffer to a file descriptor, continuing on EINTR, EAGAIN, or EWOULDBLOCK errors.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fd</td><td>File descriptor to write to </td></tr>
+    <tr><td class="paramname">buf</td><td>Address to a buffer to write to the file descriptor </td></tr>
+    <tr><td class="paramname">count</td><td>Number of bytes of buffer to write</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of bytes written if successful, -1 otherwise </dd></dl>
 
 </div>
 </div>

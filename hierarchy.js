@@ -13,9 +13,11 @@ var hierarchy =
         [ "dwmipc::EOFError", "classdwmipc_1_1EOFError.html", null ],
         [ "dwmipc::ErrnoError", "classdwmipc_1_1ErrnoError.html", null ],
         [ "dwmipc::HeaderError", "classdwmipc_1_1HeaderError.html", null ],
+        [ "dwmipc::InvalidOperationError", "classdwmipc_1_1InvalidOperationError.html", null ],
         [ "dwmipc::NoMsgError", "classdwmipc_1_1NoMsgError.html", null ],
         [ "dwmipc::ReplyError", "classdwmipc_1_1ReplyError.html", null ],
-        [ "dwmipc::ResultFailureError", "classdwmipc_1_1ResultFailureError.html", null ]
+        [ "dwmipc::ResultFailureError", "classdwmipc_1_1ResultFailureError.html", null ],
+        [ "dwmipc::SocketClosedError", "classdwmipc_1_1SocketClosedError.html", null ]
       ] ]
     ] ],
     [ "dwmipc::SelectedClientChangeEvent", "structdwmipc_1_1SelectedClientChangeEvent.html", null ],
