@@ -103,26 +103,94 @@ static void parse_selected_monitor_change(const Json::Value &root,
     event.new_mon_num = v_event["new_monitor_number"].asUInt();
 }
 
-Connection::Connection(const std::string &socket_path)
-    : main_sockfd(connect(socket_path, true)),
-      event_sockfd(connect(socket_path, false)), socket_path(socket_path) {}
+Connection::Connection(const std::string &socket_path, bool connect)
+    : socket_path(socket_path) {
+    if (connect) {
+        connect_main_socket();
+        connect_event_socket();
+    }
+}
 
-Connection::~Connection() { disconnect(); }
+Connection::~Connection() {
+    if (is_main_socket_connected())
+        disconnect_main_socket();
 
-void Connection::disconnect() {
-    close(this->main_sockfd);
-    close(this->event_sockfd);
+    if (is_event_socket_connected())
+        disconnect_event_socket();
+}
+
+bool Connection::is_main_socket_connected() const {
+    return this->main_sockfd != -1;
+}
+
+bool Connection::is_event_socket_connected() const {
+    return this->event_sockfd != -1;
+}
+
+void Connection::connect_main_socket() {
+    if (is_main_socket_connected())
+        throw InvalidOperationError(
+            "Cannot connect to main socket. Already connected.");
+    this->main_sockfd = dwmipc::connect(socket_path, true);
+}
+
+void Connection::connect_event_socket() {
+    if (is_event_socket_connected())
+        throw InvalidOperationError(
+            "Cannot connect to event socket. Already connected.");
+    this->event_sockfd = dwmipc::connect(socket_path, false);
+}
+
+void Connection::disconnect_main_socket() {
+    if (!is_main_socket_connected())
+        throw InvalidOperationError(
+            "Cannot disconnect from main socket. Already disconnected.");
+    dwmipc::disconnect(this->main_sockfd);
+    this->main_sockfd = -1;
+}
+
+void Connection::disconnect_event_socket() {
+    if (!is_event_socket_connected())
+        throw InvalidOperationError(
+            "Cannot disconnect from event socket. Already disconnected.");
+    dwmipc::disconnect(this->event_sockfd);
+    this->event_sockfd = -1;
 }
 
 std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type,
-                                            const std::string &msg) const {
+                                            const std::string &msg) {
     auto packet = std::make_shared<Packet>(type, msg);
 
     // If receiving an event message, use the event_sockfd
     int sockfd = (type == MessageType::SUBSCRIBE ? event_sockfd : main_sockfd);
 
-    send_message(sockfd, packet);
-    auto reply = recv_message(sockfd, true);
+    // Throw error if disconnected socket
+    if (type == MessageType::SUBSCRIBE && !is_event_socket_connected()) {
+        throw SocketClosedError("Cannot write to disconnected event socket");
+    } else if (type != MessageType::SUBSCRIBE && !is_main_socket_connected()) {
+        throw SocketClosedError("Cannot write to disconnected main socket");
+    }
+
+    try {
+        send_message(sockfd, packet);
+    } catch (const SocketClosedError &err) {
+        if (type == MessageType::SUBSCRIBE)
+            disconnect_event_socket();
+        else
+            disconnect_main_socket();
+        throw;
+    }
+
+    std::shared_ptr<Packet> reply;
+    try {
+        reply = recv_message(sockfd, true);
+    } catch (const SocketClosedError &err) {
+        if (type == MessageType::SUBSCRIBE)
+            disconnect_event_socket();
+        else
+            disconnect_main_socket();
+        throw;
+    }
 
     // Check if message type matches
     if (packet->header->type != static_cast<uint8_t>(type))
@@ -131,7 +199,7 @@ std::shared_ptr<Packet> Connection::dwm_msg(const MessageType type,
     return reply;
 }
 
-std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() const {
+std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() {
     auto reply = dwm_msg(MessageType::GET_MONITORS);
     Json::Value root;
     pre_parse_reply(root, reply);
@@ -194,7 +262,7 @@ std::shared_ptr<std::vector<Monitor>> Connection::get_monitors() const {
     return monitors;
 }
 
-std::shared_ptr<std::vector<Tag>> Connection::get_tags() const {
+std::shared_ptr<std::vector<Tag>> Connection::get_tags() {
     auto reply = dwm_msg(MessageType::GET_TAGS);
     Json::Value root;
     pre_parse_reply(root, reply);
@@ -210,7 +278,7 @@ std::shared_ptr<std::vector<Tag>> Connection::get_tags() const {
     return tags;
 }
 
-std::shared_ptr<std::vector<Layout>> Connection::get_layouts() const {
+std::shared_ptr<std::vector<Layout>> Connection::get_layouts() {
     auto reply = dwm_msg(MessageType::GET_LAYOUTS);
     Json::Value root;
     pre_parse_reply(root, reply);
@@ -227,7 +295,7 @@ std::shared_ptr<std::vector<Layout>> Connection::get_layouts() const {
     return layouts;
 }
 
-std::shared_ptr<Client> Connection::get_client(Window win_id) const {
+std::shared_ptr<Client> Connection::get_client(Window win_id) {
     // No need to generate the JSON using library since it is so simple
     // Format: { "client_window_id": <window id> }
     const std::string msg =
@@ -322,12 +390,18 @@ void Connection::unsubscribe(const Event ev) {
         this->subscriptions -= static_cast<uint8_t>(ev);
 }
 
-bool Connection::handle_event() const {
+bool Connection::handle_event() {
     std::shared_ptr<Packet> reply;
+    if (!is_event_socket_connected())
+        throw SocketClosedError(
+            "Cannot handle event on disconnected event socket");
     try {
         reply = recv_message(event_sockfd, false);
     } catch (NoMsgError &) {
         return false;
+    } catch (const SocketClosedError &err) {
+        disconnect_event_socket();
+        throw;
     }
 
     if (reply->header->type != static_cast<uint8_t>(MessageType::EVENT))
@@ -374,8 +448,7 @@ bool Connection::handle_event() const {
 
 uint8_t Connection::get_subscriptions() const { return this->subscriptions; }
 
-void Connection::run_command(const std::string name,
-                             const Json::Value &arr) const {
+void Connection::run_command(const std::string name, const Json::Value &arr) {
     Json::Value root;
     root["command"] = name;
     root["args"] = Json::Value(arr);

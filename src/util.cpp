@@ -38,6 +38,11 @@ int connect(const std::string &socket_path, bool is_blocking) {
     return sockfd;
 }
 
+void disconnect(int fd) {
+    shutdown(fd, SHUT_RDWR);
+    close(fd);
+}
+
 ssize_t swrite(const int fd, const void *buf, const uint32_t count) {
     size_t written = 0;
 

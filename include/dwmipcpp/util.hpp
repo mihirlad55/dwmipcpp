@@ -17,8 +17,7 @@
 namespace dwmipc {
 /**
  * Connect to the DWM IPC socket at the specified path and get the file
- * descriptor to the socket. This is used to initialize the const sockfd class
- * member in the constructor initializer list.
+ * descriptor to the socket.
  *
  * @param socket_path Path to the DWM IPC socket
  * @param is_blocking If false, the socket will have the O_NONBLOCK flag set
@@ -28,6 +27,13 @@ namespace dwmipc {
  * @throw IPCError if failed to connect to socket
  */
 int connect(const std::string &socket_path, bool is_blocking);
+
+/**
+ * Disconnect from the DWM IPC socket and close the specified file descriptor
+ *
+ * @param fd The file descriptor of the socket to close
+ */
+void disconnect(int fd);
 
 /**
  * Helper function keep attempting to write a buffer to a file descriptor,

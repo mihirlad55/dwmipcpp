@@ -71,4 +71,6 @@ SocketClosedError::SocketClosedError(const int fd)
 SocketClosedError::SocketClosedError(const std::string &msg)
     : IPCError(format_generic(msg)) {}
 
+InvalidOperationError::InvalidOperationError(const std::string &msg)
+    : IPCError(format_generic(msg)) {}
 } // namespace dwmipc

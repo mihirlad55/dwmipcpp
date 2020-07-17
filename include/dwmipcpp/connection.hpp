@@ -27,9 +27,10 @@ class Connection {
      * Create a Connection object and connect to the DWM IPC socket.
      *
      * @param socket_path Path to DWM's IPC socket
-     *
+     * @param connect If true, the main socket and event socket will be
+     *   connected to upon construction.
      */
-    Connection(const std::string &socket_path);
+    Connection(const std::string &socket_path, bool connect = true);
 
     /**
      * Destroy the Connection object and disconnect from the DWM IPC socket
@@ -43,7 +44,7 @@ class Connection {
      *
      * @throw ResultFailureError if DWM sends an error reply.
      */
-    std::shared_ptr<std::vector<Monitor>> get_monitors() const;
+    std::shared_ptr<std::vector<Monitor>> get_monitors();
 
     /**
      * Get the list of tags defined by DWM
@@ -52,7 +53,7 @@ class Connection {
      *
      * @throw ResultFailureError if DWM sends an error reply.
      */
-    std::shared_ptr<std::vector<Tag>> get_tags() const;
+    std::shared_ptr<std::vector<Tag>> get_tags();
 
     /**
      * Get the list of available layouts as defined by DWM
@@ -61,7 +62,7 @@ class Connection {
      *
      * @throw ResultFailureError if DWM sends an error reply.
      */
-    std::shared_ptr<std::vector<Layout>> get_layouts() const;
+    std::shared_ptr<std::vector<Layout>> get_layouts();
 
     /**
      * Get the properties of a DWM client
@@ -72,7 +73,7 @@ class Connection {
      *
      * @throw ResultFailureError if DWM sends an error reply.
      */
-    std::shared_ptr<Client> get_client(Window win_id) const;
+    std::shared_ptr<Client> get_client(Window win_id);
 
     /**
      * Subscribe to the specified DWM event. After subscribing to an event, DWM
@@ -104,7 +105,7 @@ class Connection {
      *
      * @throw IPCError if invalid message type received
      */
-    bool handle_event() const;
+    bool handle_event();
 
     /**
      * Run a DWM command
@@ -123,7 +124,7 @@ class Connection {
      *   error reply from DWM.
      */
     template <typename... Types>
-    void run_command(const std::string name, Types... args) const {
+    void run_command(const std::string name, Types... args) {
         Json::Value arr = Json::Value(Json::arrayValue);
         run_command_build(arr, args...);
         run_command(name, arr);
@@ -137,9 +138,50 @@ class Connection {
      * @param arr JSON array of arguments for the command. If this parameter is
      *   not specified, the arguments default to an empty array.
      */
-    void
-    run_command(const std::string name,
-                const Json::Value &arr = Json::Value(Json::arrayValue)) const;
+    void run_command(const std::string name,
+                     const Json::Value &arr = Json::Value(Json::arrayValue));
+
+    /**
+     * Check if main socket is connected
+     *
+     * @return true if connected, false otherwise
+     */
+    bool is_main_socket_connected() const;
+
+    /**
+     * Check if event socket is connected
+     *
+     * @return true if connected, false otherwise
+     */
+    bool is_event_socket_connected() const;
+
+    /**
+     * Connect to the main socket
+     *
+     * @throw InvalidOperationError if socket is already connected
+     */
+    void connect_main_socket();
+
+    /**
+     * Connect to the event socket
+     *
+     * @throw InvalidOperationError if socket is already connected
+     */
+    void connect_event_socket();
+
+    /**
+     * Disconnect from the main socket
+     *
+     * @throw InvalidOperationError if socket is already disconnected
+     */
+    void disconnect_main_socket();
+
+    /**
+     * Disconnect from the event socket
+     *
+     * @throw InvalidOperationError if socket is already disconnected
+     */
+    void disconnect_event_socket();
 
     /**
      * Get the events that the connection is subscribed to. Use dwmipc::Event
@@ -148,17 +190,14 @@ class Connection {
     uint8_t get_subscriptions() const;
 
     /**
-     * The main DWM IPC socket file descriptor for all non-event messages
+     * Get the file descriptor of the main socket
      */
-    const int main_sockfd;
+    int get_main_socket_fd() const;
 
     /**
-     * The event DWM IPC socket file descriptor for all event messages. This is
-     * kept separate to avoid conflicts between replies for sent messages and
-     * event messages. For example, if a message were to be sent, and and an
-     * event message was received before the reply, it could cause issues.
+     * Get the file descriptor of the event socket
      */
-    const int event_sockfd;
+    int get_event_socket_fd() const;
 
     /**
      * The path to the DWM IPC socket specified when Connection is constructed.
@@ -195,15 +234,23 @@ class Connection {
 
   private:
     /**
+     * The main DWM IPC socket file descriptor for all non-event messages
+     */
+    int main_sockfd = -1;
+
+    /**
+     * The event DWM IPC socket file descriptor for all event messages. This is
+     * kept separate to avoid conflicts between replies for sent messages and
+     * event messages. For example, if a message were to be sent, and and an
+     * event message was received before the reply, it could cause issues.
+     */
+    int event_sockfd = -1;
+
+    /**
      * The events that the connection is subscribed to. Use dwmipc::Event values
      * as a bitmask to determine which subscriptions are subscribed to.
      */
     uint8_t subscriptions = 0;
-
-    /**
-     * Disconnect from the DWM IPC socket.
-     */
-    void disconnect();
 
     /**
      * Send a message to DWM with the specified payload and message type
@@ -211,13 +258,15 @@ class Connection {
      * @param type IPC message type
      * @param msg The payload. This can be left empty for message types where
      *   the payload is not needed/used.
+     * @param reconnect If true and the main socket is disconnected, an attempt
+     *   to re-establish the connection will be made
      *
      * @return The reply packet from DWM
      *
      * @throw ReplyError if reply message type doesn't match sent message type
      */
     std::shared_ptr<Packet> dwm_msg(const MessageType type,
-                                    const std::string &msg = "") const;
+                                    const std::string &msg = "");
 
     /**
      * Subscribe or unsubscribe to the specified event

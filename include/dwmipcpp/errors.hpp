@@ -136,4 +136,16 @@ class SocketClosedError : public IPCError {
     SocketClosedError(const int fd);
 };
 
+/**
+ * This error is thrown when an invalid operation is requested such as
+ * attempting to connect to an already connected socket.
+ */
+class InvalidOperationError : public IPCError {
+  public:
+    /**
+     * Construct a InvalidOperationError specifying the invalid operation
+     */
+    InvalidOperationError(const std::string &msg);
+};
+
 } // namespace dwmipc
