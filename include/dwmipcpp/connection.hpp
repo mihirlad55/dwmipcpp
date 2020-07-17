@@ -43,6 +43,7 @@ class Connection {
      * @return A list of Monitor objects
      *
      * @throw ResultFailureError if DWM sends an error reply.
+     * @throw SocketClosedError if the socket is disconnected
      */
     std::shared_ptr<std::vector<Monitor>> get_monitors();
 
@@ -52,6 +53,7 @@ class Connection {
      * @return A list of Tag objects
      *
      * @throw ResultFailureError if DWM sends an error reply.
+     * @throw SocketClosedError if the socket is disconnected
      */
     std::shared_ptr<std::vector<Tag>> get_tags();
 
@@ -61,6 +63,7 @@ class Connection {
      * @return A list of Layout objects
      *
      * @throw ResultFailureError if DWM sends an error reply.
+     * @throw SocketClosedError if the socket is disconnected
      */
     std::shared_ptr<std::vector<Layout>> get_layouts();
 
@@ -72,28 +75,32 @@ class Connection {
      * @return A Client object
      *
      * @throw ResultFailureError if DWM sends an error reply.
+     * @throw SocketClosedError if the socket is disconnected
      */
     std::shared_ptr<Client> get_client(Window win_id);
 
     /**
      * Subscribe to the specified DWM event. After subscribing to an event, DWM
-     * will send dwmipc::MESSAGE_TYPE_EVENT messages when the specified event is
+     * will send Event::MESSAGE_TYPE_EVENT messages when the specified event is
      * raised. Subscribing to an already subscribed event will not throw an
      * error.
      *
      * @param ev The event to subscribe to
      *
      * @throw ResultFailureError if DWM sends an error reply.
+     * @throw SocketClosedError if the socket is disconnected
      */
     void subscribe(const Event ev);
 
     /**
      * Unsubscribe to the specified DWM event. After unsubscribing to an event,
-     * DWM will no longer send dwmipc::MESSAGE_TYPE_EVENT messages for the
+     * DWM will no longer send Event::MESSAGE_TYPE_EVENT messages for the
      * specified event. Unsubscribing to an already unsubscribed event will not
      * throw an error.
      *
      * @param ev The event to subscribe to
+     *
+     * @throw SocketClosedError if the socket is disconnected
      */
     void unsubscribe(const Event ev);
 
@@ -103,6 +110,7 @@ class Connection {
      * @return true if an event message was received and handled, false if no
      *   event messages were available.
      *
+     * @throw SocketClosedError if the socket is disconnected
      * @throw IPCError if invalid message type received
      */
     bool handle_event();
@@ -122,6 +130,7 @@ class Connection {
      * @throw ResultFailureError if the command doesn't exist, the number of
      *   arguments are incorrect, the argument types are incorrect, or any other
      *   error reply from DWM.
+     * @throw SocketClosedError if the socket is disconnected
      */
     template <typename... Types>
     void run_command(const std::string name, Types... args) {
@@ -137,6 +146,7 @@ class Connection {
      * @param name Name of the command
      * @param arr JSON array of arguments for the command. If this parameter is
      *   not specified, the arguments default to an empty array.
+     * @throw SocketClosedError if the socket is disconnected
      */
     void run_command(const std::string name,
                      const Json::Value &arr = Json::Value(Json::arrayValue));
@@ -191,11 +201,15 @@ class Connection {
 
     /**
      * Get the file descriptor of the main socket
+     *
+     * @return File descriptor of the main socket, -1 if disconnected
      */
     int get_main_socket_fd() const;
 
     /**
      * Get the file descriptor of the event socket
+     *
+     * @return File descriptor of the event socket, -1 if disconnected
      */
     int get_event_socket_fd() const;
 
