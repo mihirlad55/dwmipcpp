@@ -330,6 +330,7 @@ Public Attributes</h2></td></tr>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="classdwmipc_1_1ResultFailureError.html">ResultFailureError</a></td><td>if DWM sends an error reply. </td></tr>
+    <tr><td class="paramname"><a class="el" href="classdwmipc_1_1SocketClosedError.html">SocketClosedError</a></td><td>if the socket is disconnected </td></tr>
   </table>
   </dd>
 </dl>
@@ -350,7 +351,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get the file descriptor of the event socket </p>
+<p>Get the file descriptor of the event socket</p>
+<dl class="section return"><dt>Returns</dt><dd>File descriptor of the event socket, -1 if disconnected </dd></dl>
 
 </div>
 </div>
@@ -373,6 +375,7 @@ Public Attributes</h2></td></tr>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="classdwmipc_1_1ResultFailureError.html">ResultFailureError</a></td><td>if DWM sends an error reply. </td></tr>
+    <tr><td class="paramname"><a class="el" href="classdwmipc_1_1SocketClosedError.html">SocketClosedError</a></td><td>if the socket is disconnected </td></tr>
   </table>
   </dd>
 </dl>
@@ -393,7 +396,8 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get the file descriptor of the main socket </p>
+<p>Get the file descriptor of the main socket</p>
+<dl class="section return"><dt>Returns</dt><dd>File descriptor of the main socket, -1 if disconnected </dd></dl>
 
 </div>
 </div>
@@ -416,6 +420,7 @@ Public Attributes</h2></td></tr>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="classdwmipc_1_1ResultFailureError.html">ResultFailureError</a></td><td>if DWM sends an error reply. </td></tr>
+    <tr><td class="paramname"><a class="el" href="classdwmipc_1_1SocketClosedError.html">SocketClosedError</a></td><td>if the socket is disconnected </td></tr>
   </table>
   </dd>
 </dl>
@@ -459,6 +464,7 @@ Public Attributes</h2></td></tr>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="classdwmipc_1_1ResultFailureError.html">ResultFailureError</a></td><td>if DWM sends an error reply. </td></tr>
+    <tr><td class="paramname"><a class="el" href="classdwmipc_1_1SocketClosedError.html">SocketClosedError</a></td><td>if the socket is disconnected </td></tr>
   </table>
   </dd>
 </dl>
@@ -483,6 +489,7 @@ Public Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>true if an event message was received and handled, false if no event messages were available.</dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classdwmipc_1_1SocketClosedError.html">SocketClosedError</a></td><td>if the socket is disconnected </td></tr>
     <tr><td class="paramname"><a class="el" href="classdwmipc_1_1IPCError.html">IPCError</a></td><td>if invalid message type received </td></tr>
   </table>
   </dd>
@@ -561,6 +568,12 @@ Public Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classdwmipc_1_1SocketClosedError.html">SocketClosedError</a></td><td>if the socket is disconnected </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -611,6 +624,7 @@ template&lt;typename... Types&gt; </div>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="classdwmipc_1_1ResultFailureError.html">ResultFailureError</a></td><td>if the command doesn't exist, the number of arguments are incorrect, the argument types are incorrect, or any other error reply from DWM. </td></tr>
+    <tr><td class="paramname"><a class="el" href="classdwmipc_1_1SocketClosedError.html">SocketClosedError</a></td><td>if the socket is disconnected </td></tr>
   </table>
   </dd>
 </dl>
@@ -632,7 +646,7 @@ template&lt;typename... Types&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Subscribe to the specified DWM event. After subscribing to an event, DWM will send dwmipc::MESSAGE_TYPE_EVENT messages when the specified event is raised. Subscribing to an already subscribed event will not throw an error.</p>
+<p>Subscribe to the specified DWM event. After subscribing to an event, DWM will send Event::MESSAGE_TYPE_EVENT messages when the specified event is raised. Subscribing to an already subscribed event will not throw an error.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ev</td><td>The event to subscribe to</td></tr>
@@ -642,6 +656,7 @@ template&lt;typename... Types&gt; </div>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="classdwmipc_1_1ResultFailureError.html">ResultFailureError</a></td><td>if DWM sends an error reply. </td></tr>
+    <tr><td class="paramname"><a class="el" href="classdwmipc_1_1SocketClosedError.html">SocketClosedError</a></td><td>if the socket is disconnected </td></tr>
   </table>
   </dd>
 </dl>
@@ -663,10 +678,16 @@ template&lt;typename... Types&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Unsubscribe to the specified DWM event. After unsubscribing to an event, DWM will no longer send dwmipc::MESSAGE_TYPE_EVENT messages for the specified event. Unsubscribing to an already unsubscribed event will not throw an error.</p>
+<p>Unsubscribe to the specified DWM event. After unsubscribing to an event, DWM will no longer send Event::MESSAGE_TYPE_EVENT messages for the specified event. Unsubscribing to an already unsubscribed event will not throw an error.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ev</td><td>The event to subscribe to </td></tr>
+    <tr><td class="paramname">ev</td><td>The event to subscribe to</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classdwmipc_1_1SocketClosedError.html">SocketClosedError</a></td><td>if the socket is disconnected </td></tr>
   </table>
   </dd>
 </dl>
