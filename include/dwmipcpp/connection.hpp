@@ -247,6 +247,14 @@ class Connection {
     std::function<void(const MonitorFocusChangeEvent &ev)>
         on_monitor_focus_change;
 
+    /**
+     * The dwmipc::Event::FOCUSED_TITLE_CHANGE handler. This will be called
+     * by handle_event if an dwmipc::Event::FOCUSED_TITLE_CHANGE event
+     * message is received.
+     */
+    std::function<void(const FocusedTitleChangeEvent &ev)>
+        on_focused_title_change;
+
   private:
     /**
      * The main DWM IPC socket file descriptor for all non-event messages

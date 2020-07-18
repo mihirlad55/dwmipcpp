@@ -192,6 +192,16 @@ struct MonitorFocusChangeEvent {
 };
 
 /**
+ * Struct describing a focused_title_change_event
+ */
+struct FocusedTitleChangeEvent {
+    unsigned int monitor_num; ///< Index of monitor associated with client
+    Window client_window_id;  ///< Window XID of client
+    std::string old_name;     ///< Old window title
+    std::string new_name;     ///< New window title
+};
+
+/**
  * Enum of supported DWM message types
  */
 enum class MessageType : uint8_t {
@@ -208,10 +218,11 @@ enum class MessageType : uint8_t {
  * IPC events that can be subscribed to. Each event value represents a bit.
  */
 enum class Event : uint8_t {
-    TAG_CHANGE = 1,
-    CLIENT_FOCUS_CHANGE = 2,
-    LAYOUT_CHANGE = 4,
-    MONITOR_FOCUS_CHANGE = 8
+    TAG_CHANGE = 1 << 0,
+    CLIENT_FOCUS_CHANGE = 1 << 1,
+    LAYOUT_CHANGE = 1 << 2,
+    MONITOR_FOCUS_CHANGE = 1 << 3,
+    FOCUSED_TITLE_CHANGE = 1 << 4
 };
 
 /**

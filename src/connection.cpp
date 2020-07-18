@@ -92,6 +92,21 @@ parse_client_focus_change_event(const Json::Value &root,
 }
 
 /**
+ * Parse a Event::FOCUSED_TITLE_CHANGE message
+ */
+static void
+parse_focused_title_change_event(const Json::Value &root,
+                                   FocusedTitleChangeEvent &event) {
+    const std::string ev_name = event_map.at(Event::FOCUSED_TITLE_CHANGE);
+    auto v_event = root[ev_name];
+
+    event.monitor_num = v_event["monitor_number"].asUInt();
+    event.client_window_id = v_event["client_window_id"].asUInt();
+    event.old_name = v_event["old_name"].asString();
+    event.new_name = v_event["new_name"].asString();
+}
+
+/**
  * Parse a Event::MONITOR_FOCUS_CHANGE message
  */
 static void parse_monitor_focus_change(const Json::Value &root,
@@ -464,6 +479,13 @@ bool Connection::handle_event() {
             MonitorFocusChangeEvent event;
             parse_monitor_focus_change(root, event);
             on_monitor_focus_change(event);
+        }
+    } else if (root.get(event_map.at(Event::FOCUSED_TITLE_CHANGE),
+                        Json::nullValue) != Json::nullValue) {
+        if (on_focused_title_change) {
+            FocusedTitleChangeEvent event;
+            parse_focused_title_change_event(root, event);
+            on_focused_title_change(event);
         }
     } else
         throw IPCError("Invalid event type received" +

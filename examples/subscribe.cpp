@@ -64,10 +64,21 @@ int main() {
                       << std::endl;
         };
 
+    con.on_focused_title_change =
+        [](const dwmipc::FocusedTitleChangeEvent &event) {
+            std::cout << "focused_title_change_event:" << std::endl;
+            std::cout << "  monitor_number: " << event.monitor_num << std::endl;
+            std::cout << "  client_window_id: " << event.client_window_id
+                      << std::endl;
+            std::cout << "  old_name: " << event.old_name << std::endl;
+            std::cout << "  new_name: " << event.new_name << std::endl;
+        };
+
     con.subscribe(dwmipc::Event::LAYOUT_CHANGE);
     con.subscribe(dwmipc::Event::CLIENT_FOCUS_CHANGE);
     con.subscribe(dwmipc::Event::TAG_CHANGE);
     con.subscribe(dwmipc::Event::MONITOR_FOCUS_CHANGE);
+    con.subscribe(dwmipc::Event::FOCUSED_TITLE_CHANGE);
 
     while (true) {
         try {
