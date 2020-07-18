@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['monitor_154',['Monitor',['../structdwmipc_1_1Monitor.html',1,'dwmipc']]]
+  ['layout_160',['Layout',['../structdwmipc_1_1Layout.html',1,'dwmipc']]],
+  ['layoutchangeevent_161',['LayoutChangeEvent',['../structdwmipc_1_1LayoutChangeEvent.html',1,'dwmipc']]]
 ];

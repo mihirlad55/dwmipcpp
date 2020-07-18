@@ -143,12 +143,14 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a3a6482dbed51a281143b3d475d228c8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a0c085ab59908261fc5fc08c2469e48"><td class="memItemLeft" align="right" valign="top">std::function&lt; void(const <a class="el" href="structdwmipc_1_1TagChangeEvent.html">TagChangeEvent</a> &amp;ev)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Connection.html#a5a0c085ab59908261fc5fc08c2469e48">on_tag_change</a></td></tr>
 <tr class="separator:a5a0c085ab59908261fc5fc08c2469e48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a2676c93598719d57c821a60028474f"><td class="memItemLeft" align="right" valign="top">std::function&lt; void(const <a class="el" href="structdwmipc_1_1SelectedClientChangeEvent.html">SelectedClientChangeEvent</a> &amp;ev)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Connection.html#a4a2676c93598719d57c821a60028474f">on_selected_client_change</a></td></tr>
-<tr class="separator:a4a2676c93598719d57c821a60028474f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cb22723e6e91939c891c350e7c992f8"><td class="memItemLeft" align="right" valign="top">std::function&lt; void(const <a class="el" href="structdwmipc_1_1ClientFocusChangeEvent.html">ClientFocusChangeEvent</a> &amp;ev)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Connection.html#a3cb22723e6e91939c891c350e7c992f8">on_client_focus_change</a></td></tr>
+<tr class="separator:a3cb22723e6e91939c891c350e7c992f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9cca0ff89eb8dbcf428867dab0c9dbbc"><td class="memItemLeft" align="right" valign="top">std::function&lt; void(const <a class="el" href="structdwmipc_1_1LayoutChangeEvent.html">LayoutChangeEvent</a> &amp;ev)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Connection.html#a9cca0ff89eb8dbcf428867dab0c9dbbc">on_layout_change</a></td></tr>
 <tr class="separator:a9cca0ff89eb8dbcf428867dab0c9dbbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0727ed5001200324e569e1ca15281723"><td class="memItemLeft" align="right" valign="top">std::function&lt; void(const <a class="el" href="structdwmipc_1_1SelectedMonitorChangeEvent.html">SelectedMonitorChangeEvent</a> &amp;ev)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Connection.html#a0727ed5001200324e569e1ca15281723">on_selected_monitor_change</a></td></tr>
-<tr class="separator:a0727ed5001200324e569e1ca15281723"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87cd6aa59eaf9dc413ba54166421fae2"><td class="memItemLeft" align="right" valign="top">std::function&lt; void(const <a class="el" href="structdwmipc_1_1MonitorFocusChangeEvent.html">MonitorFocusChangeEvent</a> &amp;ev)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Connection.html#a87cd6aa59eaf9dc413ba54166421fae2">on_monitor_focus_change</a></td></tr>
+<tr class="separator:a87cd6aa59eaf9dc413ba54166421fae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab39f2dad22a390076aa1b587a73d2765"><td class="memItemLeft" align="right" valign="top">std::function&lt; void(const <a class="el" href="structdwmipc_1_1FocusedTitleChangeEvent.html">FocusedTitleChangeEvent</a> &amp;ev)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Connection.html#ab39f2dad22a390076aa1b587a73d2765">on_focused_title_change</a></td></tr>
+<tr class="separator:ab39f2dad22a390076aa1b587a73d2765"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The DWM IPC connection class used to initiate a connection with DWM's IPC socket and send/receive messages. </p>
@@ -695,6 +697,36 @@ template&lt;typename... Types&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="a3cb22723e6e91939c891c350e7c992f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cb22723e6e91939c891c350e7c992f8">&#9670;&nbsp;</a></span>on_client_focus_change</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::function&lt;void(const <a class="el" href="structdwmipc_1_1ClientFocusChangeEvent.html">ClientFocusChangeEvent</a> &amp;ev)&gt; dwmipc::Connection::on_client_focus_change</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957a5353e40b9452e460e037551b5245e11a">dwmipc::Event::CLIENT_FOCUS_CHANGE</a> handler. This will be called by handle_event if an <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957a5353e40b9452e460e037551b5245e11a">dwmipc::Event::CLIENT_FOCUS_CHANGE</a> event message is received. </p>
+
+</div>
+</div>
+<a id="ab39f2dad22a390076aa1b587a73d2765"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab39f2dad22a390076aa1b587a73d2765">&#9670;&nbsp;</a></span>on_focused_title_change</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::function&lt;void(const <a class="el" href="structdwmipc_1_1FocusedTitleChangeEvent.html">FocusedTitleChangeEvent</a> &amp;ev)&gt; dwmipc::Connection::on_focused_title_change</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957aaee6a76f8bafd3a1602e2e67e44e69e9">dwmipc::Event::FOCUSED_TITLE_CHANGE</a> handler. This will be called by handle_event if an <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957aaee6a76f8bafd3a1602e2e67e44e69e9">dwmipc::Event::FOCUSED_TITLE_CHANGE</a> event message is received. </p>
+
+</div>
+</div>
 <a id="a9cca0ff89eb8dbcf428867dab0c9dbbc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9cca0ff89eb8dbcf428867dab0c9dbbc">&#9670;&nbsp;</a></span>on_layout_change</h2>
 
@@ -710,33 +742,18 @@ template&lt;typename... Types&gt; </div>
 
 </div>
 </div>
-<a id="a4a2676c93598719d57c821a60028474f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a2676c93598719d57c821a60028474f">&#9670;&nbsp;</a></span>on_selected_client_change</h2>
+<a id="a87cd6aa59eaf9dc413ba54166421fae2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87cd6aa59eaf9dc413ba54166421fae2">&#9670;&nbsp;</a></span>on_monitor_focus_change</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::function&lt;void(const <a class="el" href="structdwmipc_1_1SelectedClientChangeEvent.html">SelectedClientChangeEvent</a> &amp;ev)&gt; dwmipc::Connection::on_selected_client_change</td>
+          <td class="memname">std::function&lt;void(const <a class="el" href="structdwmipc_1_1MonitorFocusChangeEvent.html">MonitorFocusChangeEvent</a> &amp;ev)&gt; dwmipc::Connection::on_monitor_focus_change</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957a093276ebae8cfc0230b4c46d4785e481">dwmipc::Event::SELECTED_CLIENT_CHANGE</a> handler. This will be called by handle_event if an <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957a093276ebae8cfc0230b4c46d4785e481">dwmipc::Event::SELECTED_CLIENT_CHANGE</a> event message is received. </p>
-
-</div>
-</div>
-<a id="a0727ed5001200324e569e1ca15281723"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0727ed5001200324e569e1ca15281723">&#9670;&nbsp;</a></span>on_selected_monitor_change</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::function&lt;void(const <a class="el" href="structdwmipc_1_1SelectedMonitorChangeEvent.html">SelectedMonitorChangeEvent</a> &amp;ev)&gt; dwmipc::Connection::on_selected_monitor_change</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>The <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957a2c3c936b8434568cee52de7126997d40">dwmipc::Event::SELECTED_MONITOR_CHANGE</a> handler. This will be called by handle_event if an <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957a2c3c936b8434568cee52de7126997d40">dwmipc::Event::SELECTED_MONITOR_CHANGE</a> event message is received. </p>
+<p>The <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957ae109b8edcabf19c442c7d67fa8a3cafb">dwmipc::Event::MONITOR_FOCUS_CHANGE</a> handler. This will be called by handle_event if an <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957ae109b8edcabf19c442c7d67fa8a3cafb">dwmipc::Event::MONITOR_FOCUS_CHANGE</a> event message is received. </p>
 
 </div>
 </div>

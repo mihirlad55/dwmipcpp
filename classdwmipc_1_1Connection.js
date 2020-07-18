@@ -20,9 +20,10 @@ var classdwmipc_1_1Connection =
     [ "run_command", "classdwmipc_1_1Connection.html#a6f5e95406c80b1f9f963c45ca5c724f4", null ],
     [ "subscribe", "classdwmipc_1_1Connection.html#ac08dee67d7a104bb61a331ae8421f72c", null ],
     [ "unsubscribe", "classdwmipc_1_1Connection.html#a5fae7826594dc4b7b7ff0c9c9f446095", null ],
+    [ "on_client_focus_change", "classdwmipc_1_1Connection.html#a3cb22723e6e91939c891c350e7c992f8", null ],
+    [ "on_focused_title_change", "classdwmipc_1_1Connection.html#ab39f2dad22a390076aa1b587a73d2765", null ],
     [ "on_layout_change", "classdwmipc_1_1Connection.html#a9cca0ff89eb8dbcf428867dab0c9dbbc", null ],
-    [ "on_selected_client_change", "classdwmipc_1_1Connection.html#a4a2676c93598719d57c821a60028474f", null ],
-    [ "on_selected_monitor_change", "classdwmipc_1_1Connection.html#a0727ed5001200324e569e1ca15281723", null ],
+    [ "on_monitor_focus_change", "classdwmipc_1_1Connection.html#a87cd6aa59eaf9dc413ba54166421fae2", null ],
     [ "on_tag_change", "classdwmipc_1_1Connection.html#a5a0c085ab59908261fc5fc08c2469e48", null ],
     [ "socket_path", "classdwmipc_1_1Connection.html#a3a6482dbed51a281143b3d475d228c8d", null ]
 ];

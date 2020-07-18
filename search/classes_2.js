@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['geometry_147',['Geometry',['../structdwmipc_1_1Geometry.html',1,'dwmipc']]]
+  ['focusedtitlechangeevent_154',['FocusedTitleChangeEvent',['../structdwmipc_1_1FocusedTitleChangeEvent.html',1,'dwmipc']]]
 ];

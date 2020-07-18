@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['invalidoperationerror_150',['InvalidOperationError',['../classdwmipc_1_1InvalidOperationError.html',1,'dwmipc']]],
-  ['ipcerror_151',['IPCError',['../classdwmipc_1_1IPCError.html',1,'dwmipc']]]
+  ['header_156',['Header',['../structdwmipc_1_1Packet_1_1Header.html',1,'dwmipc::Packet']]],
+  ['headererror_157',['HeaderError',['../classdwmipc_1_1HeaderError.html',1,'dwmipc']]]
 ];

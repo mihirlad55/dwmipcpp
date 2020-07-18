@@ -1,14 +1,16 @@
 var searchData=
 [
-  ['tag_120',['Tag',['../structdwmipc_1_1Tag.html',1,'dwmipc']]],
-  ['tag_5fchange_121',['TAG_CHANGE',['../namespacedwmipc.html#a733c653e029ebd431939c1499dc73957a6ca91df80f2c63dd0b569b2a2737e3d9',1,'dwmipc']]],
-  ['tag_5fname_122',['tag_name',['../structdwmipc_1_1Tag.html#ac1aa28d1c2e63366e27659432a883822',1,'dwmipc::Tag']]],
-  ['tag_5fstate_123',['tag_state',['../structdwmipc_1_1Monitor.html#ac861a4303f5ca4577af14f149cab6ca1',1,'dwmipc::Monitor']]],
-  ['tagchangeevent_124',['TagChangeEvent',['../structdwmipc_1_1TagChangeEvent.html',1,'dwmipc']]],
-  ['tags_125',['tags',['../structdwmipc_1_1Client.html#a785b46cecddac928a9eb563000bbb162',1,'dwmipc::Client']]],
-  ['tagset_126',['tagset',['../structdwmipc_1_1Monitor.html#a6d52ba06123515bb0922bd9de17e66c2',1,'dwmipc::Monitor']]],
-  ['tagstate_127',['TagState',['../structdwmipc_1_1TagState.html',1,'dwmipc']]],
-  ['type_128',['type',['../structdwmipc_1_1Packet_1_1Header.html#a0ecbe84a6f97f3eac92abc7cf8dc5a30',1,'dwmipc::Packet::Header::type()'],['../packet_8hpp.html#a1d127017fb298b889f4ba24752d08b8e',1,'type():&#160;packet.hpp']]],
-  ['types_2ecpp_129',['types.cpp',['../types_8cpp.html',1,'']]],
-  ['types_2ehpp_130',['types.hpp',['../types_8hpp.html',1,'']]]
+  ['selected_113',['selected',['../structdwmipc_1_1TagState.html#a21562d6b6ce918b45be7b5addfd90a2e',1,'dwmipc::TagState::selected()'],['../structdwmipc_1_1Monitor.html#a921d916e5bd436e852fdc87b32ea7501',1,'dwmipc::Monitor::selected()']]],
+  ['send_5fmessage_114',['send_message',['../namespacedwmipc.html#aedd9c17c99cabf47a27641e38309c0a2',1,'dwmipc']]],
+  ['size_115',['Size',['../structdwmipc_1_1Size.html',1,'dwmipc::Size'],['../structdwmipc_1_1Packet_1_1Header.html#a0185caf0f2db5065acb1e657073422e8',1,'dwmipc::Packet::Header::size()'],['../classdwmipc_1_1Packet.html#a23aa835f59e8d54aea1eb55ae0ebab44',1,'dwmipc::Packet::size()'],['../packet_8hpp.html#ab2c6b258f02add8fdf4cfc7c371dd772',1,'size():&#160;packet.hpp']]],
+  ['size_5fhints_116',['size_hints',['../structdwmipc_1_1Client.html#ab4b9f6e325d2de604705c4e9f342b7c2',1,'dwmipc::Client']]],
+  ['socket_5fpath_117',['socket_path',['../classdwmipc_1_1Connection.html#a3a6482dbed51a281143b3d475d228c8d',1,'dwmipc::Connection']]],
+  ['socketclosederror_118',['SocketClosedError',['../classdwmipc_1_1SocketClosedError.html',1,'dwmipc::SocketClosedError'],['../classdwmipc_1_1SocketClosedError.html#aba62f68313ff9d3d48dedb0aa0228f8c',1,'dwmipc::SocketClosedError::SocketClosedError(const std::string &amp;msg)'],['../classdwmipc_1_1SocketClosedError.html#a40a03b147c3e71209f8f2e209456a497',1,'dwmipc::SocketClosedError::SocketClosedError(const int fd)']]],
+  ['stack_119',['stack',['../structdwmipc_1_1Monitor.html#a915fa68b08d6705bc0013a3be7c632e1',1,'dwmipc::Monitor']]],
+  ['states_120',['states',['../structdwmipc_1_1Client.html#a32cd7be40a249187bec0b07f31374d0a',1,'dwmipc::Client']]],
+  ['step_121',['step',['../structdwmipc_1_1Client.html#a7f28d9ec9e1008eb6b4f424326478ea6',1,'dwmipc::Client']]],
+  ['subscribe_122',['subscribe',['../classdwmipc_1_1Connection.html#ac08dee67d7a104bb61a331ae8421f72c',1,'dwmipc::Connection::subscribe()'],['../namespacedwmipc.html#a4a31c2561918e0aff754744ea33842e2a45b73ef479821e71be9f69a190f2bb86',1,'dwmipc::SUBSCRIBE()']]],
+  ['subscribe_2ecpp_123',['subscribe.cpp',['../subscribe_8cpp.html',1,'']]],
+  ['swrite_124',['swrite',['../namespacedwmipc.html#a9ae7c17b82f391fce80cd02b4a5a28f9',1,'dwmipc']]],
+  ['symbol_125',['symbol',['../structdwmipc_1_1Layout.html#a71b0ae97cda43546dc7316fc701617b9',1,'dwmipc::Layout::symbol()'],['../structdwmipc_1_1Monitor.html#aec8c0860e8d665e50d2c7740e3277aec',1,'dwmipc::Monitor::symbol()']]]
 ];

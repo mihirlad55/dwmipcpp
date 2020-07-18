@@ -117,11 +117,13 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdwmipc_1_1TagChangeEvent.html">dwmipc::TagChangeEvent</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdwmipc_1_1SelectedClientChangeEvent.html">dwmipc::SelectedClientChangeEvent</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdwmipc_1_1ClientFocusChangeEvent.html">dwmipc::ClientFocusChangeEvent</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdwmipc_1_1LayoutChangeEvent.html">dwmipc::LayoutChangeEvent</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdwmipc_1_1SelectedMonitorChangeEvent.html">dwmipc::SelectedMonitorChangeEvent</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdwmipc_1_1MonitorFocusChangeEvent.html">dwmipc::MonitorFocusChangeEvent</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdwmipc_1_1FocusedTitleChangeEvent.html">dwmipc::FocusedTitleChangeEvent</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -149,10 +151,14 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:a4a31c2561918e0aff754744ea33842e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a733c653e029ebd431939c1499dc73957"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957">dwmipc::Event</a> : uint8_t { <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957a6ca91df80f2c63dd0b569b2a2737e3d9">dwmipc::Event::TAG_CHANGE</a> = 1, 
-<a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957a093276ebae8cfc0230b4c46d4785e481">dwmipc::Event::SELECTED_CLIENT_CHANGE</a> = 2, 
-<a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957ac5c2380f606d9ae1fa7360b73a982a9c">dwmipc::Event::LAYOUT_CHANGE</a> = 4, 
-<a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957a2c3c936b8434568cee52de7126997d40">dwmipc::Event::SELECTED_MONITOR_CHANGE</a> = 8
+<tr class="memitem:a733c653e029ebd431939c1499dc73957"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957">dwmipc::Event</a> : uint8_t { <br />
+&#160;&#160;<a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957a6ca91df80f2c63dd0b569b2a2737e3d9">dwmipc::Event::TAG_CHANGE</a> = 1 &lt;&lt; 0, 
+<a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957a5353e40b9452e460e037551b5245e11a">dwmipc::Event::CLIENT_FOCUS_CHANGE</a> = 1 &lt;&lt; 1, 
+<a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957ac5c2380f606d9ae1fa7360b73a982a9c">dwmipc::Event::LAYOUT_CHANGE</a> = 1 &lt;&lt; 2, 
+<a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957ae109b8edcabf19c442c7d67fa8a3cafb">dwmipc::Event::MONITOR_FOCUS_CHANGE</a> = 1 &lt;&lt; 3, 
+<br />
+&#160;&#160;<a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957aaee6a76f8bafd3a1602e2e67e44e69e9">dwmipc::Event::FOCUSED_TITLE_CHANGE</a> = 1 &lt;&lt; 4
+<br />
  }</td></tr>
 <tr class="separator:a733c653e029ebd431939c1499dc73957"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">

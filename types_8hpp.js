@@ -8,15 +8,17 @@ var types_8hpp =
     [ "Monitor", "structdwmipc_1_1Monitor.html", "structdwmipc_1_1Monitor" ],
     [ "Client", "structdwmipc_1_1Client.html", "structdwmipc_1_1Client" ],
     [ "TagChangeEvent", "structdwmipc_1_1TagChangeEvent.html", "structdwmipc_1_1TagChangeEvent" ],
-    [ "SelectedClientChangeEvent", "structdwmipc_1_1SelectedClientChangeEvent.html", "structdwmipc_1_1SelectedClientChangeEvent" ],
+    [ "ClientFocusChangeEvent", "structdwmipc_1_1ClientFocusChangeEvent.html", "structdwmipc_1_1ClientFocusChangeEvent" ],
     [ "LayoutChangeEvent", "structdwmipc_1_1LayoutChangeEvent.html", "structdwmipc_1_1LayoutChangeEvent" ],
-    [ "SelectedMonitorChangeEvent", "structdwmipc_1_1SelectedMonitorChangeEvent.html", "structdwmipc_1_1SelectedMonitorChangeEvent" ],
+    [ "MonitorFocusChangeEvent", "structdwmipc_1_1MonitorFocusChangeEvent.html", "structdwmipc_1_1MonitorFocusChangeEvent" ],
+    [ "FocusedTitleChangeEvent", "structdwmipc_1_1FocusedTitleChangeEvent.html", "structdwmipc_1_1FocusedTitleChangeEvent" ],
     [ "Window", "types_8hpp.html#a8a78a01dbde91a1f572f8a87c4208412", null ],
     [ "Event", "types_8hpp.html#a733c653e029ebd431939c1499dc73957", [
       [ "TAG_CHANGE", "types_8hpp.html#a733c653e029ebd431939c1499dc73957a6ca91df80f2c63dd0b569b2a2737e3d9", null ],
-      [ "SELECTED_CLIENT_CHANGE", "types_8hpp.html#a733c653e029ebd431939c1499dc73957a093276ebae8cfc0230b4c46d4785e481", null ],
+      [ "CLIENT_FOCUS_CHANGE", "types_8hpp.html#a733c653e029ebd431939c1499dc73957a5353e40b9452e460e037551b5245e11a", null ],
       [ "LAYOUT_CHANGE", "types_8hpp.html#a733c653e029ebd431939c1499dc73957ac5c2380f606d9ae1fa7360b73a982a9c", null ],
-      [ "SELECTED_MONITOR_CHANGE", "types_8hpp.html#a733c653e029ebd431939c1499dc73957a2c3c936b8434568cee52de7126997d40", null ]
+      [ "MONITOR_FOCUS_CHANGE", "types_8hpp.html#a733c653e029ebd431939c1499dc73957ae109b8edcabf19c442c7d67fa8a3cafb", null ],
+      [ "FOCUSED_TITLE_CHANGE", "types_8hpp.html#a733c653e029ebd431939c1499dc73957aaee6a76f8bafd3a1602e2e67e44e69e9", null ]
     ] ],
     [ "MessageType", "types_8hpp.html#a4a31c2561918e0aff754744ea33842e2", [
       [ "RUN_COMMAND", "types_8hpp.html#a4a31c2561918e0aff754744ea33842e2a6d98c39e4037dda579dce1d8c4c46521", null ],

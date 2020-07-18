@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['realloc_5fto_5fheader_5fsize_97',['realloc_to_header_size',['../classdwmipc_1_1Packet.html#a99c1efadf671a95c41bd16af8235d494',1,'dwmipc::Packet']]],
-  ['recv_5fmessage_98',['recv_message',['../namespacedwmipc.html#aff00f98f18c457dfc1465110a1a18f1b',1,'dwmipc']]],
-  ['replyerror_99',['ReplyError',['../classdwmipc_1_1ReplyError.html',1,'dwmipc::ReplyError'],['../classdwmipc_1_1ReplyError.html#a338c964bab7a4efc399ef400bb422792',1,'dwmipc::ReplyError::ReplyError()']]],
-  ['resultfailureerror_100',['ResultFailureError',['../classdwmipc_1_1ResultFailureError.html',1,'dwmipc::ResultFailureError'],['../classdwmipc_1_1ResultFailureError.html#a0d74dbc4034d64b706f465595c3a23f1',1,'dwmipc::ResultFailureError::ResultFailureError()']]],
-  ['run_5fcommand_101',['run_command',['../classdwmipc_1_1Connection.html#a6f5e95406c80b1f9f963c45ca5c724f4',1,'dwmipc::Connection::run_command(const std::string name, Types... args)'],['../classdwmipc_1_1Connection.html#a9bb3a96fa0566b74916a1a74744fafe8',1,'dwmipc::Connection::run_command(const std::string name, const Json::Value &amp;arr=Json::Value(Json::arrayValue))'],['../namespacedwmipc.html#a4a31c2561918e0aff754744ea33842e2a6d98c39e4037dda579dce1d8c4c46521',1,'dwmipc::RUN_COMMAND()']]],
-  ['run_5fcommand_2ecpp_102',['run_command.cpp',['../run__command_8cpp.html',1,'']]]
+  ['packet_103',['Packet',['../classdwmipc_1_1Packet.html',1,'dwmipc::Packet'],['../classdwmipc_1_1Packet.html#a109d31025fe121eeec824c039d535449',1,'dwmipc::Packet::Packet(const uint32_t size)'],['../classdwmipc_1_1Packet.html#af823c819dc9a97417ea790d77829920a',1,'dwmipc::Packet::Packet(const MessageType type, const std::string &amp;msg)']]],
+  ['packet_2ecpp_104',['packet.cpp',['../packet_8cpp.html',1,'']]],
+  ['packet_2ehpp_105',['packet.hpp',['../packet_8hpp.html',1,'']]],
+  ['payload_106',['payload',['../classdwmipc_1_1Packet.html#a2dd177e54df63f59ebd18cf0c88cae67',1,'dwmipc::Packet']]]
 ];

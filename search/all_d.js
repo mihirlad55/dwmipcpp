@@ -1,7 +1,16 @@
 var searchData=
 [
-  ['packet_93',['Packet',['../classdwmipc_1_1Packet.html',1,'dwmipc::Packet'],['../classdwmipc_1_1Packet.html#a109d31025fe121eeec824c039d535449',1,'dwmipc::Packet::Packet(const uint32_t size)'],['../classdwmipc_1_1Packet.html#af823c819dc9a97417ea790d77829920a',1,'dwmipc::Packet::Packet(const MessageType type, const std::string &amp;msg)']]],
-  ['packet_2ecpp_94',['packet.cpp',['../packet_8cpp.html',1,'']]],
-  ['packet_2ehpp_95',['packet.hpp',['../packet_8hpp.html',1,'']]],
-  ['payload_96',['payload',['../classdwmipc_1_1Packet.html#a2dd177e54df63f59ebd18cf0c88cae67',1,'dwmipc::Packet']]]
+  ['occupied_90',['occupied',['../structdwmipc_1_1TagState.html#ade135c5aa065d896196dda5f453d7fda',1,'dwmipc::TagState']]],
+  ['old_91',['old',['../structdwmipc_1_1Monitor.html#a4b4f30f06d54f9caed2eefa1d752a5c7',1,'dwmipc::Monitor::old()'],['../structdwmipc_1_1Monitor.html#a3d4dca35f18bb3b664f2e3005daa6118',1,'dwmipc::Monitor::old()'],['../structdwmipc_1_1Monitor.html#a498d53d3bb21b03363870a66a9004efd',1,'dwmipc::Monitor::old()'],['../structdwmipc_1_1Client.html#a6690648c722da0e423d8cd5fd925a32c',1,'dwmipc::Client::old()'],['../structdwmipc_1_1Client.html#a719a53d15f49d67ada4435c4fbbe98a2',1,'dwmipc::Client::old()']]],
+  ['old_5faddress_92',['old_address',['../structdwmipc_1_1LayoutChangeEvent.html#a99b3c1164b7222141cc35504870af1f2',1,'dwmipc::LayoutChangeEvent']]],
+  ['old_5fmon_5fnum_93',['old_mon_num',['../structdwmipc_1_1MonitorFocusChangeEvent.html#aadee85f274d4593df40dc8095e200d19',1,'dwmipc::MonitorFocusChangeEvent']]],
+  ['old_5fname_94',['old_name',['../structdwmipc_1_1FocusedTitleChangeEvent.html#a5204dd702dd07fc21babbf7509b127ab',1,'dwmipc::FocusedTitleChangeEvent']]],
+  ['old_5fstate_95',['old_state',['../structdwmipc_1_1Client.html#acfb4ce2542be3405d25fc5f84cc43f31',1,'dwmipc::Client::old_state()'],['../structdwmipc_1_1TagChangeEvent.html#af13cd8e53bc1f51be14d4dc6a12fe9de',1,'dwmipc::TagChangeEvent::old_state()']]],
+  ['old_5fsymbol_96',['old_symbol',['../structdwmipc_1_1LayoutChangeEvent.html#ad53b23fceed7d85ef3b784ded3805a03',1,'dwmipc::LayoutChangeEvent']]],
+  ['old_5fwin_5fid_97',['old_win_id',['../structdwmipc_1_1ClientFocusChangeEvent.html#a211cc09f2310205497760df7f437b08c',1,'dwmipc::ClientFocusChangeEvent']]],
+  ['on_5fclient_5ffocus_5fchange_98',['on_client_focus_change',['../classdwmipc_1_1Connection.html#a3cb22723e6e91939c891c350e7c992f8',1,'dwmipc::Connection']]],
+  ['on_5ffocused_5ftitle_5fchange_99',['on_focused_title_change',['../classdwmipc_1_1Connection.html#ab39f2dad22a390076aa1b587a73d2765',1,'dwmipc::Connection']]],
+  ['on_5flayout_5fchange_100',['on_layout_change',['../classdwmipc_1_1Connection.html#a9cca0ff89eb8dbcf428867dab0c9dbbc',1,'dwmipc::Connection']]],
+  ['on_5fmonitor_5ffocus_5fchange_101',['on_monitor_focus_change',['../classdwmipc_1_1Connection.html#a87cd6aa59eaf9dc413ba54166421fae2',1,'dwmipc::Connection']]],
+  ['on_5ftag_5fchange_102',['on_tag_change',['../classdwmipc_1_1Connection.html#a5a0c085ab59908261fc5fc08c2469e48',1,'dwmipc::Connection']]]
 ];

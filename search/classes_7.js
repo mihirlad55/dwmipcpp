@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['nomsgerror_155',['NoMsgError',['../classdwmipc_1_1NoMsgError.html',1,'dwmipc']]]
+  ['monitor_162',['Monitor',['../structdwmipc_1_1Monitor.html',1,'dwmipc']]],
+  ['monitorfocuschangeevent_163',['MonitorFocusChangeEvent',['../structdwmipc_1_1MonitorFocusChangeEvent.html',1,'dwmipc']]]
 ];

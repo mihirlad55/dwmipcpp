@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['_7econnection_141',['~Connection',['../classdwmipc_1_1Connection.html#a29e0fe63c9b346f37464eb9ed08acda2',1,'dwmipc::Connection']]],
-  ['_7epacket_142',['~Packet',['../classdwmipc_1_1Packet.html#aa9a58c76d3f9f73d711850541c06b0a7',1,'dwmipc::Packet']]]
+  ['y_146',['y',['../structdwmipc_1_1Geometry.html#a2a3e47030c3d070e5bdfc3605aaae295',1,'dwmipc::Geometry::y()'],['../structdwmipc_1_1Monitor.html#a4548f5ecf9ca47bebc25b34e064fc43f',1,'dwmipc::Monitor::y()']]]
 ];
