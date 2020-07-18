@@ -225,26 +225,27 @@ class Connection {
     std::function<void(const TagChangeEvent &ev)> on_tag_change;
 
     /**
-     * The dwmipc::Event::SELECTED_CLIENT_CHANGE handler. This will be called by
-     * handle_event if an dwmipc::Event::SELECTED_CLIENT_CHANGE event message is
+     * The dwmipc::Event::CLIENT_FOCUS_CHANGE handler. This will be called by
+     * handle_event if an dwmipc::Event::CLIENT_FOCUS_CHANGE event message is
      * received.
      */
-    std::function<void(const SelectedClientChangeEvent &ev)>
-        on_selected_client_change;
+    std::function<void(const ClientFocusChangeEvent &ev)>
+        on_client_focus_change;
 
     /**
      * The dwmipc::Event::LAYOUT_CHANGE handler. This will be called by
-     * handle_event if an dwmipc::Event::LAYOUT_CHANGE event message is received.
+     * handle_event if an dwmipc::Event::LAYOUT_CHANGE event message is
+     * received.
      */
     std::function<void(const LayoutChangeEvent &ev)> on_layout_change;
 
     /**
-     * The dwmipc::Event::SELECTED_MONITOR_CHANGE handler. This will be called
-     * by handle_event if an dwmipc::Event::SELECTED_MONITOR_CHANGE event
+     * The dwmipc::Event::MONITOR_FOCUS_CHANGE handler. This will be called
+     * by handle_event if an dwmipc::Event::MONITOR_FOCUS_CHANGE event
      * message is received.
      */
-    std::function<void(const SelectedMonitorChangeEvent &ev)>
-        on_selected_monitor_change;
+    std::function<void(const MonitorFocusChangeEvent &ev)>
+        on_monitor_focus_change;
 
   private:
     /**

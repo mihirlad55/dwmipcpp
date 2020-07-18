@@ -78,12 +78,12 @@ static void parse_layout_change_event(const Json::Value &root,
 }
 
 /**
- * Parse a Event::SELECTED_CLIENT_CHANGE message
+ * Parse a Event::CLIENT_FOCUS_CHANGE message
  */
 static void
-parse_selected_client_change_event(const Json::Value &root,
-                                   SelectedClientChangeEvent &event) {
-    const std::string ev_name = event_map.at(Event::SELECTED_CLIENT_CHANGE);
+parse_client_focus_change_event(const Json::Value &root,
+                                   ClientFocusChangeEvent &event) {
+    const std::string ev_name = event_map.at(Event::CLIENT_FOCUS_CHANGE);
     auto v_event = root[ev_name];
 
     event.monitor_num = v_event["monitor_number"].asUInt();
@@ -92,11 +92,11 @@ parse_selected_client_change_event(const Json::Value &root,
 }
 
 /**
- * Parse a Event::SELECTED_MONITOR_CHANGE message
+ * Parse a Event::MONITOR_FOCUS_CHANGE message
  */
-static void parse_selected_monitor_change(const Json::Value &root,
-                                          SelectedMonitorChangeEvent &event) {
-    const std::string ev_name = event_map.at(Event::SELECTED_MONITOR_CHANGE);
+static void parse_monitor_focus_change(const Json::Value &root,
+                                          MonitorFocusChangeEvent &event) {
+    const std::string ev_name = event_map.at(Event::MONITOR_FOCUS_CHANGE);
     auto v_event = root[ev_name];
 
     event.old_mon_num = v_event["old_monitor_number"].asUInt();
@@ -451,19 +451,19 @@ bool Connection::handle_event() {
             parse_layout_change_event(root, event);
             on_layout_change(event);
         }
-    } else if (root.get(event_map.at(Event::SELECTED_CLIENT_CHANGE),
+    } else if (root.get(event_map.at(Event::CLIENT_FOCUS_CHANGE),
                         Json::nullValue) != Json::nullValue) {
-        if (on_selected_client_change) {
-            SelectedClientChangeEvent event;
-            parse_selected_client_change_event(root, event);
-            on_selected_client_change(event);
+        if (on_client_focus_change) {
+            ClientFocusChangeEvent event;
+            parse_client_focus_change_event(root, event);
+            on_client_focus_change(event);
         }
-    } else if (root.get(event_map.at(Event::SELECTED_MONITOR_CHANGE),
+    } else if (root.get(event_map.at(Event::MONITOR_FOCUS_CHANGE),
                         Json::nullValue) != Json::nullValue) {
-        if (on_selected_monitor_change) {
-            SelectedMonitorChangeEvent event;
-            parse_selected_monitor_change(root, event);
-            on_selected_monitor_change(event);
+        if (on_monitor_focus_change) {
+            MonitorFocusChangeEvent event;
+            parse_monitor_focus_change(root, event);
+            on_monitor_focus_change(event);
         }
     } else
         throw IPCError("Invalid event type received" +

@@ -35,8 +35,8 @@ int main() {
         std::cout << "  new_symbol: " << event.new_symbol << std::endl;
     };
 
-    con.on_selected_client_change =
-        [](const dwmipc::SelectedClientChangeEvent &event) {
+    con.on_client_focus_change =
+        [](const dwmipc::ClientFocusChangeEvent &event) {
             std::cout << "selected_client_change_event:" << std::endl;
             std::cout << "  monitor_num: " << event.monitor_num << std::endl;
             std::cout << "  old: " << event.old_win_id << std::endl;
@@ -55,8 +55,8 @@ int main() {
         std::cout << "    urgent: " << event.new_state.urgent << std::endl;
     };
 
-    con.on_selected_monitor_change =
-        [](const dwmipc::SelectedMonitorChangeEvent &event) {
+    con.on_monitor_focus_change =
+        [](const dwmipc::MonitorFocusChangeEvent &event) {
             std::cout << "selected_monitor_change_event:" << std::endl;
             std::cout << "  old_monitor_number: " << event.old_mon_num
                       << std::endl;
@@ -65,9 +65,9 @@ int main() {
         };
 
     con.subscribe(dwmipc::Event::LAYOUT_CHANGE);
-    con.subscribe(dwmipc::Event::SELECTED_CLIENT_CHANGE);
+    con.subscribe(dwmipc::Event::CLIENT_FOCUS_CHANGE);
     con.subscribe(dwmipc::Event::TAG_CHANGE);
-    con.subscribe(dwmipc::Event::SELECTED_MONITOR_CHANGE);
+    con.subscribe(dwmipc::Event::MONITOR_FOCUS_CHANGE);
 
     while (true) {
         try {

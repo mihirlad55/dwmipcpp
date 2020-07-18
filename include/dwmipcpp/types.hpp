@@ -160,11 +160,11 @@ struct TagChangeEvent {
 };
 
 /**
- * Struct describing a selected_client_change_event
+ * Struct describing a client_focus_change_event
  */
-struct SelectedClientChangeEvent {
-    Window old_win_id;        ///< Window XID of the last selected client
-    Window new_win_id;        ///< Window XID of the newly selected client
+struct ClientFocusChangeEvent {
+    Window old_win_id;        ///< Window XID of the last focused client
+    Window new_win_id;        ///< Window XID of the newly focused client
     unsigned int monitor_num; ///< Index of monitor that this event occured on
 };
 
@@ -184,11 +184,11 @@ struct LayoutChangeEvent {
 };
 
 /**
- * Struct describing a selected_monitor_change_event
+ * Struct describing a monitor_focus_change_event
  */
-struct SelectedMonitorChangeEvent {
-    unsigned int old_mon_num; ///< Index of previously selected monitor
-    unsigned int new_mon_num; ///< Index of newly selected monitor
+struct MonitorFocusChangeEvent {
+    unsigned int old_mon_num; ///< Index of previously focused monitor
+    unsigned int new_mon_num; ///< Index of newly focused monitor
 };
 
 /**
@@ -209,9 +209,9 @@ enum class MessageType : uint8_t {
  */
 enum class Event : uint8_t {
     TAG_CHANGE = 1,
-    SELECTED_CLIENT_CHANGE = 2,
+    CLIENT_FOCUS_CHANGE = 2,
     LAYOUT_CHANGE = 4,
-    SELECTED_MONITOR_CHANGE = 8
+    MONITOR_FOCUS_CHANGE = 8
 };
 
 /**
