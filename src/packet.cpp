@@ -20,9 +20,9 @@ Packet::Packet(const uint32_t payload_size) : size(payload_size + HEADER_SIZE) {
 }
 
 Packet::Packet(const MessageType type, const std::string &msg)
-    : Packet(msg.size()) {
+    : Packet(msg.size() + 1) {
     this->header->type = static_cast<uint8_t>(type);
-    std::strncpy(this->payload, msg.c_str(), msg.size());
+    std::strncpy(this->payload, msg.c_str(), msg.size() + 1);
 }
 
 Packet::~Packet() { free(this->data); }
