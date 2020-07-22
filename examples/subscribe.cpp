@@ -74,11 +74,46 @@ int main() {
             std::cout << "  new_name: " << event.new_name << std::endl;
         };
 
+    con.on_focused_state_change =
+        [](const dwmipc::FocusedStateChangeEvent &event) {
+            std::cout << "focused_state_change_event:" << std::endl;
+            std::cout << "  monitor_number: " << event.monitor_num << std::endl;
+            std::cout << "  client_window_id: " << event.client_window_id
+                      << std::endl;
+            std::cout << "  old_state:" << std::endl;
+            std::cout << "    old_state: " << event.old_state.old_state
+                      << std::endl;
+            std::cout << "    is_fixed: " << event.old_state.is_fixed
+                      << std::endl;
+            std::cout << "    is_floating: " << event.old_state.is_floating
+                      << std::endl;
+            std::cout << "    is_fullscreen: " << event.old_state.is_fullscreen
+                      << std::endl;
+            std::cout << "    is_urgent: " << event.old_state.is_urgent
+                      << std::endl;
+            std::cout << "    never_focus: " << event.old_state.never_focus
+                      << std::endl;
+            std::cout << "  new_state:" << std::endl;
+            std::cout << "    old_state: " << event.new_state.old_state
+                      << std::endl;
+            std::cout << "    is_fixed: " << event.new_state.is_fixed
+                      << std::endl;
+            std::cout << "    is_floating: " << event.new_state.is_floating
+                      << std::endl;
+            std::cout << "    is_fullscreen: " << event.new_state.is_fullscreen
+                      << std::endl;
+            std::cout << "    is_urgent: " << event.new_state.is_urgent
+                      << std::endl;
+            std::cout << "    never_focus: " << event.new_state.never_focus
+                      << std::endl;
+        };
+
     con.subscribe(dwmipc::Event::LAYOUT_CHANGE);
     con.subscribe(dwmipc::Event::CLIENT_FOCUS_CHANGE);
     con.subscribe(dwmipc::Event::TAG_CHANGE);
     con.subscribe(dwmipc::Event::MONITOR_FOCUS_CHANGE);
     con.subscribe(dwmipc::Event::FOCUSED_TITLE_CHANGE);
+    con.subscribe(dwmipc::Event::FOCUSED_STATE_CHANGE);
 
     while (true) {
         try {

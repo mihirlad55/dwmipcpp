@@ -255,6 +255,14 @@ class Connection {
     std::function<void(const FocusedTitleChangeEvent &ev)>
         on_focused_title_change;
 
+    /**
+     * The dwmipc::Event::FOCUSED_STATE_CHANGE handler. This will be called
+     * by handle_event if an dwmipc::Event::FOCUSED_STATE_CHANGE event
+     * message is received.
+     */
+    std::function<void(const FocusedStateChangeEvent &ev)>
+        on_focused_state_change;
+
   private:
     /**
      * The main DWM IPC socket file descriptor for all non-event messages

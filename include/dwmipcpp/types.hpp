@@ -68,6 +68,18 @@ struct TagState {
 };
 
 /**
+ * A struct representing states of a client
+ */
+struct ClientState {
+    bool is_fixed;      ///< Is the client position fixed
+    bool is_floating;   ///< Is the client floating
+    bool is_urgent;     ///< Does the client have the urgent flag set
+    bool never_focus;   ///< Does the client handle its own inputs
+    bool old_state;     ///< Stores the floating state if client is fullscreen
+    bool is_fullscreen; ///< Is the client fullscreen (not monocle layout)
+};
+
+/**
  * A tag
  */
 struct Tag {
@@ -202,6 +214,16 @@ struct FocusedTitleChangeEvent {
 };
 
 /**
+ * Struct describing a focused_state_change_event
+ */
+struct FocusedStateChangeEvent {
+    unsigned int monitor_num; ///< Index of monitor associated with client
+    Window client_window_id;  ///< Window XID of client
+    ClientState old_state;    ///< Old client state
+    ClientState new_state;    ///< New client state
+};
+
+/**
  * Enum of supported DWM message types
  */
 enum class MessageType : uint8_t {
@@ -222,7 +244,8 @@ enum class Event : uint8_t {
     CLIENT_FOCUS_CHANGE = 1 << 1,
     LAYOUT_CHANGE = 1 << 2,
     MONITOR_FOCUS_CHANGE = 1 << 3,
-    FOCUSED_TITLE_CHANGE = 1 << 4
+    FOCUSED_TITLE_CHANGE = 1 << 4,
+    FOCUSED_STATE_CHANGE = 1 << 5
 };
 
 /**

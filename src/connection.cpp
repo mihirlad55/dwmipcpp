@@ -80,9 +80,8 @@ static void parse_layout_change_event(const Json::Value &root,
 /**
  * Parse a Event::CLIENT_FOCUS_CHANGE message
  */
-static void
-parse_client_focus_change_event(const Json::Value &root,
-                                   ClientFocusChangeEvent &event) {
+static void parse_client_focus_change_event(const Json::Value &root,
+                                            ClientFocusChangeEvent &event) {
     const std::string ev_name = event_map.at(Event::CLIENT_FOCUS_CHANGE);
     auto v_event = root[ev_name];
 
@@ -94,9 +93,8 @@ parse_client_focus_change_event(const Json::Value &root,
 /**
  * Parse a Event::FOCUSED_TITLE_CHANGE message
  */
-static void
-parse_focused_title_change_event(const Json::Value &root,
-                                   FocusedTitleChangeEvent &event) {
+static void parse_focused_title_change_event(const Json::Value &root,
+                                             FocusedTitleChangeEvent &event) {
     const std::string ev_name = event_map.at(Event::FOCUSED_TITLE_CHANGE);
     auto v_event = root[ev_name];
 
@@ -110,12 +108,40 @@ parse_focused_title_change_event(const Json::Value &root,
  * Parse a Event::MONITOR_FOCUS_CHANGE message
  */
 static void parse_monitor_focus_change(const Json::Value &root,
-                                          MonitorFocusChangeEvent &event) {
+                                       MonitorFocusChangeEvent &event) {
     const std::string ev_name = event_map.at(Event::MONITOR_FOCUS_CHANGE);
     auto v_event = root[ev_name];
 
     event.old_mon_num = v_event["old_monitor_number"].asUInt();
     event.new_mon_num = v_event["new_monitor_number"].asUInt();
+}
+
+/**
+ * Parse a Event::FOCUSED_STATE_CHANGE message
+ */
+static void parse_focused_state_change_event(const Json::Value &root,
+                                             FocusedStateChangeEvent &event) {
+    const std::string ev_name = event_map.at(Event::FOCUSED_STATE_CHANGE);
+    auto v_event = root[ev_name];
+    auto v_old_state = v_event["old_state"];
+    auto v_new_state = v_event["new_state"];
+
+    event.monitor_num = v_event["monitor_number"].asUInt();
+    event.client_window_id = v_event["client_window_id"].asUInt();
+
+    event.old_state.old_state = v_old_state["old_state"].asBool();
+    event.old_state.is_fixed = v_old_state["is_fixed"].asBool();
+    event.old_state.is_floating = v_old_state["is_floating"].asBool();
+    event.old_state.is_fullscreen = v_old_state["is_fullscreen"].asBool();
+    event.old_state.is_urgent = v_old_state["is_urgent"].asBool();
+    event.old_state.never_focus = v_old_state["never_focus"].asBool();
+
+    event.new_state.old_state = v_new_state["old_state"].asBool();
+    event.new_state.is_fixed = v_new_state["is_fixed"].asBool();
+    event.new_state.is_floating = v_new_state["is_floating"].asBool();
+    event.new_state.is_fullscreen = v_new_state["is_fullscreen"].asBool();
+    event.new_state.is_urgent = v_new_state["is_urgent"].asBool();
+    event.new_state.never_focus = v_new_state["never_focus"].asBool();
 }
 
 Connection::Connection(const std::string &socket_path, bool connect)
@@ -486,6 +512,13 @@ bool Connection::handle_event() {
             FocusedTitleChangeEvent event;
             parse_focused_title_change_event(root, event);
             on_focused_title_change(event);
+        }
+    } else if (root.get(event_map.at(Event::FOCUSED_STATE_CHANGE),
+                        Json::nullValue) != Json::nullValue) {
+        if (on_focused_state_change) {
+            FocusedStateChangeEvent event;
+            parse_focused_state_change_event(root, event);
+            on_focused_state_change(event);
         }
     } else
         throw IPCError("Invalid event type received" +
