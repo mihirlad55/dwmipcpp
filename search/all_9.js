@@ -1,14 +1,14 @@
 var searchData=
 [
-  ['invalidoperationerror_53',['InvalidOperationError',['../classdwmipc_1_1InvalidOperationError.html',1,'dwmipc::InvalidOperationError'],['../classdwmipc_1_1InvalidOperationError.html#a693229aa7e195786cd556adade6e5f20',1,'dwmipc::InvalidOperationError::InvalidOperationError()']]],
-  ['ipcerror_54',['IPCError',['../classdwmipc_1_1IPCError.html',1,'dwmipc']]],
-  ['is_5fevent_5fsocket_5fconnected_55',['is_event_socket_connected',['../classdwmipc_1_1Connection.html#a0c36e1d36c9845f0f07993583ccd3738',1,'dwmipc::Connection']]],
-  ['is_5ffixed_56',['is_fixed',['../structdwmipc_1_1Client.html#af76b85f3f9a864a1149730e3d8465816',1,'dwmipc::Client']]],
-  ['is_5ffloating_57',['is_floating',['../structdwmipc_1_1Client.html#ad171dc85fbb7f2f88e0d8388363a86e5',1,'dwmipc::Client']]],
-  ['is_5ffullscreen_58',['is_fullscreen',['../structdwmipc_1_1Client.html#a6dd3192fdc5cc4a21e3eaa7d7c721edb',1,'dwmipc::Client']]],
-  ['is_5fmain_5fsocket_5fconnected_59',['is_main_socket_connected',['../classdwmipc_1_1Connection.html#afcae072a3f91698a8ae9c3b7ed4df8b4',1,'dwmipc::Connection']]],
-  ['is_5fselected_60',['is_selected',['../structdwmipc_1_1Monitor.html#ad236e81631f0ff0a3e889d00d43d36b0',1,'dwmipc::Monitor']]],
-  ['is_5fshown_61',['is_shown',['../structdwmipc_1_1Monitor.html#adfb563fa807a1818fa6f79a1112a986c',1,'dwmipc::Monitor']]],
-  ['is_5ftop_62',['is_top',['../structdwmipc_1_1Monitor.html#a660186f1e2d1762fa6f74855752cd7f6',1,'dwmipc::Monitor']]],
-  ['is_5furgent_63',['is_urgent',['../structdwmipc_1_1Client.html#af7f62b4c101b26822e00711cf6e24ad6',1,'dwmipc::Client']]]
+  ['invalidoperationerror_61',['InvalidOperationError',['../classdwmipc_1_1InvalidOperationError.html',1,'dwmipc::InvalidOperationError'],['../classdwmipc_1_1InvalidOperationError.html#a693229aa7e195786cd556adade6e5f20',1,'dwmipc::InvalidOperationError::InvalidOperationError()']]],
+  ['ipcerror_62',['IPCError',['../classdwmipc_1_1IPCError.html',1,'dwmipc']]],
+  ['is_5fevent_5fsocket_5fconnected_63',['is_event_socket_connected',['../classdwmipc_1_1Connection.html#a0c36e1d36c9845f0f07993583ccd3738',1,'dwmipc::Connection']]],
+  ['is_5ffixed_64',['is_fixed',['../structdwmipc_1_1ClientState.html#ab3c8270a66f87eb46e5d11267d536183',1,'dwmipc::ClientState::is_fixed()'],['../structdwmipc_1_1Client.html#af76b85f3f9a864a1149730e3d8465816',1,'dwmipc::Client::is_fixed()']]],
+  ['is_5ffloating_65',['is_floating',['../structdwmipc_1_1ClientState.html#a35f4294fc3f63647143e146506513199',1,'dwmipc::ClientState::is_floating()'],['../structdwmipc_1_1Client.html#ad171dc85fbb7f2f88e0d8388363a86e5',1,'dwmipc::Client::is_floating()']]],
+  ['is_5ffullscreen_66',['is_fullscreen',['../structdwmipc_1_1ClientState.html#a3408b6f8bf6c31c5327e34be784abef2',1,'dwmipc::ClientState::is_fullscreen()'],['../structdwmipc_1_1Client.html#a6dd3192fdc5cc4a21e3eaa7d7c721edb',1,'dwmipc::Client::is_fullscreen()']]],
+  ['is_5fmain_5fsocket_5fconnected_67',['is_main_socket_connected',['../classdwmipc_1_1Connection.html#afcae072a3f91698a8ae9c3b7ed4df8b4',1,'dwmipc::Connection']]],
+  ['is_5fselected_68',['is_selected',['../structdwmipc_1_1Monitor.html#ad236e81631f0ff0a3e889d00d43d36b0',1,'dwmipc::Monitor']]],
+  ['is_5fshown_69',['is_shown',['../structdwmipc_1_1Monitor.html#adfb563fa807a1818fa6f79a1112a986c',1,'dwmipc::Monitor']]],
+  ['is_5ftop_70',['is_top',['../structdwmipc_1_1Monitor.html#a660186f1e2d1762fa6f74855752cd7f6',1,'dwmipc::Monitor']]],
+  ['is_5furgent_71',['is_urgent',['../structdwmipc_1_1ClientState.html#ae0a4070246b3695407ef645d0b5f23ec',1,'dwmipc::ClientState::is_urgent()'],['../structdwmipc_1_1Client.html#af7f62b4c101b26822e00711cf6e24ad6',1,'dwmipc::Client::is_urgent()']]]
 ];

@@ -99,11 +99,17 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdwmipc_1_1ClientFocusChangeEvent.html">ClientFocusChangeEvent</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdwmipc_1_1ClientState.html">ClientState</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Connection.html">Connection</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1EOFError.html">EOFError</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1ErrnoError.html">ErrnoError</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Event.html">Event</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdwmipc_1_1FocusedStateChangeEvent.html">FocusedStateChangeEvent</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdwmipc_1_1FocusedTitleChangeEvent.html">FocusedTitleChangeEvent</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -168,7 +174,8 @@ Enumerations</h2></td></tr>
 <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957ac5c2380f606d9ae1fa7360b73a982a9c">Event::LAYOUT_CHANGE</a> = 1 &lt;&lt; 2, 
 <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957ae109b8edcabf19c442c7d67fa8a3cafb">Event::MONITOR_FOCUS_CHANGE</a> = 1 &lt;&lt; 3, 
 <br />
-&#160;&#160;<a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957aaee6a76f8bafd3a1602e2e67e44e69e9">Event::FOCUSED_TITLE_CHANGE</a> = 1 &lt;&lt; 4
+&#160;&#160;<a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957aaee6a76f8bafd3a1602e2e67e44e69e9">Event::FOCUSED_TITLE_CHANGE</a> = 1 &lt;&lt; 4, 
+<a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957a54f07fe86df98465be8f59baaea37896">Event::FOCUSED_STATE_CHANGE</a> = 1 &lt;&lt; 5
 <br />
  }</td></tr>
 <tr class="separator:a733c653e029ebd431939c1499dc73957"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -190,8 +197,18 @@ Functions</h2></td></tr>
 Variables</h2></td></tr>
 <tr class="memitem:a5a4d6ecb4bc2888454c391be67c6dade"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structdwmipc_1_1Geometry.html">dwmipc::Geometry</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedwmipc.html#a5a4d6ecb4bc2888454c391be67c6dade">__attribute</a></td></tr>
 <tr class="separator:a5a4d6ecb4bc2888454c391be67c6dade"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d87e619780bd40359e418afb14a29ef"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957">Event</a>, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedwmipc.html#a0d87e619780bd40359e418afb14a29ef">event_map</a></td></tr>
-<tr class="separator:a0d87e619780bd40359e418afb14a29ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dd544c117cf32c3b25823df0ff6c7e9"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; <a class="el" href="classdwmipc_1_1Event.html">Event</a>, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedwmipc.html#a0dd544c117cf32c3b25823df0ff6c7e9">event_map</a></td></tr>
+<tr class="separator:a0dd544c117cf32c3b25823df0ff6c7e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8f76d8bf3ed40cef90c11bc0ee48cce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdwmipc_1_1Event.html">Event</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedwmipc.html#ab8f76d8bf3ed40cef90c11bc0ee48cce">tag_change_event</a> (&quot;tag_change_event&quot;, 1&lt;&lt; 0, [](const Json::Value &amp;root, const std::string &amp;ev_name, EventData &amp;base_data) { auto v_event=root[ev_name];auto v_old_state=v_event[&quot;old_state&quot;];auto v_new_state=v_event[&quot;new_state&quot;];auto ev_data=static_cast&lt; TagChangeEventData &amp; &gt;(base_data);ev_data.monitor_num=v_event[&quot;monitor_number&quot;].asUInt();ev_data.old_state.selected=v_old_state[&quot;selected&quot;].asUInt();ev_data.old_state.occupied=v_old_state[&quot;occupied&quot;].asUInt();ev_data.old_state.urgent=v_old_state[&quot;urgent&quot;].asUInt();ev_data.new_state.selected=v_new_state[&quot;selected&quot;].asUInt();ev_data.new_state.occupied=v_new_state[&quot;occupied&quot;].asUInt();ev_data.new_state.urgent=v_new_state[&quot;urgent&quot;].asUInt();})</td></tr>
+<tr class="separator:ab8f76d8bf3ed40cef90c11bc0ee48cce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c548af5cc526c062c531bb8161428e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdwmipc_1_1Event.html">Event</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedwmipc.html#a4c548af5cc526c062c531bb8161428e7">layout_change_event</a> (&quot;layout_change_event&quot;, 1&lt;&lt; 1, [](const Json::Value &amp;root, const std::string &amp;ev_name, EventData &amp;base_data) { auto v_event=root[ev_name];auto ev_data=static_cast&lt; LayoutChangeEventData &amp; &gt;(base_data);ev_data.monitor_num=v_event[&quot;monitor_number&quot;].asUInt();ev_data.old_symbol=v_event[&quot;old_symbol&quot;].asString();ev_data.old_address=v_event[&quot;old_address&quot;].asUInt64();ev_data.new_symbol=v_event[&quot;new_symbol&quot;].asString();ev_data.new_address=v_event[&quot;new_address&quot;].asUInt64();})</td></tr>
+<tr class="separator:a4c548af5cc526c062c531bb8161428e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea61d9ade4eab143b40f405383fe3044"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdwmipc_1_1Event.html">Event</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedwmipc.html#aea61d9ade4eab143b40f405383fe3044">client_focus_change_event</a> (&quot;client_focus_change_event&quot;, 1&lt;&lt; 2, [](const Json::Value &amp;root, const std::string &amp;ev_name, EventData &amp;base_data) { auto v_event=root[ev_name];auto ev_data=static_cast&lt; ClientFocusChangeEventData &amp; &gt;(base_data);ev_data.monitor_num=v_event[&quot;monitor_number&quot;].asUInt();ev_data.old_win_id=v_event[&quot;old_win_id&quot;].asUInt();ev_data.new_win_id=v_event[&quot;new_win_id&quot;].asUInt();})</td></tr>
+<tr class="separator:aea61d9ade4eab143b40f405383fe3044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa45a1511d8262b6fd5b381a665f14c5e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdwmipc_1_1Event.html">Event</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedwmipc.html#aa45a1511d8262b6fd5b381a665f14c5e">monitor_focus_change_event</a> (&quot;monitor_focus_change_event&quot;, 1&lt;&lt; 3, [](const Json::Value &amp;root, const std::string &amp;ev_name, EventData &amp;base_data) { auto v_event=root[ev_name];auto ev_data=static_cast&lt; MonitorFocusChangeEventData &amp; &gt;(base_data);ev_data.old_mon_num=v_event[&quot;old_monitor_number&quot;].asUInt();ev_data.new_mon_num=v_event[&quot;new_monitor_number&quot;].asUInt();})</td></tr>
+<tr class="separator:aa45a1511d8262b6fd5b381a665f14c5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afeca691356e161b20063e0512b66b2c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdwmipc_1_1Event.html">Event</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedwmipc.html#afeca691356e161b20063e0512b66b2c9">focused_title_change_event</a> (&quot;focused_title_change_event&quot;, 1&lt;&lt; 4, [](const Json::Value &amp;root, const std::string &amp;ev_name, EventData &amp;base_data) { auto v_event=root[ev_name];auto ev_data=static_cast&lt; FocusedTitleChangeEventData &amp; &gt;(base_data);ev_data.monitor_num=v_event[&quot;monitor_number&quot;].asUInt();ev_data.client_window_id=v_event[&quot;client_window_id&quot;].asUInt();ev_data.old_name=v_event[&quot;old_name&quot;].asString();ev_data.new_name=v_event[&quot;new_name&quot;].asString();})</td></tr>
+<tr class="separator:afeca691356e161b20063e0512b66b2c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="a8a78a01dbde91a1f572f8a87c4208412"></a>
@@ -221,7 +238,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957">dwmipc::Event</a> : uint8_t</td>
+          <td class="memname">enum <a class="el" href="classdwmipc_1_1Event.html">dwmipc::Event</a> : uint8_t</td>
         </tr>
       </table>
   </td>
@@ -237,6 +254,7 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a733c653e029ebd431939c1499dc73957ac5c2380f606d9ae1fa7360b73a982a9c"></a>LAYOUT_CHANGE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a733c653e029ebd431939c1499dc73957ae109b8edcabf19c442c7d67fa8a3cafb"></a>MONITOR_FOCUS_CHANGE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a733c653e029ebd431939c1499dc73957aaee6a76f8bafd3a1602e2e67e44e69e9"></a>FOCUSED_TITLE_CHANGE&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a733c653e029ebd431939c1499dc73957a54f07fe86df98465be8f59baaea37896"></a>FOCUSED_STATE_CHANGE&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -488,14 +506,28 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a0d87e619780bd40359e418afb14a29ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d87e619780bd40359e418afb14a29ef">&#9670;&nbsp;</a></span>event_map</h2>
+<a id="aea61d9ade4eab143b40f405383fe3044"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea61d9ade4eab143b40f405383fe3044">&#9670;&nbsp;</a></span>client_focus_change_event</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const std::unordered_map&lt; <a class="el" href="namespacedwmipc.html#a733c653e029ebd431939c1499dc73957">Event</a>, std::string &gt; dwmipc::event_map</td>
+          <td class="memname"><a class="el" href="classdwmipc_1_1Event.html">Event</a> dwmipc::client_focus_change_event</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0dd544c117cf32c3b25823df0ff6c7e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0dd544c117cf32c3b25823df0ff6c7e9">&#9670;&nbsp;</a></span>event_map</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt; std::string, <a class="el" href="classdwmipc_1_1Event.html">Event</a> &amp; &gt; dwmipc::event_map</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -504,8 +536,65 @@ Variables</h2></td></tr>
 <div class="line">    {Event::CLIENT_FOCUS_CHANGE, <span class="stringliteral">&quot;client_focus_change_event&quot;</span>},</div>
 <div class="line">    {Event::LAYOUT_CHANGE, <span class="stringliteral">&quot;layout_change_event&quot;</span>},</div>
 <div class="line">    {Event::MONITOR_FOCUS_CHANGE, <span class="stringliteral">&quot;monitor_focus_change_event&quot;</span>},</div>
-<div class="line">    {Event::FOCUSED_TITLE_CHANGE, <span class="stringliteral">&quot;focused_title_change_event&quot;</span>}}</div>
-</div><!-- fragment --><p>A hash map that associates Event enum values with their names </p>
+<div class="line">    {Event::FOCUSED_TITLE_CHANGE, <span class="stringliteral">&quot;focused_title_change_event&quot;</span>},</div>
+<div class="line">    {Event::FOCUSED_STATE_CHANGE, <span class="stringliteral">&quot;focused_state_change_event&quot;</span>}}</div>
+</div><!-- fragment --><p>A hash map that associates <a class="el" href="classdwmipc_1_1Event.html">Event</a> enum values with their names </p>
+
+</div>
+</div>
+<a id="afeca691356e161b20063e0512b66b2c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afeca691356e161b20063e0512b66b2c9">&#9670;&nbsp;</a></span>focused_title_change_event</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classdwmipc_1_1Event.html">Event</a> dwmipc::focused_title_change_event</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4c548af5cc526c062c531bb8161428e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c548af5cc526c062c531bb8161428e7">&#9670;&nbsp;</a></span>layout_change_event</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classdwmipc_1_1Event.html">Event</a> dwmipc::layout_change_event</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa45a1511d8262b6fd5b381a665f14c5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa45a1511d8262b6fd5b381a665f14c5e">&#9670;&nbsp;</a></span>monitor_focus_change_event</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classdwmipc_1_1Event.html">Event</a> dwmipc::monitor_focus_change_event</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab8f76d8bf3ed40cef90c11bc0ee48cce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8f76d8bf3ed40cef90c11bc0ee48cce">&#9670;&nbsp;</a></span>tag_change_event</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classdwmipc_1_1Event.html">Event</a> dwmipc::tag_change_event</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

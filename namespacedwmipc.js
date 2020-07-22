@@ -2,9 +2,12 @@ var namespacedwmipc =
 [
     [ "Client", "structdwmipc_1_1Client.html", "structdwmipc_1_1Client" ],
     [ "ClientFocusChangeEvent", "structdwmipc_1_1ClientFocusChangeEvent.html", "structdwmipc_1_1ClientFocusChangeEvent" ],
+    [ "ClientState", "structdwmipc_1_1ClientState.html", "structdwmipc_1_1ClientState" ],
     [ "Connection", "classdwmipc_1_1Connection.html", "classdwmipc_1_1Connection" ],
     [ "EOFError", "classdwmipc_1_1EOFError.html", "classdwmipc_1_1EOFError" ],
     [ "ErrnoError", "classdwmipc_1_1ErrnoError.html", "classdwmipc_1_1ErrnoError" ],
+    [ "Event", "classdwmipc_1_1Event.html", "classdwmipc_1_1Event" ],
+    [ "FocusedStateChangeEvent", "structdwmipc_1_1FocusedStateChangeEvent.html", "structdwmipc_1_1FocusedStateChangeEvent" ],
     [ "FocusedTitleChangeEvent", "structdwmipc_1_1FocusedTitleChangeEvent.html", "structdwmipc_1_1FocusedTitleChangeEvent" ],
     [ "Geometry", "structdwmipc_1_1Geometry.html", "structdwmipc_1_1Geometry" ],
     [ "HeaderError", "classdwmipc_1_1HeaderError.html", "classdwmipc_1_1HeaderError" ],

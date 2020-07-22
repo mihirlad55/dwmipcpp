@@ -2,7 +2,10 @@ var hierarchy =
 [
     [ "dwmipc::Client", "structdwmipc_1_1Client.html", null ],
     [ "dwmipc::ClientFocusChangeEvent", "structdwmipc_1_1ClientFocusChangeEvent.html", null ],
+    [ "dwmipc::ClientState", "structdwmipc_1_1ClientState.html", null ],
     [ "dwmipc::Connection", "classdwmipc_1_1Connection.html", null ],
+    [ "dwmipc::Event", "classdwmipc_1_1Event.html", null ],
+    [ "dwmipc::FocusedStateChangeEvent", "structdwmipc_1_1FocusedStateChangeEvent.html", null ],
     [ "dwmipc::FocusedTitleChangeEvent", "structdwmipc_1_1FocusedTitleChangeEvent.html", null ],
     [ "dwmipc::Geometry", "structdwmipc_1_1Geometry.html", null ],
     [ "dwmipc::Packet::Header", "structdwmipc_1_1Packet_1_1Header.html", null ],

@@ -21,6 +21,7 @@ var classdwmipc_1_1Connection =
     [ "subscribe", "classdwmipc_1_1Connection.html#ac08dee67d7a104bb61a331ae8421f72c", null ],
     [ "unsubscribe", "classdwmipc_1_1Connection.html#a5fae7826594dc4b7b7ff0c9c9f446095", null ],
     [ "on_client_focus_change", "classdwmipc_1_1Connection.html#a3cb22723e6e91939c891c350e7c992f8", null ],
+    [ "on_focused_state_change", "classdwmipc_1_1Connection.html#a1d39916ca9e0de891e9fc1bdf19823b5", null ],
     [ "on_focused_title_change", "classdwmipc_1_1Connection.html#ab39f2dad22a390076aa1b587a73d2765", null ],
     [ "on_layout_change", "classdwmipc_1_1Connection.html#a9cca0ff89eb8dbcf428867dab0c9dbbc", null ],
     [ "on_monitor_focus_change", "classdwmipc_1_1Connection.html#a87cd6aa59eaf9dc413ba54166421fae2", null ],
