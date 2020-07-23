@@ -129,4 +129,17 @@ void send_message(int sockfd, const std::shared_ptr<Packet> &packet) {
     swrite(sockfd, packet->data, packet->size);
 }
 
+bool is_socket_alive(int sockfd) {
+    char buf = 0;
+    while (true) {
+        ssize_t res = send(sockfd, &buf, 0, MSG_NOSIGNAL);
+        if (res < 0) {
+            if (errno == EINTR || errno == EAGAIN || errno == EWOULDBLOCK)
+                continue;
+            return false;
+        }
+        return true;
+    }
+}
+
 } // namespace dwmipc

@@ -160,11 +160,21 @@ Connection::~Connection() {
         disconnect_event_socket();
 }
 
-bool Connection::is_main_socket_connected() const {
+bool Connection::is_main_socket_connected() {
+    if (this->main_sockfd != -1 && !is_socket_alive(this->main_sockfd)) {
+        dwmipc::disconnect(this->main_sockfd);
+        this->main_sockfd = -1;
+    }
+
     return this->main_sockfd != -1;
 }
 
-bool Connection::is_event_socket_connected() const {
+bool Connection::is_event_socket_connected() {
+    if (this->event_sockfd != -1 && !is_socket_alive(this->event_sockfd)) {
+        dwmipc::disconnect(this->event_sockfd);
+        this->event_sockfd = -1;
+    }
+
     return this->event_sockfd != -1;
 }
 
@@ -207,7 +217,7 @@ int Connection::get_socket_fd(const MessageType type) const {
     return main_sockfd;
 }
 
-void Connection::assert_socket_connected(const MessageType type) const {
+void Connection::assert_socket_connected(const MessageType type) {
     int sockfd = get_socket_fd(type);
 
     // Check if appropriate socket is connected

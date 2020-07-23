@@ -152,18 +152,22 @@ class Connection {
                      const Json::Value &arr = Json::Value(Json::arrayValue));
 
     /**
-     * Check if main socket is connected
+     * Check if main socket is connected. If the connection is found to be
+     * broken, the main file descriptor will be closed and the file descriptor
+     * will be invalidated.
      *
      * @return true if connected, false otherwise
      */
-    bool is_main_socket_connected() const;
+    bool is_main_socket_connected();
 
     /**
-     * Check if event socket is connected
+     * Check if event socket is connected. If the connection is found to be
+     * broken, the event file descriptor will be closed and the file descriptor
+     * will be invalidated.
      *
      * @return true if connected, false otherwise
      */
-    bool is_event_socket_connected() const;
+    bool is_event_socket_connected();
 
     /**
      * Connect to the main socket
@@ -304,7 +308,7 @@ class Connection {
      *
      * @throw SocketClosedError if the required socket is disconnected
      */
-    void assert_socket_connected(const MessageType type) const;
+    void assert_socket_connected(const MessageType type);
 
     /**
      * Send a message to DWM with the specified payload and message type

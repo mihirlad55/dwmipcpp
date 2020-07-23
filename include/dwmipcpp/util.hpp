@@ -78,4 +78,15 @@ std::shared_ptr<Packet> recv_message(int sockfd, bool wait);
  */
 void send_message(int sockfd, const std::shared_ptr<Packet> &packet);
 
+/**
+ * Check if connection to socket is still alive. This will check for socket
+ * errors that indicate a dead connection. This is a blocking read that will
+ * continue to attempt to read if EINTR, EAGAIN, or EWOULDBLOCK is detected.
+ *
+ * @param sockfd The file descriptor of the socket to check
+ *
+ * @return true, if the connection is alive, false otherwise
+ */
+bool is_socket_alive(int sockfd);
+
 } // namespace dwmipc
