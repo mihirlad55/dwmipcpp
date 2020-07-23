@@ -1,18 +1,18 @@
 var searchData=
 [
-  ['occupied_294',['occupied',['../structdwmipc_1_1TagState.html#ade135c5aa065d896196dda5f453d7fda',1,'dwmipc::TagState']]],
-  ['old_295',['old',['../structdwmipc_1_1Monitor.html#a4b4f30f06d54f9caed2eefa1d752a5c7',1,'dwmipc::Monitor::old()'],['../structdwmipc_1_1Monitor.html#a3d4dca35f18bb3b664f2e3005daa6118',1,'dwmipc::Monitor::old()'],['../structdwmipc_1_1Monitor.html#a498d53d3bb21b03363870a66a9004efd',1,'dwmipc::Monitor::old()'],['../structdwmipc_1_1Client.html#a6690648c722da0e423d8cd5fd925a32c',1,'dwmipc::Client::old()'],['../structdwmipc_1_1Client.html#a719a53d15f49d67ada4435c4fbbe98a2',1,'dwmipc::Client::old()']]],
-  ['old_5faddress_296',['old_address',['../structdwmipc_1_1LayoutChangeEvent.html#a99b3c1164b7222141cc35504870af1f2',1,'dwmipc::LayoutChangeEvent']]],
-  ['old_5fmon_5fnum_297',['old_mon_num',['../structdwmipc_1_1MonitorFocusChangeEvent.html#aadee85f274d4593df40dc8095e200d19',1,'dwmipc::MonitorFocusChangeEvent']]],
-  ['old_5fname_298',['old_name',['../structdwmipc_1_1FocusedTitleChangeEvent.html#a5204dd702dd07fc21babbf7509b127ab',1,'dwmipc::FocusedTitleChangeEvent']]],
-  ['old_5fstate_299',['old_state',['../structdwmipc_1_1ClientState.html#a40ac4caeb3144aacab0125632e5bffd0',1,'dwmipc::ClientState::old_state()'],['../structdwmipc_1_1Client.html#acfb4ce2542be3405d25fc5f84cc43f31',1,'dwmipc::Client::old_state()'],['../structdwmipc_1_1TagChangeEvent.html#af13cd8e53bc1f51be14d4dc6a12fe9de',1,'dwmipc::TagChangeEvent::old_state()'],['../structdwmipc_1_1FocusedStateChangeEvent.html#a17a53ecb6cb0300721f13340e1e91be5',1,'dwmipc::FocusedStateChangeEvent::old_state()']]],
-  ['old_5fsymbol_300',['old_symbol',['../structdwmipc_1_1LayoutChangeEvent.html#ad53b23fceed7d85ef3b784ded3805a03',1,'dwmipc::LayoutChangeEvent']]],
-  ['old_5fwin_5fid_301',['old_win_id',['../structdwmipc_1_1ClientFocusChangeEvent.html#a211cc09f2310205497760df7f437b08c',1,'dwmipc::ClientFocusChangeEvent']]],
-  ['on_5fclient_5ffocus_5fchange_302',['on_client_focus_change',['../classdwmipc_1_1Connection.html#a3cb22723e6e91939c891c350e7c992f8',1,'dwmipc::Connection']]],
-  ['on_5fevent_303',['on_event',['../classdwmipc_1_1Event.html#a5529ba2b0dc009be3f0b96a5a2914748',1,'dwmipc::Event']]],
-  ['on_5ffocused_5fstate_5fchange_304',['on_focused_state_change',['../classdwmipc_1_1Connection.html#a1d39916ca9e0de891e9fc1bdf19823b5',1,'dwmipc::Connection']]],
-  ['on_5ffocused_5ftitle_5fchange_305',['on_focused_title_change',['../classdwmipc_1_1Connection.html#ab39f2dad22a390076aa1b587a73d2765',1,'dwmipc::Connection']]],
-  ['on_5flayout_5fchange_306',['on_layout_change',['../classdwmipc_1_1Connection.html#a9cca0ff89eb8dbcf428867dab0c9dbbc',1,'dwmipc::Connection']]],
-  ['on_5fmonitor_5ffocus_5fchange_307',['on_monitor_focus_change',['../classdwmipc_1_1Connection.html#a87cd6aa59eaf9dc413ba54166421fae2',1,'dwmipc::Connection']]],
-  ['on_5ftag_5fchange_308',['on_tag_change',['../classdwmipc_1_1Connection.html#a5a0c085ab59908261fc5fc08c2469e48',1,'dwmipc::Connection']]]
+  ['occupied_296',['occupied',['../structdwmipc_1_1TagState.html#ade135c5aa065d896196dda5f453d7fda',1,'dwmipc::TagState']]],
+  ['old_297',['old',['../structdwmipc_1_1Monitor.html#a4b4f30f06d54f9caed2eefa1d752a5c7',1,'dwmipc::Monitor::old()'],['../structdwmipc_1_1Monitor.html#a3d4dca35f18bb3b664f2e3005daa6118',1,'dwmipc::Monitor::old()'],['../structdwmipc_1_1Monitor.html#a498d53d3bb21b03363870a66a9004efd',1,'dwmipc::Monitor::old()'],['../structdwmipc_1_1Client.html#a6690648c722da0e423d8cd5fd925a32c',1,'dwmipc::Client::old()'],['../structdwmipc_1_1Client.html#a719a53d15f49d67ada4435c4fbbe98a2',1,'dwmipc::Client::old()']]],
+  ['old_5faddress_298',['old_address',['../structdwmipc_1_1LayoutChangeEvent.html#a99b3c1164b7222141cc35504870af1f2',1,'dwmipc::LayoutChangeEvent']]],
+  ['old_5fmon_5fnum_299',['old_mon_num',['../structdwmipc_1_1MonitorFocusChangeEvent.html#aadee85f274d4593df40dc8095e200d19',1,'dwmipc::MonitorFocusChangeEvent']]],
+  ['old_5fname_300',['old_name',['../structdwmipc_1_1FocusedTitleChangeEvent.html#a5204dd702dd07fc21babbf7509b127ab',1,'dwmipc::FocusedTitleChangeEvent']]],
+  ['old_5fstate_301',['old_state',['../structdwmipc_1_1ClientState.html#a40ac4caeb3144aacab0125632e5bffd0',1,'dwmipc::ClientState::old_state()'],['../structdwmipc_1_1Client.html#acfb4ce2542be3405d25fc5f84cc43f31',1,'dwmipc::Client::old_state()'],['../structdwmipc_1_1TagChangeEvent.html#af13cd8e53bc1f51be14d4dc6a12fe9de',1,'dwmipc::TagChangeEvent::old_state()'],['../structdwmipc_1_1FocusedStateChangeEvent.html#a17a53ecb6cb0300721f13340e1e91be5',1,'dwmipc::FocusedStateChangeEvent::old_state()']]],
+  ['old_5fsymbol_302',['old_symbol',['../structdwmipc_1_1LayoutChangeEvent.html#ad53b23fceed7d85ef3b784ded3805a03',1,'dwmipc::LayoutChangeEvent']]],
+  ['old_5fwin_5fid_303',['old_win_id',['../structdwmipc_1_1ClientFocusChangeEvent.html#a211cc09f2310205497760df7f437b08c',1,'dwmipc::ClientFocusChangeEvent']]],
+  ['on_5fclient_5ffocus_5fchange_304',['on_client_focus_change',['../classdwmipc_1_1Connection.html#a3cb22723e6e91939c891c350e7c992f8',1,'dwmipc::Connection']]],
+  ['on_5fevent_305',['on_event',['../classdwmipc_1_1Event.html#a5529ba2b0dc009be3f0b96a5a2914748',1,'dwmipc::Event']]],
+  ['on_5ffocused_5fstate_5fchange_306',['on_focused_state_change',['../classdwmipc_1_1Connection.html#a1d39916ca9e0de891e9fc1bdf19823b5',1,'dwmipc::Connection']]],
+  ['on_5ffocused_5ftitle_5fchange_307',['on_focused_title_change',['../classdwmipc_1_1Connection.html#ab39f2dad22a390076aa1b587a73d2765',1,'dwmipc::Connection']]],
+  ['on_5flayout_5fchange_308',['on_layout_change',['../classdwmipc_1_1Connection.html#a9cca0ff89eb8dbcf428867dab0c9dbbc',1,'dwmipc::Connection']]],
+  ['on_5fmonitor_5ffocus_5fchange_309',['on_monitor_focus_change',['../classdwmipc_1_1Connection.html#a87cd6aa59eaf9dc413ba54166421fae2',1,'dwmipc::Connection']]],
+  ['on_5ftag_5fchange_310',['on_tag_change',['../classdwmipc_1_1Connection.html#a5a0c085ab59908261fc5fc08c2469e48',1,'dwmipc::Connection']]]
 ];

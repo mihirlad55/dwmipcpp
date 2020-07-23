@@ -192,6 +192,8 @@ Functions</h2></td></tr>
 <tr class="separator:aff00f98f18c457dfc1465110a1a18f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aedd9c17c99cabf47a27641e38309c0a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedwmipc.html#aedd9c17c99cabf47a27641e38309c0a2">send_message</a> (int sockfd, const std::shared_ptr&lt; <a class="el" href="classdwmipc_1_1Packet.html">Packet</a> &gt; &amp;packet)</td></tr>
 <tr class="separator:aedd9c17c99cabf47a27641e38309c0a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad40a8973d0385100c9abf8df6e4829d6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedwmipc.html#ad40a8973d0385100c9abf8df6e4829d6">is_socket_alive</a> (int sockfd)</td></tr>
+<tr class="separator:ad40a8973d0385100c9abf8df6e4829d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -357,6 +359,32 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="ad40a8973d0385100c9abf8df6e4829d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad40a8973d0385100c9abf8df6e4829d6">&#9670;&nbsp;</a></span>is_socket_alive()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool dwmipc::is_socket_alive </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sockfd</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Check if connection to socket is still alive. This will check for socket errors that indicate a dead connection. This is a blocking read that will continue to attempt to read if EINTR, EAGAIN, or EWOULDBLOCK is detected.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sockfd</td><td>The file descriptor of the socket to check</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true, if the connection is alive, false otherwise </dd></dl>
 
 </div>
 </div>

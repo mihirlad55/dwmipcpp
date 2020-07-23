@@ -118,10 +118,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6f5e95406c80b1f9f963c45ca5c724f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9bb3a96fa0566b74916a1a74744fafe8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Connection.html#a9bb3a96fa0566b74916a1a74744fafe8">run_command</a> (const std::string name, const Json::Value &amp;arr=Json::Value(Json::arrayValue))</td></tr>
 <tr class="separator:a9bb3a96fa0566b74916a1a74744fafe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcae072a3f91698a8ae9c3b7ed4df8b4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Connection.html#afcae072a3f91698a8ae9c3b7ed4df8b4">is_main_socket_connected</a> () const</td></tr>
-<tr class="separator:afcae072a3f91698a8ae9c3b7ed4df8b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c36e1d36c9845f0f07993583ccd3738"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Connection.html#a0c36e1d36c9845f0f07993583ccd3738">is_event_socket_connected</a> () const</td></tr>
-<tr class="separator:a0c36e1d36c9845f0f07993583ccd3738"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cb022ee25fe38630677e1e543bddcbe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Connection.html#a5cb022ee25fe38630677e1e543bddcbe">is_main_socket_connected</a> ()</td></tr>
+<tr class="separator:a5cb022ee25fe38630677e1e543bddcbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c392998061fc0ac9fb173f4880c2bb8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Connection.html#a5c392998061fc0ac9fb173f4880c2bb8">is_event_socket_connected</a> ()</td></tr>
+<tr class="separator:a5c392998061fc0ac9fb173f4880c2bb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad31e90e0e57a301fbfd03a30dd2b5a0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Connection.html#ad31e90e0e57a301fbfd03a30dd2b5a0f">connect_main_socket</a> ()</td></tr>
 <tr class="separator:ad31e90e0e57a301fbfd03a30dd2b5a0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7d00bfb2429e9a84660f04f4b0e4ea1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdwmipc_1_1Connection.html#ac7d00bfb2429e9a84660f04f4b0e4ea1">connect_event_socket</a> ()</td></tr>
@@ -501,8 +501,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a0c36e1d36c9845f0f07993583ccd3738"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c36e1d36c9845f0f07993583ccd3738">&#9670;&nbsp;</a></span>is_event_socket_connected()</h2>
+<a id="a5c392998061fc0ac9fb173f4880c2bb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c392998061fc0ac9fb173f4880c2bb8">&#9670;&nbsp;</a></span>is_event_socket_connected()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -511,17 +511,17 @@ Public Attributes</h2></td></tr>
           <td class="memname">bool dwmipc::Connection::is_event_socket_connected </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Check if event socket is connected</p>
+<p>Check if event socket is connected. If the connection is found to be broken, the event file descriptor will be closed and the file descriptor will be invalidated.</p>
 <dl class="section return"><dt>Returns</dt><dd>true if connected, false otherwise </dd></dl>
 
 </div>
 </div>
-<a id="afcae072a3f91698a8ae9c3b7ed4df8b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afcae072a3f91698a8ae9c3b7ed4df8b4">&#9670;&nbsp;</a></span>is_main_socket_connected()</h2>
+<a id="a5cb022ee25fe38630677e1e543bddcbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cb022ee25fe38630677e1e543bddcbe">&#9670;&nbsp;</a></span>is_main_socket_connected()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -530,11 +530,11 @@ Public Attributes</h2></td></tr>
           <td class="memname">bool dwmipc::Connection::is_main_socket_connected </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Check if main socket is connected</p>
+<p>Check if main socket is connected. If the connection is found to be broken, the main file descriptor will be closed and the file descriptor will be invalidated.</p>
 <dl class="section return"><dt>Returns</dt><dd>true if connected, false otherwise </dd></dl>
 
 </div>
