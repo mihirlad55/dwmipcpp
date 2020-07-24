@@ -179,14 +179,14 @@ bool Connection::is_event_socket_connected() {
 }
 
 void Connection::connect_main_socket() {
-    if (is_main_socket_connected())
+    if (this->main_sockfd != -1)
         throw InvalidOperationError(
             "Cannot connect to main socket. Already connected.");
     this->main_sockfd = dwmipc::connect(socket_path, true);
 }
 
 void Connection::connect_event_socket() {
-    if (is_event_socket_connected())
+    if (this->event_sockfd != -1)
         throw InvalidOperationError(
             "Cannot connect to event socket. Already connected.");
     this->event_sockfd = dwmipc::connect(socket_path, false);
@@ -194,7 +194,7 @@ void Connection::connect_event_socket() {
 }
 
 void Connection::disconnect_main_socket() {
-    if (!is_main_socket_connected())
+    if (this->main_sockfd == -1)
         throw InvalidOperationError(
             "Cannot disconnect from main socket. Already disconnected.");
     dwmipc::disconnect(this->main_sockfd);
@@ -202,7 +202,7 @@ void Connection::disconnect_main_socket() {
 }
 
 void Connection::disconnect_event_socket() {
-    if (!is_event_socket_connected())
+    if (this->event_sockfd == -1)
         throw InvalidOperationError(
             "Cannot disconnect from event socket. Already disconnected.");
     dwmipc::disconnect(this->event_sockfd);
